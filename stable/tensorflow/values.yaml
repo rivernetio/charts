@@ -1,0 +1,19 @@
+# Default values for tensorflow.
+replicaCount: 3
+image:
+  repository: registry.harbor:5000/tensorflow/tensorflow
+  tag: latest
+  pullPolicy: IfNotPresent
+service:
+  name: tensorflow
+  type: ClusterIP
+  externalPort: 2222
+  internalPort: 2222
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+

@@ -1,0 +1,4 @@
+apiVersion: v1
+description: A face recognition app on Kubernetes
+name: openface
+version: 0.1.0

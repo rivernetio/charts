@@ -1,0 +1,19 @@
+replicaCount: 1
+image:
+  repository: registry.harbor:5000/demo/openface
+  tag: latest
+  pullPolicy: IfNotPresent
+service:
+  name: openface
+  type: NodePort
+  httpPort: 8000
+  httpNodePort: 31501
+  websocketPort: 9000
+  websocketNodePort: 31500
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi

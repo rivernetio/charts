@@ -1,0 +1,12 @@
+app:
+  replicaCount: 2
+
+redis:
+  replicaCount: 1
+
+global:
+  image:
+    pullPolicy: IfNotPresent
+
+version:
+  version: 4
