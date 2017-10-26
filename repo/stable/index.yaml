@@ -15,4 +15,19 @@ entries:
     urls:
     - https://github.com/rivernetio/charts/raw/master/repo/stable/tensorflow-0.1.0.tgz
     version: 0.1.0
+  tensorflow-pv:
+  - created: 2017-10-26T20:41:51.811566085Z
+    description: Chart for tensorflow with pv support
+    digest: sha256:b0ffa5d88041aebe0397263f77ab4f2a095f32e7cdeda476eb9194226213d4fc
+    keywords:
+    - tensorflow
+    maintainers:
+    - email: zhangwei@chinaskycloud.com
+      name: Zhang Wei
+    name: tensorflow-pv
+    sources:
+    - https://github.com/tensorflow/tensorflow
+    urls:
+    - https://github.com/rivernetio/charts/raw/master/repo/stable/tensorflow-pv-0.3.0.tgz
+    version: 0.3.0
 generated: 2017-10-26T18:49:20.274732272Z
