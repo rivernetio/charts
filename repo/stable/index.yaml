@@ -1,9 +1,9 @@
 apiVersion: v1
 entries:
   tensorflow:
-  - created: 2017-10-26T18:25:52.675693756Z
+  - created: 2017-10-26T18:49:20.27518501Z
     description: Chart for tensorflow
-    digest: 70e6cf460568669da7293642329278543e0494938cb06c65886a6963ca3974c1
+    digest: 042e672498117e18eed6b74ef264f8a543a9be1e7e6f8ad55236999203c2150b
     keywords:
     - tensorflow
     maintainers:
@@ -15,4 +15,4 @@ entries:
     urls:
     - https://github.com/rivernetio/charts/raw/master/repo/stable/tensorflow-0.1.0.tgz
     version: 0.1.0
-generated: 2017-10-26T18:25:52.671299759Z
+generated: 2017-10-26T18:49:20.274732272Z

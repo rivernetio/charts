@@ -45,7 +45,7 @@ ps:
 worker:
   replicaCount: 2
   image:
-    repository: reg.skycloud.com:5000/tensorflow/tensorflow
+    repository: rivernet/tensorflow
     tag: "v4"
     pullPolicy: Always
   resources:
