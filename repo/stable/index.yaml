@@ -1,0 +1,18 @@
+apiVersion: v1
+entries:
+  tensorflow:
+  - created: 2017-10-26T18:25:52.675693756Z
+    description: Chart for tensorflow
+    digest: 70e6cf460568669da7293642329278543e0494938cb06c65886a6963ca3974c1
+    keywords:
+    - tensorflow
+    maintainers:
+    - email: zhangwei@chinaskycloud.com
+      name: Zhang Wei
+    name: tensorflow
+    sources:
+    - https://github.com/tensorflow/tensorflow
+    urls:
+    - https://github.com/rivernetio/charts/raw/master/repo/stable/tensorflow-0.1.0.tgz
+    version: 0.1.0
+generated: 2017-10-26T18:25:52.671299759Z
