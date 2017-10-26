@@ -1,19 +1,57 @@
-# Default values for tensorflow.
-replicaCount: 3
-image:
-  repository: registry.harbor:5000/tensorflow/tensorflow
-  tag: latest
-  pullPolicy: IfNotPresent
-service:
-  name: tensorflow
-  type: ClusterIP
-  externalPort: 2222
-  internalPort: 2222
-resources:
-  limits:
-    cpu: 100m
-    memory: 128Mi
-  requests:
-    cpu: 100m
-    memory: 128Mi
+## See https://github.com/tensorflow/tensorflow for more information on implementation
 
+global:
+  cmd: python /data/code/mnist.py --model_version=1 --data_dir=/data/input/ --model_dir=/data/output/trained_model --log_dir=/data/output/training_log
+  persistence:
+    name: mnist
+    mountPath: /data
+    logDir: /data/output/log
+
+service:
+  name: tensorboard
+  type: NodePort
+  externalPort: 6006
+  internalPort: 6006
+
+tensorboard:
+  replicaCount: 1
+  logdir: /data/output/training_log
+  image:
+    repository: rivernet/tensorflow
+    tag: "v4"
+    pullPolicy: Always
+  resources:
+    limits:
+      cpu: 1
+      memory: 500Mi
+    requests:
+      cpu: 1
+      memory: 128Mi
+
+ps:
+  replicaCount: 1
+  image:
+    repository: rivernet/tensorflow
+    tag: "v4"
+    pullPolicy: Always
+  resources:
+    limits:
+      cpu: 1
+      memory: 500Mi
+    requests:
+      cpu: 1
+      memory: 128Mi
+
+worker:
+  replicaCount: 2
+  image:
+    repository: reg.skycloud.com:5000/tensorflow/tensorflow
+    tag: "v4"
+    pullPolicy: Always
+  resources:
+    limits:
+      cpu: 1
+      memory: 1Gi
+    requests:
+      cpu: 1
+      memory: 500Mi

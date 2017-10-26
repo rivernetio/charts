@@ -1,4 +1,10 @@
-apiVersion: v1
-description: A tensorflow chart for Kubernetes
 name: tensorflow
-version: 0.11.0
+version: 0.1.0
+description: Chart for tensorflow
+keywords:
+- tensorflow
+sources:
+- https://github.com/tensorflow/tensorflow
+maintainers:
+- name: Zhang Wei
+  email: zhangwei@chinaskycloud.com
