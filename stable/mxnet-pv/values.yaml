@@ -1,0 +1,74 @@
+# Default values for mxnet.
+# See https://github.com/apache/incubator-mxnet for more information on implementation
+
+isNewTemplate: true
+
+persistence:
+    name: "storage"
+    description: "storage config"
+    type: "string"
+    required: true
+    variables:
+      pvc:
+        name: "pvc"
+        label: "PVC name"
+        description: "name of the pvc"
+        required: true
+        value: ""
+        type: "string"
+      mountPath:
+        name: "mountPath"
+        label: "mount path"
+        description: "Path within the container at which the volume should be mounted"
+        required: true
+        value: ""
+        type: "string"
+cmd:
+    name: "cmd"
+    description: "cmd to start the training job"
+    type: "string"
+    required: true
+    variables:
+      cmd:
+        name: "cmd"
+        label: "CMD"
+        description: "command to start the training job"
+        required: true
+        value: "python ./data/code/train_mnist.py --network lenet --kv-store dist_sync"
+        type: "string"
+mxnet:
+    name: "mxnet"
+    description: "mxnet config"
+    type: "string"
+    required: true
+    variables:
+      replicaCount:
+        name: "replicaCount"
+        label: "replicaCount"
+        description: "replica count of mxnet"
+        required: true
+        value: 2
+        type: "int"
+      image:
+        name: "image"
+        label: "image"
+        description: "image of mxnet"
+        required: true
+        value: "reg.skycloud.com:5000/mxnet:v1"
+        type: "string"
+      cpuRequest:
+        name: "cpuRequest"
+        label: "cpu(m)"
+        description: "CPU, in cores. (500m = 0.5 cores)"
+        required: true
+        value: 100
+        type: "int"
+      memoryRequest:
+        name: "memoryRequest"
+        label: "memory(MB)"
+        description: "Memory, in MB. (1GB = 1024 MB)"
+        required: true
+        value: 512
+        type: "int"
+
+

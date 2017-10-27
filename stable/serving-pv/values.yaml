@@ -1,0 +1,113 @@
+## See https://github.com/tensorflow/serving for more information on implementation
+
+isNewTemplate: true
+
+persistence:
+    name: "storage"
+    description: "storage config"
+    type: "string"
+    required: true
+    variables:
+      pvc:
+        name: "pvc"
+        label: "PVC name"
+        description: "name of the pvc"
+        required: true
+        value: ""
+        type: "string"
+      mountPath:
+        name: "mountPath"
+        label: "mount path"
+        description: "Path within the container at which the volume should be mounted"
+        required: true
+        value: ""
+        type: "string"
+      modelName:
+        name: "modelName"
+        label: "model name"
+        description: "name of the model"
+        required: true
+        value: ""
+        type: "string"
+      modelDir:
+        name: "modelDir"
+        label: "model dir"
+        description: "path to export the model"
+        required: true
+        value: ""
+        type: "string"
+        
+serving:
+    name: "serving"
+    description: "serving config"
+    type: "string"
+    required: true
+    variables:
+      replicaCount:
+        name: "replicaCount"
+        label: "replicaCount"
+        description: "replica count of serving"
+        required: true
+        value: 1
+        type: "int"
+      image:
+        name: "image"
+        label: "image"
+        description: "image of serving"
+        required: true
+        value: "reg.skycloud.com:5000/tensorflow/serving:v1"
+        type: "string"
+      cpuRequest:
+        name: "cpuRequest"
+        label: "cpu(m)"
+        description: "CPU, in cores. (500m = 0.5 cores)"
+        required: true
+        value: 100
+        type: "int"
+      memoryRequest:
+        name: "memoryRequest"
+        label: "memory(MB)"
+        description: "Memory, in MB. (1GB = 1024 MB)"
+        required: true
+        value: 512
+        type: "int"
+
+HPA:
+    name: "HPA"
+    description: "Horizonal Pod Autoscaler for serving"
+    type: "checkbox"
+    required: false
+    enabled: false
+    variables:
+      minReplicaCount:
+        name: "minReplicaCount"
+        label: "minReplicaCount"
+        description: "min replica count of serving"
+        required: true
+        value: 1
+        type: "int"
+      maxReplicaCount:
+        name: "minReplicaCount"
+        label: "minReplicaCount"
+        description: "min replica count of serving"
+        required: true
+        value: 1
+        type: "int"
+      metrics:
+        name: "metrics"
+        label: "metrics"
+        description: "metrics contains the specifications for which to use to calculate the desired replica count"
+        required: true
+        type: "metrcis"
+        value:
+          - type: Object
+            object:
+              target:
+                kind: Service
+                name: sample-metrics-app
+            metricName: http_requests
+            targetValue: 100
+          - type: Pods
+            pods:
+              metricName: ingress_connections
+              targetAverageValue: 10

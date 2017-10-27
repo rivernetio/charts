@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    release: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.variables.replicaCount.value }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "fullname" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+      - name: prom-exporter
+        image: "reg.skycloud.com:5000/redis_exporter"
+        imagePullPolicy: {{ .Values.imagePullPolicy | quote }}
+        ports:
+        - name: exporter
+          containerPort: 9121
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: {{ .Values.service.internalPort }}
+        resources:
+{{ toYaml .Values.resources | indent 12 }}

@@ -1,0 +1,164 @@
+## See https://github.com/tensorflow/tensorflow for more information on implementation
+isNewTemplate: true
+
+persistence:
+    name: "storage"
+    description: "storage config"
+    type: "string"
+    required: true
+    variables:
+      pvc:
+        name: "pvc"
+        label: "PVC name"
+        description: "name of the pvc"
+        required: true
+        value: ""
+        type: "string"
+      mountPath:
+        name: "mountPath"
+        label: "mount path"
+        description: "Path within the container at which the volume should be mounted"
+        required: true
+        value: ""
+        type: "string"
+      dataDir:
+        name: "dataDir"
+        label: "data dir"
+        description: "path to load the data"
+        required: true
+        value: ""
+        type: "string"
+      modelDir:
+        name: "modelDir"
+        label: "model dir"
+        description: "path to save the model"
+        required: true
+        value: ""
+        type: "string"
+      logDir:
+        name: "logDir"
+        label: "log dir"
+        description: "path to save the log"
+        required: true
+        value: ""
+        type: "string"
+
+cmd:
+    name: "command"
+    description: "command"
+    type: "string"
+    required: true
+    variables:
+      cmd:
+        name: "cmd"
+        label: "CMD"
+        description: "command to start the training job"
+        required: true
+        value: "python /data/code/mnist.py --model_version=1"
+        type: "string"
+
+tensorboard:
+    name: "tensorboard"
+    description: "enable tensorboard"
+    type: "checkbox"
+    required: true
+    enabled: false
+    variables:
+      replicaCount:
+        name: "replicaCount"
+        label: "replicaCount"
+        description: "replica count of tensorboard"
+        required: true
+        value: 1
+        type: "int"
+      image:
+        name: "image"
+        label: "image"
+        description: "image of tensorboard"
+        required: true
+        value: "rivernet/tensorflow:v4"
+        type: "string"
+      cpuRequest:
+        name: "cpuRequest"
+        label: "cpu(m)"
+        description: "CPU, in cores. (500m = 0.5 cores)"
+        required: true
+        value: 100
+        type: "int"
+      memoryRequest:
+        name: "memoryRequest"
+        label: "memory(MB)"
+        description: "Memory, in MB. (1GB = 1024 MB)"
+        required: true
+        value: 512
+        type: "int"
+
+ps:
+    name: "ps"
+    description: "parameter server"
+    type: "string"
+    required: true
+    variables:
+      replicaCount:
+        name: "replicaCount"
+        label: "replicaCount"
+        description: "replica count of parameter server"
+        required: true
+        value: 1
+        type: "int"
+      image:
+        name: "image"
+        label: "image"
+        description: "image of ps"
+        required: true
+        value: "rivernet/tensorflow:v4"
+        type: "string"
+      cpuRequest:
+        name: "cpuRequest"
+        label: "cpu(m)"
+        description: "CPU, in cores. (500m = 0.5 cores)"
+        required: true
+        value: 100
+        type: "int"
+      memoryRequest:
+        name: "memoryRequest"
+        label: "memory(MB)"
+        description: "Memory, in MB. (1GB = 1024 MB)"
+        required: true
+        value: 512
+        type: "int"
+  
+worker:
+    name: "worker"
+    description: "worker"
+    type: "string"
+    required: true
+    variables:
+      replicaCount:
+        name: "replicaCount"
+        label: "replicaCount"
+        description: "replica count of worker"
+        required: true
+        value: 1
+        type: "int"
+      image:
+        name: "image"
+        label: "image"
+        description: "image of worker"
+        required: true
+        value: "rivernet/tensorflow:v4"
+        type: "string"
+      cpuRequest:
+        name: "cpuRequest"
+        label: "cpu(m)"
+        description: "CPU, in cores. (500m = 0.5 cores)"
+        required: true
+        value: 100
+        type: "int"
+      memoryRequest:
+        name: "memoryRequest"
+        label: "memory(MB)"
+        description: "Memory, in MB. (1GB = 1024 MB)"
+        required: true
+        value: 512
+        type: "int"

@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-redis
+  annotations:
+    prometheus.io/scrape: 'true'
+    available_panels: >
+      {"命中率":"4","服务IO":"3","redis内存使用量":"2","CPU使用率":"6"}
+  labels:
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    release: {{ .Release.Name }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+  - port: {{ .Values.service.externalPort }}
+    targetPort: {{ .Values.service.internalPort }}
+    protocol: TCP
+    name: {{ .Values.service.name }}
+  - name: exporter
+    port: 9121
+    targetPort: exporter
+  selector:
+    app: {{ template "fullname" . }}

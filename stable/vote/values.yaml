@@ -1,0 +1,28 @@
+
+isNewTemplate: true
+
+app:
+    name: "app"
+    description: "app server config"
+    type: "label"
+    variables:
+      replicaCount:
+        name: "node number"
+        label: "Node number"
+        description: "Number of the app"
+        required: true
+        value: 2
+        type: "int"
+redis:
+    name: "redis"
+    description: "redis server config"
+    type: "label"
+    variables:
+      replicaCount:
+        name: "node number"
+        label: "Node number"
+        description: "Number of the redis"
+        required: true
+        value: 1
+        type: "int"
+
