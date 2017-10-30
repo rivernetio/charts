@@ -1,22 +1,28 @@
 apiVersion: v1
 entries:
-  tensorflow:
-  - created: 2017-10-27T15:47:19.287198825Z
-    description: Chart for tensorflow
-    digest: 042e672498117e18eed6b74ef264f8a543a9be1e7e6f8ad55236999203c2150b
-    keywords:
-    - tensorflow
+  jenkins:
+  - appVersion: "2.67"
+    created: 2017-10-30T20:01:25.761366786Z
+    description: Open source continuous integration server. It supports multiple SCM
+      tools including CVS, Subversion and Git. It can execute Apache Ant and Apache
+      Maven-based projects as well as arbitrary scripts.
+    digest: f8329a9bbace9fccfd2882e14bf2d1c658b4af7859cbab2eba41b9a573080fa6
+    home: https://jenkins.io/
+    icon: https://wiki.jenkins-ci.org/download/attachments/2916393/logo.png
     maintainers:
-    - email: zhangwei@chinaskycloud.com
-      name: Zhang Wei
-    name: tensorflow
+    - email: lachlan.evenson@microsoft.com
+      name: lachie83
+    - email: viglesias@google.com
+      name: viglesiasce
+    name: jenkins
     sources:
-    - https://github.com/tensorflow/tensorflow
+    - https://github.com/jenkinsci/jenkins
+    - https://github.com/jenkinsci/docker-jnlp-slave
     urls:
-    - https://github.com/rivernetio/charts/raw/master/repo/stable/tensorflow-0.1.0.tgz
-    version: 0.1.0
+    - https://github.com/rivernetio/charts/raw/master/repo/stable/jenkins-0.9.0.tgz
+    version: 0.9.0
   tensorflow-pv:
-  - created: 2017-10-27T15:47:19.287504654Z
+  - created: 2017-10-30T20:01:25.761711661Z
     description: Chart for tensorflow with pv support
     digest: 83267dfe15982870236d2c640f8e42e6993e9ce05fa10e0e6335526e0ca6a528
     keywords:
@@ -30,4 +36,4 @@ entries:
     urls:
     - https://github.com/rivernetio/charts/raw/master/repo/stable/tensorflow-pv-0.3.0.tgz
     version: 0.3.0
-generated: 2017-10-27T15:47:19.286803418Z
+generated: 2017-10-30T20:01:25.760476262Z
