@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := install
 
-PACKAGE=tensorflow-pv jenkins
+PACKAGE=tensorflow-pv vote
 
 init:
 	helm init --client-only
