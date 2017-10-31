@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: grafana-import-dashboards
-        image: reg.skycloud.com:5000/docker
+        image: docker.io/rivernet/docker
         imagePullPolicy: Always
         command: ["/bin/sh", "-c"]
         workingDir: /opt/grafana-import-dashboards
