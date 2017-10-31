@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 replicaCount: 1
 image:
-  repository: reg.skycloud.com:5000/docker_library/redis
+  repository: docker.io/redis
   tag: 3.0
   pullPolicy: IfNotPresent
 service:

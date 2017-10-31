@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 replicaCount: 2
 image:
-  repository: reg.skycloud.com:5000/web-vote-app
+  repository: docker.io/rivernet/web-vote-app
   tag: v0.1
   pullPolicy: IfNotPresent
 service:
