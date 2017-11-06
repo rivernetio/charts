@@ -1,6 +1,6 @@
 replicaCount: 1
 image:
-  repository: registry.harbor:5000/demo/openface
+  repository: docker.io/rivernet/openface
   tag: latest
   pullPolicy: IfNotPresent
 service:

@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := install
 
-PACKAGE=tensorflow-pv vote
+PACKAGE=tensorflow-pv serving-pv mxnet-pv jenkins openface vote
 
 init:
 	helm init --client-only

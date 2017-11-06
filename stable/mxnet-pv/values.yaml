@@ -54,7 +54,7 @@ mxnet:
         label: "image"
         description: "image of mxnet"
         required: true
-        value: "reg.skycloud.com:5000/mxnet:v1"
+        value: "docker.io/rivernet/mxnet:v1"
         type: "string"
       cpuRequest:
         name: "cpuRequest"

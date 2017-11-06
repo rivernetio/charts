@@ -55,7 +55,7 @@ serving:
         label: "image"
         description: "image of serving"
         required: true
-        value: "reg.skycloud.com:5000/tensorflow/serving:v1"
+        value: "docker.io/rivernet/serving:v1"
         type: "string"
       cpuRequest:
         name: "cpuRequest"

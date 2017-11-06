@@ -1,7 +1,60 @@
 apiVersion: v1
 entries:
+  jenkins:
+  - created: 2017-11-06T14:21:44.53962082Z
+    description: Open source continuous integration server. It supports multiple SCM
+      tools including CVS, Subversion and Git. It can execute Apache Ant and Apache
+      Maven-based projects as well as arbitrary scripts.
+    digest: 43dbb43b297dcdff8d57c5501d5b0c54997c1c338c24311ae1c0551abb86415d
+    home: https://jenkins.io/
+    icon: https://wiki.jenkins-ci.org/download/attachments/2916393/logo.png
+    maintainers:
+    - email: lachlan.evenson@microsoft.com
+      name: lachie83
+    - email: viglesias@google.com
+      name: viglesiasce
+    name: jenkins
+    sources:
+    - https://github.com/jenkinsci/jenkins
+    - https://github.com/jenkinsci/docker-jnlp-slave
+    urls:
+    - https://github.com/rivernetio/charts/raw/master/repo/stable/jenkins-0.9.0.tgz
+    version: 0.9.0
+  mxnet-pv:
+  - apiVersion: v1
+    created: 2017-11-06T14:21:44.539810712Z
+    description: A Helm chart for mxnet
+    digest: 13c67eb3747c4cd4bc247f459363b059884b70457c3fe011212d13a368add056
+    name: mxnet-pv
+    urls:
+    - https://github.com/rivernetio/charts/raw/master/repo/stable/mxnet-pv-0.1.0.tgz
+    version: 0.1.0
+  openface:
+  - apiVersion: v1
+    created: 2017-11-06T14:21:44.540018424Z
+    description: A face recognition app on Kubernetes
+    digest: 399315075551dbee7258b3410dc3df023aebff9351fc132de674822ba93fe2ce
+    name: openface
+    urls:
+    - https://github.com/rivernetio/charts/raw/master/repo/stable/openface-0.1.0.tgz
+    version: 0.1.0
+  serving-pv:
+  - created: 2017-11-06T14:21:44.540254291Z
+    description: Chart for tensorflow serving with pv support
+    digest: fa995f1aa54d40a73a36b9d26c82153b5f6132930df77048832f00213e4e2f3c
+    keywords:
+    - tensorflow-serving
+    maintainers:
+    - email: zhangwei@chinaskycloud.com
+      name: Zhang Wei
+    name: serving-pv
+    sources:
+    - https://github.com/tensorflow/serving
+    urls:
+    - https://github.com/rivernetio/charts/raw/master/repo/stable/serving-pv-0.2.0.tgz
+    version: 0.2.0
   tensorflow-pv:
-  - created: 2017-11-06T14:11:08.838207194Z
+  - created: 2017-11-06T14:21:44.540501403Z
     description: Chart for tensorflow with pv support
     digest: 9add1c3f748aec67a142e97fdbd703d4fc21b09df420417a768f361c897d5852
     keywords:
@@ -17,11 +70,11 @@ entries:
     version: 0.3.0
   vote:
   - apiVersion: v1
-    created: 2017-11-06T14:11:08.83862988Z
+    created: 2017-11-06T14:21:44.543577321Z
     description: A vote app for Kubernetes
     digest: ed1c4a705e19b360ce6f2091bad92f1fc4228cbdf95ac883ce3b8120030ae91e
     name: vote
     urls:
     - https://github.com/rivernetio/charts/raw/master/repo/stable/vote-0.5.0.tgz
     version: 0.5.0
-generated: 2017-11-06T14:11:08.837665764Z
+generated: 2017-11-06T14:21:44.538725621Z
