@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := install
 
-PACKAGE=tensorflow-pv serving-pv mxnet-pv jenkins openface vote jupyterhub
+PACKAGE=tensorflow-pv serving-pv mxnet-pv jenkins openface vote jupyterhub tomcat
 
 init:
 	helm init --client-only
