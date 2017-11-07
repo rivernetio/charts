@@ -1,0 +1,14 @@
+name: jupyter
+version: 0.0.1
+appVersion: 4.2
+description: Chart for Apache Tomcat
+keywords:
+- jupyter
+- notebook
+- ipython
+- python
+home: http://jupyter.org/
+maintainers:
+- name: Meng Ding
+  email: dingmeng@gmail.com
+engine: gotpl
