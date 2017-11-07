@@ -3,19 +3,17 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: hub-db-dir
-  {{ if .Values.hub.db.pvc.annotations -}}
+  labels:
+    app: jupyterhub
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
   annotations:
-    {{- range $key, $value := .Values.hub.db.pvc.annotations }}
-    {{ $key }}: {{ $value | quote }}
-    {{- end }}
-  {{- end }}
+    volume.beta.kubernetes.io/storage-class: {{ .Values.hub.db.pvc.storageClassName | quote }}
 spec:
   {{ if .Values.hub.db.pvc.selector -}}
   selector:
 {{ toYaml .Values.hub.db.pvc.selector | indent 4 }}
-  {{- end }}
-  {{ if typeIs "string" .Values.hub.db.pvc.storageClassName -}}
-  storageClassName: {{ .Values.hub.db.pvc.storageClassName | quote }}
   {{- end }}
   accessModes:
     {{- range $mode := .Values.hub.db.pvc.accessModes }}

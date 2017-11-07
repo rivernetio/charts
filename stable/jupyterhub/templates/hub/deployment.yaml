@@ -27,7 +27,7 @@ spec:
         secret:
           secretName: hub-secret
       {{ if eq .Values.hub.db.type "sqlite-pvc" }}
-      - name: hub-db-dir
+      - name: hub-db-dir-data
         persistentVolumeClaim:
           claimName: hub-db-dir
       {{- end }}
@@ -55,7 +55,7 @@ spec:
             name: secret
         {{ if eq .Values.hub.db.type "sqlite-pvc" }}
           - mountPath: /srv/jupyterhub
-            name: hub-db-dir
+            name: hub-db-dir-data
             {{ if .Values.hub.db.pvc.subPath -}}
             subPath: {{ .Values.hub.db.pvc.subPath | quote }}
             {{- end }}

@@ -2,9 +2,9 @@ hub:
   service:
     type: ClusterIP
   baseUrl: /
-  cookieSecret:
+  cookieSecret: "826f7cc55c5dcb3099141970a67a462fa6d23a0f4ea197a96d9360e996ece026"
   rbac:
-    enabled: false
+    enabled: true
   publicURL:
   uid: 1000
   fsGid: 1000
@@ -37,9 +37,9 @@ hub:
     users:
 
 proxy:
-  secretToken: generate with openssl rand -hex 64
+  secretToken: "8287aaf61755dad49bad4b014ff8880ac97a6172fd12195980b59b7f59805029"
   rbac:
-    enabled: false
+    enabled: true
   service:
     type: LoadBalancer
     labels: {}
@@ -123,7 +123,7 @@ singleuser:
   cmd: jupyterhub-singleuser
 
 prePuller:
-  enabled: true
+  enabled: false
   image:
     name: yuvipanda/image-allnodes-puller
     tag: v0.8
