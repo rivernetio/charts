@@ -19,7 +19,7 @@ persistence:
         label: "mount path"
         description: "Path within the container at which the volume should be mounted"
         required: true
-        value: ""
+        value: "/data"
         type: "string"
       dataDir:
         name: "dataDir"
