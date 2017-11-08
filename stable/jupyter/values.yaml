@@ -13,11 +13,8 @@ serviceType: LoadBalancer
 ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
 ##
 persistence:
-  enabled: true
-  ## If defined, volume.beta.kubernetes.io/storage-class: <storageClass>
-  ## Default: volume.alpha.kubernetes.io/storage-class: default
-  ##
-  # storageClass:
+  enabled: false
+  # persistentVolumeClaim:
   accessMode: ReadWriteOnce
   size: 2Gi
 
