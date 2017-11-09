@@ -17,6 +17,7 @@ spec:
         job: {{ .Release.Name }}
     spec:
       restartPolicy: Never
+      serviceAccountName: {{  template "fullname" . }}
       containers:
         - name: ps
           image: "{{ .Values.ps.variables.image.value }}"

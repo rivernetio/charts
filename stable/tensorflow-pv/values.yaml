@@ -3,7 +3,7 @@ isNewTemplate: true
 
 persistence:
     name: "storage"
-    description: "storage config"
+    description: "Persistent Storage"
     type: "string"
     required: true
     variables:
@@ -43,23 +43,37 @@ persistence:
         value: ""
         type: "string"
 
+rbac:
+    name: "rbac"
+    description: "Role Based Access Control"
+    type: "string"
+    required: true
+    variables:
+      roleRef:
+        name: "roleRef"
+        label: "roleRef"
+        description: "The cluster role to be bound to this application"
+        required: true
+        value: "cluster-admin"
+        type: "string"
+
 cmd:
     name: "command"
-    description: "command"
+    description: "Command"
     type: "string"
     required: true
     variables:
       cmd:
         name: "cmd"
         label: "CMD"
-        description: "command to start the training job"
+        description: "The command to start the training job"
         required: true
         value: "python /data/code/mnist.py --model_version=1"
         type: "string"
 
 tensorboard:
     name: "tensorboard"
-    description: "enable tensorboard"
+    description: "Tensorboard"
     type: "checkbox"
     required: true
     enabled: false
@@ -67,14 +81,14 @@ tensorboard:
       replicaCount:
         name: "replicaCount"
         label: "replicaCount"
-        description: "replica count of tensorboard"
+        description: "The replica number of tensorboard"
         required: true
         value: 1
         type: "int"
       image:
         name: "image"
         label: "image"
-        description: "image of tensorboard"
+        description: "The image of tensorboard"
         required: true
         value: "rivernet/tensorflow:v4"
         type: "string"
@@ -95,21 +109,21 @@ tensorboard:
 
 ps:
     name: "ps"
-    description: "parameter server"
+    description: "Parameter Server"
     type: "string"
     required: true
     variables:
       replicaCount:
         name: "replicaCount"
         label: "replicaCount"
-        description: "replica count of parameter server"
+        description: "The replica number of parameter server"
         required: true
         value: 1
         type: "int"
       image:
         name: "image"
         label: "image"
-        description: "image of ps"
+        description: "The image of parameter server"
         required: true
         value: "rivernet/tensorflow:v4"
         type: "string"
@@ -130,21 +144,21 @@ ps:
   
 worker:
     name: "worker"
-    description: "worker"
+    description: "Worker"
     type: "string"
     required: true
     variables:
       replicaCount:
         name: "replicaCount"
         label: "replicaCount"
-        description: "replica count of worker"
+        description: "The replica number of worker"
         required: true
         value: 1
         type: "int"
       image:
         name: "image"
         label: "image"
-        description: "image of worker"
+        description: "The image of worker"
         required: true
         value: "rivernet/tensorflow:v4"
         type: "string"
