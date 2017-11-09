@@ -44,12 +44,9 @@ spec:
           ports:
           - containerPort: 2222
           resources:
-            limits:
-              cpu: {{ .Values.ps.variables.cpuRequest.value }}m
-              memory: {{ .Values.ps.variables.cpuRequest.value }}Mi
             requests:
               cpu: {{ .Values.ps.variables.cpuRequest.value }}m
-              memory: {{ .Values.ps.variables.cpuRequest.value }}Mi
+              memory: {{ .Values.ps.variables.memoryRequest.value }}Mi
           volumeMounts:
           - name: data
             mountPath: {{ .Values.persistence.variables.mountPath.value }}

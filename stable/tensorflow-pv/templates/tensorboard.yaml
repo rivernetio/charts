@@ -43,12 +43,9 @@ spec:
           ports:
           - containerPort: 6006
           resources:
-            limits:
-              cpu: {{ .Values.tensorboard.variables.cpuRequest.value }}m
-              memory: {{ .Values.tensorboard.variables.cpuRequest.value }}Mi
             requests:
               cpu: {{ .Values.tensorboard.variables.cpuRequest.value }}m
-              memory: {{ .Values.tensorboard.variables.cpuRequest.value }}Mi
+              memory: {{ .Values.tensorboard.variables.memoryRequest.value }}Mi
           volumeMounts: 
           - name: data
             mountPath: {{ .Values.persistence.variables.mountPath.value }}
