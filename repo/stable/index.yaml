@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   jenkins:
   - appVersion: "2.67"
-    created: 2017-11-09T19:16:57.269856568Z
+    created: 2017-11-09T20:33:18.804520131Z
     description: Open source continuous integration server. It supports multiple SCM
       tools including CVS, Subversion and Git. It can execute Apache Ant and Apache
       Maven-based projects as well as arbitrary scripts.
@@ -23,7 +23,7 @@ entries:
     version: 0.9.0
   jupyter:
   - appVersion: "4.2"
-    created: 2017-11-09T19:16:57.270178933Z
+    created: 2017-11-09T20:33:18.804869875Z
     description: Chart for Apache Tomcat
     digest: f0e5ca386b4d51d0d3130a99f67339559f2b8962d0e4595da8ff3ccee7839fe5
     engine: gotpl
@@ -42,7 +42,7 @@ entries:
     version: 0.0.1
   mxnet-pv:
   - apiVersion: v1
-    created: 2017-11-09T19:16:57.270366695Z
+    created: 2017-11-09T20:33:18.805071595Z
     description: A Helm chart for mxnet
     digest: c9c5e8643cdad4973019e492daf46de3c75474ec868677c360f09f53f36e81dd
     name: mxnet-pv
@@ -51,7 +51,7 @@ entries:
     version: 0.1.0
   openface:
   - apiVersion: v1
-    created: 2017-11-09T19:16:57.27059081Z
+    created: 2017-11-09T20:33:18.805296331Z
     description: A face recognition app on Kubernetes
     digest: 23d26c898c3cdfca5351af70ad757004a398b7c02417a96f34ec6246c5abfbd3
     name: openface
@@ -59,7 +59,7 @@ entries:
     - https://github.com/rivernetio/charts/raw/master/repo/stable/openface-0.1.0.tgz
     version: 0.1.0
   serving-pv:
-  - created: 2017-11-09T19:16:57.270857445Z
+  - created: 2017-11-09T20:33:18.805588134Z
     description: Chart for tensorflow serving with pv support
     digest: c24c0c715d1f7cc77f9b38282843e1c95f026810b5a328317167ef70a798f969
     keywords:
@@ -74,9 +74,9 @@ entries:
     - https://github.com/rivernetio/charts/raw/master/repo/stable/serving-pv-0.2.0.tgz
     version: 0.2.0
   tensorflow-pv:
-  - created: 2017-11-09T19:16:57.271119279Z
+  - created: 2017-11-09T20:33:18.807856084Z
     description: Chart for tensorflow with pv support
-    digest: 988ee622c37b25427e4db28b9b066a074d454e7dc344ef0de1e64fa3a2da91e2
+    digest: 8d8375d641038a73a684fb28991fe4e41250c0106e4d685238ea508e093498d2
     keywords:
     - tensorflow
     maintainers:
@@ -90,7 +90,7 @@ entries:
     version: 0.3.0
   tomcat:
   - appVersion: 8.0.47
-    created: 2017-11-09T19:16:57.271515783Z
+    created: 2017-11-09T20:33:18.808841149Z
     description: Chart for Apache Tomcat
     digest: 567a7cefba4384614bb663f900432ea61da6e6b71cbe21518a992ae10336303c
     engine: gotpl
@@ -114,11 +114,11 @@ entries:
     version: 0.4.15
   vote:
   - apiVersion: v1
-    created: 2017-11-09T19:16:57.272023978Z
+    created: 2017-11-09T20:33:18.809968007Z
     description: A vote app for Kubernetes
-    digest: f04fdab5149bc20b9b1f070031e88ea11ccc2367783ae31778eefae07760e365
+    digest: 9fc2630ac208046eb115b22dc5cab68c2fdd17de9bb792372eda20c0d04e88f7
     name: vote
     urls:
     - https://github.com/rivernetio/charts/raw/master/repo/stable/vote-0.5.0.tgz
     version: 0.5.0
-generated: 2017-11-09T19:16:57.269000675Z
+generated: 2017-11-09T20:33:18.803545163Z
