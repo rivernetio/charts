@@ -4,35 +4,35 @@ isNewTemplate: true
 
 persistence:
     name: "storage"
-    description: "storage config"
+    description: "Persistent Storage"
     type: "string"
     required: true
     variables:
       pvc:
         name: "pvc"
         label: "PVC name"
-        description: "name of the pvc"
+        description: "The name of the pvc"
         required: true
         value: ""
         type: "string"
       mountPath:
         name: "mountPath"
         label: "mount path"
-        description: "Path within the container at which the volume should be mounted"
+        description: "The path within the container at which the volume should be mounted"
         required: true
         value: ""
         type: "string"
       modelName:
         name: "modelName"
         label: "model name"
-        description: "name of the model"
+        description: "The name of the model"
         required: true
         value: ""
         type: "string"
       modelDir:
         name: "modelDir"
         label: "model dir"
-        description: "path to export the model"
+        description: "The path to the model"
         required: true
         value: ""
         type: "string"
@@ -46,14 +46,14 @@ serving:
       replicaCount:
         name: "replicaCount"
         label: "replicaCount"
-        description: "replica count of serving"
+        description: "The replica number of serving instance"
         required: true
         value: 1
         type: "int"
       image:
         name: "image"
         label: "image"
-        description: "image of serving"
+        description: "The image of serving instance"
         required: true
         value: "docker.io/rivernet/serving:v1"
         type: "string"
@@ -72,7 +72,7 @@ serving:
         value: 512
         type: "int"
 
-HPA:
+hpa:
     name: "HPA"
     description: "Horizonal Pod Autoscaler for serving"
     type: "checkbox"
@@ -82,23 +82,23 @@ HPA:
       minReplicaCount:
         name: "minReplicaCount"
         label: "minReplicaCount"
-        description: "min replica count of serving"
+        description: "The mininum replica number of serving instances"
         required: true
         value: 1
         type: "int"
       maxReplicaCount:
         name: "minReplicaCount"
         label: "minReplicaCount"
-        description: "min replica count of serving"
+        description: "The maximum replica number of serving instances"
         required: true
         value: 1
         type: "int"
       metrics:
         name: "metrics"
         label: "metrics"
-        description: "metrics contains the specifications for which to use to calculate the desired replica count"
+        description: "The metrics used to calculate the desired replica numbers"
         required: true
-        type: "metrcis"
+        type: "metrics"
         value:
           - type: Object
             object:
