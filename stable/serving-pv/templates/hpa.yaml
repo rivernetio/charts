@@ -1,3 +1,4 @@
+{{- if .Values.hpa.enabled -}}
 kind: HorizontalPodAutoscaler
 apiVersion: autoscaling/v2alpha1
 metadata:
@@ -9,7 +10,8 @@ spec:
   scaleTargetRef:
     kind: Deployment
     name: {{ template "fullname" . }}
-  minReplicas: {{ .Values.HPA.variables.minReplicaCount.value }}
-  maxReplicas: {{ .Values.HPA.variables.maxReplicaCount.value }}
+  minReplicas: {{ .Values.hpa.variables.minReplicaCount.value }}
+  maxReplicas: {{ .Values.hpa.variables.maxReplicaCount.value }}
   metrics:
-{{ toYaml .Values.HPA.variables.metrics.value | indent 2 }}
+    {{ toYaml .Values.hpa.variables.metrics.value | indent 2 }}
+{{- end -}}
