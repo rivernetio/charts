@@ -1,5 +1,5 @@
-name: tensorflow-pv
-version: 0.3.0
+name: tensorflow
+version: 1.0.0
 description: Chart for tensorflow with pv support
 keywords:
 - tensorflow

@@ -1,5 +1,5 @@
-name: serving-pv
-version: 0.2.0
+name: tensorflow-serving
+version: 1.0.0
 description: Chart for tensorflow serving with pv support
 keywords:
 - tensorflow-serving

@@ -1,31 +1,10 @@
 apiVersion: v1
 entries:
-  jenkins:
-  - appVersion: "2.67"
-    created: 2017-11-09T21:19:52.714951685Z
-    description: Open source continuous integration server. It supports multiple SCM
-      tools including CVS, Subversion and Git. It can execute Apache Ant and Apache
-      Maven-based projects as well as arbitrary scripts.
-    digest: b993314e1bb95806bd9f327f46a36a1b76e7aca7945af142f135aabd0019806e
-    home: https://jenkins.io/
-    icon: https://wiki.jenkins-ci.org/download/attachments/2916393/logo.png
-    maintainers:
-    - email: lachlan.evenson@microsoft.com
-      name: lachie83
-    - email: viglesias@google.com
-      name: viglesiasce
-    name: jenkins
-    sources:
-    - https://github.com/jenkinsci/jenkins
-    - https://github.com/jenkinsci/docker-jnlp-slave
-    urls:
-    - https://github.com/rivernetio/charts/raw/master/repo/stable/jenkins-0.9.0.tgz
-    version: 0.9.0
   jupyter:
-  - appVersion: "4.2"
-    created: 2017-11-09T21:19:52.715286845Z
-    description: Chart for Apache Tomcat
-    digest: f0e5ca386b4d51d0d3130a99f67339559f2b8962d0e4595da8ff3ccee7839fe5
+  - appVersion: "4.1"
+    created: 2017-11-17T20:24:05.844224066Z
+    description: Chart for Jupyter Notebook with Tensorflow support.
+    digest: bd7ca2decd01adcb25654fb27ed271057baa32300e1713f1ef0d1730912947fb
     engine: gotpl
     home: http://jupyter.org/
     keywords:
@@ -38,87 +17,36 @@ entries:
       name: Meng Ding
     name: jupyter
     urls:
-    - https://github.com/rivernetio/charts/raw/master/repo/stable/jupyter-0.0.1.tgz
-    version: 0.0.1
-  mxnet-pv:
-  - apiVersion: v1
-    created: 2017-11-09T21:19:52.715541236Z
-    description: A Helm chart for mxnet
-    digest: c9c5e8643cdad4973019e492daf46de3c75474ec868677c360f09f53f36e81dd
-    name: mxnet-pv
-    urls:
-    - https://github.com/rivernetio/charts/raw/master/repo/stable/mxnet-pv-0.1.0.tgz
-    version: 0.1.0
-  openface:
-  - apiVersion: v1
-    created: 2017-11-09T21:19:52.715772029Z
-    description: A face recognition app on Kubernetes
-    digest: 23d26c898c3cdfca5351af70ad757004a398b7c02417a96f34ec6246c5abfbd3
-    name: openface
-    urls:
-    - https://github.com/rivernetio/charts/raw/master/repo/stable/openface-0.1.0.tgz
-    version: 0.1.0
-  serving-pv:
-  - created: 2017-11-09T21:19:52.716031524Z
-    description: Chart for tensorflow serving with pv support
-    digest: c24c0c715d1f7cc77f9b38282843e1c95f026810b5a328317167ef70a798f969
-    keywords:
-    - tensorflow-serving
-    maintainers:
-    - email: zhangwei@chinaskycloud.com
-      name: Zhang Wei
-    name: serving-pv
-    sources:
-    - https://github.com/tensorflow/serving
-    urls:
-    - https://github.com/rivernetio/charts/raw/master/repo/stable/serving-pv-0.2.0.tgz
-    version: 0.2.0
-  tensorflow-pv:
-  - created: 2017-11-09T21:19:52.716348955Z
+    - https://github.com/rivernetio/charts/raw/master/repo/stable/jupyter-1.0.0.tgz
+    version: 1.0.0
+  tensorflow:
+  - created: 2017-11-17T20:24:05.844525426Z
     description: Chart for tensorflow with pv support
-    digest: 6833c1b70f961e3f0936e8a1d46a45827064017b6f76a71578e6e34ad0d9dbc6
+    digest: bae7e5c50e4bd7e16e17daf3ff987fe806ef81ccc5a46bc509f2ba31f6e27e6e
     keywords:
     - tensorflow
     maintainers:
     - email: zhangwei@chinaskycloud.com
       name: Zhang Wei
-    name: tensorflow-pv
+    name: tensorflow
     sources:
     - https://github.com/tensorflow/tensorflow
     urls:
-    - https://github.com/rivernetio/charts/raw/master/repo/stable/tensorflow-pv-0.3.0.tgz
-    version: 0.3.0
-  tomcat:
-  - appVersion: 8.0.47
-    created: 2017-11-09T21:19:52.716851909Z
-    description: Chart for Apache Tomcat
-    digest: 567a7cefba4384614bb663f900432ea61da6e6b71cbe21518a992ae10336303c
-    engine: gotpl
-    home: http://tomcat.apache.org
-    icon: https://bitnami.com/assets/stacks/tomcat/img/tomcat-stack-110x117.png
+    - https://github.com/rivernetio/charts/raw/master/repo/stable/tensorflow-1.0.0.tgz
+    version: 1.0.0
+  tensorflow-serving:
+  - created: 2017-11-17T20:24:05.844866544Z
+    description: Chart for tensorflow serving with pv support
+    digest: f1a605fa95ecf76ffb57490af1da9aac606bbf84d995b09e07f9bbb36815a707
     keywords:
-    - tomcat
-    - java
-    - http
-    - web
-    - application server
-    - jsp
+    - tensorflow-serving
     maintainers:
-    - email: containers@bitnami.com
-      name: Bitnami
-    name: tomcat
+    - email: zhangwei@chinaskycloud.com
+      name: Zhang Wei
+    name: tensorflow-serving
     sources:
-    - https://github.com/bitnami/bitnami-docker-tomcat
+    - https://github.com/tensorflow/serving
     urls:
-    - https://github.com/rivernetio/charts/raw/master/repo/stable/tomcat-0.4.15.tgz
-    version: 0.4.15
-  vote:
-  - apiVersion: v1
-    created: 2017-11-09T21:19:52.718351557Z
-    description: A vote app for Kubernetes
-    digest: f04fdab5149bc20b9b1f070031e88ea11ccc2367783ae31778eefae07760e365
-    name: vote
-    urls:
-    - https://github.com/rivernetio/charts/raw/master/repo/stable/vote-0.5.0.tgz
-    version: 0.5.0
-generated: 2017-11-09T21:19:52.713962106Z
+    - https://github.com/rivernetio/charts/raw/master/repo/stable/tensorflow-serving-1.0.0.tgz
+    version: 1.0.0
+generated: 2017-11-17T20:24:05.843842671Z

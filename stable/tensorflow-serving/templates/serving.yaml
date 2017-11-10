@@ -35,7 +35,7 @@ spec:
       containers:
         - name: serving
           image: "{{ .Values.serving.variables.image.value }}"
-          command: ["./serving/bazel-bin/tensorflow_serving/model_servers/tensorflow_model_server"]
+          command: ["tensorflow_model_server"]
           args:
           - --model_name={{ .Values.persistence.variables.modelName.value }}
           - --model_base_path={{ .Values.persistence.variables.modelDir.value }}

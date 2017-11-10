@@ -1,27 +1,62 @@
-image: skippbox/jupyter:0.0.3
+isNewTemplate: true
 
-## Specify a imagePullPolicy
-## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
-##
-imagePullPolicy: IfNotPresent
-
-## Kubernetes configuration
-##
-serviceType: LoadBalancer
-
-## Enable persistence using Persistent Volume Claims
-## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
-##
 persistence:
-  enabled: false
-  # persistentVolumeClaim:
-  accessMode: ReadWriteOnce
-  size: 2Gi
+  name: "storage"
+  description: "Persistent Storage"
+  type: "string"
+  required: true  
+  variables:
+    pvc:
+      name: "pvc"
+      label: "PVC Name"
+      description: "The name of the persistent volume claim"
+      required: true
+      value: ""
+      type: "string"
+    mountPath:
+      name: "mountPath"
+      label: "Mount Path"
+      description: "The path within the container at which the volume should be mounted"
+      required: true
+      value: "/data"
+      type: "string"
 
-## Configure resource requests and limits
-## ref: http://kubernetes.io/docs/user-guide/compute-resources/
-##
-resources:
-  requests:
-    memory: 512Mi
-    cpu: 300m
+jupyter:
+  name: "jupyter"
+  description: "Jupyter Notebook"
+  type: "string"
+  required: true
+  variables:
+    image:
+      name: "image"
+      label: "Image"
+      description: "The image of Jupyter Notebook."
+      required: true
+      value: "rivernet/jupyter:4.1"
+      type: "string"
+    imagepullpolicy:
+      name: "imagepullpolicy"
+      label: "Image Pull Policy"
+      description: "Supported values: IfNotPresent, Always. Case sensitive."
+      value: "IfNotPresent"
+      type: "string"
+    serviceType:
+      name: "servicetype"
+      label: "Service Type"
+      description: "Supported values: LoadBalancer, NodePort, ClusterIP, ExternalName. Case sensitive."
+      value: "NodePort"
+      type: "string"
+    cpuRequest:
+      name: "cpuRequest"
+      label: "CPU (m)"
+      description: "CPU, in cores. (500m = 0.5 cores)"
+      required: true
+      value: 300
+      type: "int"
+    memoryRequest:
+      name: "memoryRequest"
+      label: "Memory (MB)"
+      description: "Memory, in MB. (1GB = 1024 MB)"
+      required: true
+      value: 512
+      type: "int"  

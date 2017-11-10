@@ -1,7 +1,7 @@
 name: jupyter
-version: 0.0.1
-appVersion: 4.2
-description: Chart for Apache Tomcat
+version: 1.0.0
+appVersion: 4.1
+description: Chart for Jupyter Notebook with Tensorflow support.
 keywords:
 - jupyter
 - notebook
