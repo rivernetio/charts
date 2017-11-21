@@ -1,0 +1,85 @@
+apiVersion: v1
+entries:
+  jupyter:
+  - appVersion: "4.1"
+    created: 2017-11-21T16:57:46.084390309Z
+    description: Chart for Jupyter Notebook with Tensorflow support.
+    digest: bd7ca2decd01adcb25654fb27ed271057baa32300e1713f1ef0d1730912947fb
+    engine: gotpl
+    home: http://jupyter.org/
+    keywords:
+    - jupyter
+    - notebook
+    - ipython
+    - python
+    maintainers:
+    - email: dingmeng@gmail.com
+      name: Meng Ding
+    name: jupyter
+    urls:
+    - http://127.0.0.1:8879/charts/jupyter-1.0.0.tgz
+    version: 1.0.0
+  tensorflow:
+  - created: 2017-11-21T16:57:46.084723365Z
+    description: Chart for tensorflow with pv support
+    digest: bae7e5c50e4bd7e16e17daf3ff987fe806ef81ccc5a46bc509f2ba31f6e27e6e
+    keywords:
+    - tensorflow
+    maintainers:
+    - email: zhangwei@chinaskycloud.com
+      name: Zhang Wei
+    name: tensorflow
+    sources:
+    - https://github.com/tensorflow/tensorflow
+    urls:
+    - http://127.0.0.1:8879/charts/tensorflow-1.0.0.tgz
+    version: 1.0.0
+  tensorflow-serving:
+  - created: 2017-11-21T16:57:46.084978828Z
+    description: Chart for tensorflow serving with pv support
+    digest: f1a605fa95ecf76ffb57490af1da9aac606bbf84d995b09e07f9bbb36815a707
+    keywords:
+    - tensorflow-serving
+    maintainers:
+    - email: zhangwei@chinaskycloud.com
+      name: Zhang Wei
+    name: tensorflow-serving
+    sources:
+    - https://github.com/tensorflow/serving
+    urls:
+    - http://127.0.0.1:8879/charts/tensorflow-serving-1.0.0.tgz
+    version: 1.0.0
+  tomcat:
+  - appVersion: 8.0.47
+    created: 2017-11-21T16:57:46.085415662Z
+    description: Chart for Apache Tomcat
+    digest: 567a7cefba4384614bb663f900432ea61da6e6b71cbe21518a992ae10336303c
+    engine: gotpl
+    home: http://tomcat.apache.org
+    icon: https://bitnami.com/assets/stacks/tomcat/img/tomcat-stack-110x117.png
+    keywords:
+    - tomcat
+    - java
+    - http
+    - web
+    - application server
+    - jsp
+    maintainers:
+    - email: containers@bitnami.com
+      name: Bitnami
+    name: tomcat
+    sources:
+    - https://github.com/bitnami/bitnami-docker-tomcat
+    urls:
+    - http://127.0.0.1:8879/charts/tomcat-0.4.15.tgz
+    version: 0.4.15
+  vote:
+  - apiVersion: v1
+    created: 2017-11-21T16:57:46.085896178Z
+    description: A vote app for Kubernetes
+    digest: 9fc2630ac208046eb115b22dc5cab68c2fdd17de9bb792372eda20c0d04e88f7
+    name: vote
+    urls:
+    - http://127.0.0.1:8879/charts/vote-0.5.0.tgz
+    version: 0.5.0
+generated: 2017-11-21T16:57:46.083891625Z
