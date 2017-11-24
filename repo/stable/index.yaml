@@ -1,10 +1,9 @@
 apiVersion: v1
 entries:
   jupyter:
-  - appVersion: "4.1"
-    created: 2017-11-21T16:57:38.672502232Z
+  - created: 2017-11-24T18:35:31.785014203Z
     description: Chart for Jupyter Notebook with Tensorflow support.
-    digest: bd7ca2decd01adcb25654fb27ed271057baa32300e1713f1ef0d1730912947fb
+    digest: 1cc6713aec5c0f44026912f53b77f8b98967f308f441f31ee2f55db46f228320
     engine: gotpl
     home: http://jupyter.org/
     keywords:
@@ -20,9 +19,9 @@ entries:
     - https://github.com/rivernetio/charts/raw/master/repo/stable/jupyter-1.0.0.tgz
     version: 1.0.0
   tensorflow:
-  - created: 2017-11-21T16:57:38.672833934Z
+  - created: 2017-11-24T18:35:31.785303507Z
     description: Chart for tensorflow with pv support
-    digest: bae7e5c50e4bd7e16e17daf3ff987fe806ef81ccc5a46bc509f2ba31f6e27e6e
+    digest: a4945343fa4ec435579657498bfb09893a1dd170dc48f8f335ccc2bc5e64555a
     keywords:
     - tensorflow
     maintainers:
@@ -35,9 +34,9 @@ entries:
     - https://github.com/rivernetio/charts/raw/master/repo/stable/tensorflow-1.0.0.tgz
     version: 1.0.0
   tensorflow-serving:
-  - created: 2017-11-21T16:57:38.673073685Z
+  - created: 2017-11-24T18:35:31.785525224Z
     description: Chart for tensorflow serving with pv support
-    digest: f1a605fa95ecf76ffb57490af1da9aac606bbf84d995b09e07f9bbb36815a707
+    digest: 2ddbc379cd5b061dc001eecbc81f334144429f5ad0782cdad67bb34bcd3dce3c
     keywords:
     - tensorflow-serving
     maintainers:
@@ -49,4 +48,4 @@ entries:
     urls:
     - https://github.com/rivernetio/charts/raw/master/repo/stable/tensorflow-serving-1.0.0.tgz
     version: 1.0.0
-generated: 2017-11-21T16:57:38.672105225Z
+generated: 2017-11-24T18:35:31.784547395Z

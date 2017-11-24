@@ -1,10 +1,9 @@
 apiVersion: v1
 entries:
   jupyter:
-  - appVersion: "4.1"
-    created: 2017-11-21T16:57:46.084390309Z
+  - created: 2017-11-24T18:40:06.835773639Z
     description: Chart for Jupyter Notebook with Tensorflow support.
-    digest: bd7ca2decd01adcb25654fb27ed271057baa32300e1713f1ef0d1730912947fb
+    digest: a60a96b61f4ed6dc5d897ac31fa0426a5d119d892082da289b88ecc25ab333ed
     engine: gotpl
     home: http://jupyter.org/
     keywords:
@@ -20,9 +19,9 @@ entries:
     - http://127.0.0.1:8879/charts/jupyter-1.0.0.tgz
     version: 1.0.0
   tensorflow:
-  - created: 2017-11-21T16:57:46.084723365Z
+  - created: 2017-11-24T18:40:06.836080399Z
     description: Chart for tensorflow with pv support
-    digest: bae7e5c50e4bd7e16e17daf3ff987fe806ef81ccc5a46bc509f2ba31f6e27e6e
+    digest: c425e586187efb121dbc046854d16bbbe6e647aee202139507e990ffa82a7092
     keywords:
     - tensorflow
     maintainers:
@@ -35,9 +34,9 @@ entries:
     - http://127.0.0.1:8879/charts/tensorflow-1.0.0.tgz
     version: 1.0.0
   tensorflow-serving:
-  - created: 2017-11-21T16:57:46.084978828Z
+  - created: 2017-11-24T18:40:06.836315365Z
     description: Chart for tensorflow serving with pv support
-    digest: f1a605fa95ecf76ffb57490af1da9aac606bbf84d995b09e07f9bbb36815a707
+    digest: 3cadb8417107880cc47b30f07a0c8bbaaf6e7c89e6cc0c311038895d7c9df0cd
     keywords:
     - tensorflow-serving
     maintainers:
@@ -50,10 +49,9 @@ entries:
     - http://127.0.0.1:8879/charts/tensorflow-serving-1.0.0.tgz
     version: 1.0.0
   tomcat:
-  - appVersion: 8.0.47
-    created: 2017-11-21T16:57:46.085415662Z
+  - created: 2017-11-24T18:40:06.836838297Z
     description: Chart for Apache Tomcat
-    digest: 567a7cefba4384614bb663f900432ea61da6e6b71cbe21518a992ae10336303c
+    digest: cd36bdde1a9afa7491412195c905140540e0992dd4614b65fe04d552a1536f60
     engine: gotpl
     home: http://tomcat.apache.org
     icon: https://bitnami.com/assets/stacks/tomcat/img/tomcat-stack-110x117.png
@@ -75,11 +73,11 @@ entries:
     version: 0.4.15
   vote:
   - apiVersion: v1
-    created: 2017-11-21T16:57:46.085896178Z
+    created: 2017-11-24T18:40:06.837292927Z
     description: A vote app for Kubernetes
-    digest: 9fc2630ac208046eb115b22dc5cab68c2fdd17de9bb792372eda20c0d04e88f7
+    digest: 7f356253c816f0bd0cc6d524043a98f04473341da7499472217e99e8ece5a877
     name: vote
     urls:
     - http://127.0.0.1:8879/charts/vote-0.5.0.tgz
     version: 0.5.0
-generated: 2017-11-21T16:57:46.083891625Z
+generated: 2017-11-24T18:40:06.835266861Z

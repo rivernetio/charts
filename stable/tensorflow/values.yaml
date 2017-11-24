@@ -90,7 +90,7 @@ tensorboard:
         label: "image"
         description: "The image of tensorboard"
         required: true
-        value: "rivernet/tensorflow:4.1"
+        value: "docker.io/rivernet/tensorflow:4.1"
         type: "string"
       cpuRequest:
         name: "cpuRequest"
@@ -125,7 +125,7 @@ ps:
         label: "image"
         description: "The image of parameter server"
         required: true
-        value: "rivernet/tensorflow:4.1"
+        value: "docker.io/rivernet/tensorflow:4.1"
         type: "string"
       cpuRequest:
         name: "cpuRequest"
@@ -160,7 +160,7 @@ worker:
         label: "image"
         description: "The image of worker"
         required: true
-        value: "rivernet/tensorflow:4.1"
+        value: "docker.io/rivernet/tensorflow:4.1"
         type: "string"
       cpuRequest:
         name: "cpuRequest"

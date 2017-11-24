@@ -1,26 +1,53 @@
 .DEFAULT_GOAL := install
 
+DOCKER_REGISTRY=docker.io
+HARBOR_REGISTRY=registry.harbor:5000
+HARBOR_REPOSITORY=$(HARBOR_REGISTRY)\/sky-firmament
+SOURCE=src
+
+ifeq ($(ECP), 1)
+PACKAGE=tomcat vote tensorflow tensorflow-serving jupyter
+else
 PACKAGE=tensorflow tensorflow-serving jupyter 
-PACKAGE_ECP=tomcat vote
+endif
 
 init:
 	helm init --client-only
 
-$(PACKAGE): init
-	helm package stable/$@
-
-$(PACKAGE_ECP): init
-	helm package stable/$@
+prepare_build_env:
+	rm -rf $(SOURCE)
+	mkdir -p $(SOURCE)
+	cp -rf stable/* $(SOURCE)
+ifeq ($(ECP), 1)
+	# tensorflow
+	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/tensorflow/values.yaml
+	# tensorflow-serving
+	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/tensorflow-serving/values.yaml
+	# jupyter
+	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/jupyter/values.yaml
+	# tomcat
+	sed -i "s@$(DOCKER_REGISTRY)\/bitnami@$(HARBOR_REPOSITORY)@g" $(SOURCE)/tomcat/values.yaml
+	# vote
+	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/vote/charts/app/values.yaml
+	sed -i "s@$(DOCKER_REGISTRY)@$(HARBOR_REPOSITORY)@g" $(SOURCE)/vote/charts/redis/values.yaml
+	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/vote/charts/redis/templates/deployment.yaml
+	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/vote/charts/redis/templates/export-job.yaml
+endif
+	
+$(PACKAGE): init prepare_build_env
+	helm package $(SOURCE)/$@
 
 install: $(PACKAGE)
-	mv *.tgz repo/stable
-	helm repo index --url https://github.com/rivernetio/charts/raw/master/repo/stable repo/stable
-
-install_ecp: $(PACKAGE) $(PACKAGE_ECP)
+ifeq ($(ECP), 1)
 	mv *.tgz repo/local
 	helm repo index --url http://127.0.0.1:8879/charts repo/local
+else
+	mv *.tgz repo/stable
+	helm repo index --url https://github.com/rivernetio/charts/raw/master/repo/stable repo/stable
+endif
+	rm -rf $(SOURCE)
 
 cleanall:
-	rm -f repo/stable/*
-	rm -f repo/local/*
+	rm -rf *.tgz
+	rm -rf $(SOURCE)
 
