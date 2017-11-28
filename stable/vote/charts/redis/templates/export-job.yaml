@@ -15,8 +15,7 @@ spec:
     spec:
       containers:
       - name: grafana-import-dashboards
-        image: docker.io/rivernet/docker
-        imagePullPolicy: Always
+        image: docker.io/rivernet/curl:ubuntu-precise
         command: ["/bin/sh", "-c"]
         workingDir: /opt/grafana-import-dashboards
         args:
