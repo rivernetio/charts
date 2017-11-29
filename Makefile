@@ -29,7 +29,7 @@ ifeq ($(ECP), 1)
 	sed -i "s@$(DOCKER_REGISTRY)\/bitnami@$(HARBOR_REPOSITORY)@g" $(SOURCE)/tomcat/values.yaml
 	# vote
 	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/vote/charts/app/values.yaml
-	sed -i "s@$(DOCKER_REGISTRY)@$(HARBOR_REPOSITORY)@g" $(SOURCE)/vote/charts/redis/values.yaml
+	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/vote/charts/redis/values.yaml
 	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/vote/charts/redis/templates/deployment.yaml
 	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/vote/charts/redis/templates/export-job.yaml
 endif
