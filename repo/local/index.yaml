@@ -1,7 +1,7 @@
 apiVersion: v1
 entries:
   jupyter:
-  - created: 2017-11-29T00:38:02.04691052Z
+  - created: 2017-12-05T20:41:36.881238925Z
     description: Chart for Jupyter Notebook with Tensorflow support.
     digest: 0bb8592a9a2637223530cf89020af23d498569f5826b1c84d15eff0679202e90
     engine: gotpl
@@ -19,7 +19,7 @@ entries:
     - http://127.0.0.1:8879/charts/jupyter-1.0.0.tgz
     version: 1.0.0
   tensorflow:
-  - created: 2017-11-29T00:38:02.047247541Z
+  - created: 2017-12-05T20:41:36.883649741Z
     description: Chart for tensorflow with pv support
     digest: c425e586187efb121dbc046854d16bbbe6e647aee202139507e990ffa82a7092
     keywords:
@@ -34,7 +34,7 @@ entries:
     - http://127.0.0.1:8879/charts/tensorflow-1.0.0.tgz
     version: 1.0.0
   tensorflow-serving:
-  - created: 2017-11-29T00:38:02.047482943Z
+  - created: 2017-12-05T20:41:36.88661496Z
     description: Chart for tensorflow serving with pv support
     digest: 3cadb8417107880cc47b30f07a0c8bbaaf6e7c89e6cc0c311038895d7c9df0cd
     keywords:
@@ -49,7 +49,7 @@ entries:
     - http://127.0.0.1:8879/charts/tensorflow-serving-1.0.0.tgz
     version: 1.0.0
   tomcat:
-  - created: 2017-11-29T00:38:02.047824766Z
+  - created: 2017-12-05T20:41:36.892170832Z
     description: Chart for Apache Tomcat
     digest: afc32d62c9bac04b2cd5052cfdfd271765c3870ae47467b698dc11ded8efa789
     engine: gotpl
@@ -73,11 +73,11 @@ entries:
     version: 0.4.15
   vote:
   - apiVersion: v1
-    created: 2017-11-29T00:38:02.048307343Z
+    created: 2017-12-05T20:41:36.895978437Z
     description: A vote app for Kubernetes
-    digest: 8ccfea872cac227c85f87d75da9591f4850bb145c8f3309b62b4144df6fc189a
+    digest: b622f09003de044f9ab56ca5dbbe9294bebdcb5482250955fcb94bef1f02fa43
     name: vote
     urls:
     - http://127.0.0.1:8879/charts/vote-0.5.0.tgz
     version: 0.5.0
-generated: 2017-11-29T00:38:02.046472203Z
+generated: 2017-12-05T20:41:36.878194722Z

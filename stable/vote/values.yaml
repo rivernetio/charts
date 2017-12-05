@@ -25,4 +25,40 @@ redis:
         required: true
         value: 1
         type: "int"
+        
+hpa:
+    name: "hpa"
+    description: "redis autoscaling"
+    type: "checkbox"
+    required: true
+    enabled: false
+    variables:
+      minReplicas:
+        name: "minReplicas"
+        label: "minReplicas"
+        description: "The minimum replica number of redis"
+        required: true
+        value: 1
+        type: "int"
+      maxReplicas:
+        name: "maxReplicas"
+        label: "maxReplicas"
+        description: "The maximum replica number of redis"
+        required: true
+        value: 3
+        type: "int"
+      metricName:
+        name: "metricName"
+        label: "metricName"
+        description: "Autoscaling based on custom metrics"
+        required: true
+        value: "redis_memory_used_bytes"
+        type: "string"
+      targetValue:
+        name: "targetValue"
+        label: "targetValue"
+        description: "Target value to determine the replica count"
+        required: true
+        value: "512m"
+        type: "string"
 
