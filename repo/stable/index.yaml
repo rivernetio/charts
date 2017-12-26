@@ -48,4 +48,13 @@ entries:
     urls:
     - https://github.com/rivernetio/charts/raw/master/repo/stable/tensorflow-serving-1.0.0.tgz
     version: 1.0.0
+  mnist-demo:
+  - apiVersion: v1
+    created: 2017-12-27T06:06:04.595796352Z
+    description: A mnist demo chart for Kubernetes
+    digest: 025ab2fdf5382a5498788c3f7dca08e333772a55a4624d9bf6a83c0cca90e522
+    name: mnist-demo
+    urls:
+    - http://127.0.0.1:8879/mnist-demo-0.1.0.tgz
+    version: 0.1.0
 generated: 2017-11-29T00:37:58.378880071Z
