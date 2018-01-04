@@ -1,9 +1,9 @@
 apiVersion: v1
 entries:
   jupyter:
-  - created: 2017-12-05T20:41:36.881238925Z
+  - created: 2018-01-03T11:35:51.876379692+08:00
     description: Chart for Jupyter Notebook with Tensorflow support.
-    digest: 0bb8592a9a2637223530cf89020af23d498569f5826b1c84d15eff0679202e90
+    digest: 1fca824102b03371bb1458432b0ff60a86253040f8549bf9f34b1eaad85cb907
     engine: gotpl
     home: http://jupyter.org/
     keywords:
@@ -18,10 +18,19 @@ entries:
     urls:
     - http://127.0.0.1:8879/charts/jupyter-1.0.0.tgz
     version: 1.0.0
+  mnist-demo:
+  - apiVersion: v1
+    created: 2018-01-03T11:35:51.879080358+08:00
+    description: A Helm chart for Kubernetes
+    digest: 3f9d2fa64453738825d8dead103845ed09bb9b34fb47da7b629f90d6233db832
+    name: mnist-demo
+    urls:
+    - http://127.0.0.1:8879/charts/mnist-demo-0.1.0.tgz
+    version: 0.1.0
   tensorflow:
-  - created: 2017-12-05T20:41:36.883649741Z
+  - created: 2018-01-03T11:35:51.879749159+08:00
     description: Chart for tensorflow with pv support
-    digest: c425e586187efb121dbc046854d16bbbe6e647aee202139507e990ffa82a7092
+    digest: bed87a831975fa987ddaf752e679fba3bacd288bae809b969f74c61159c672d3
     keywords:
     - tensorflow
     maintainers:
@@ -34,7 +43,7 @@ entries:
     - http://127.0.0.1:8879/charts/tensorflow-1.0.0.tgz
     version: 1.0.0
   tensorflow-serving:
-  - created: 2017-12-05T20:41:36.88661496Z
+  - created: 2018-01-03T11:35:51.880301958+08:00
     description: Chart for tensorflow serving with pv support
     digest: 3cadb8417107880cc47b30f07a0c8bbaaf6e7c89e6cc0c311038895d7c9df0cd
     keywords:
@@ -49,7 +58,7 @@ entries:
     - http://127.0.0.1:8879/charts/tensorflow-serving-1.0.0.tgz
     version: 1.0.0
   tomcat:
-  - created: 2017-12-05T20:41:36.892170832Z
+  - created: 2018-01-03T11:35:51.881171085+08:00
     description: Chart for Apache Tomcat
     digest: afc32d62c9bac04b2cd5052cfdfd271765c3870ae47467b698dc11ded8efa789
     engine: gotpl
@@ -73,20 +82,11 @@ entries:
     version: 0.4.15
   vote:
   - apiVersion: v1
-    created: 2017-12-05T20:41:36.895978437Z
+    created: 2018-01-03T11:35:51.882404351+08:00
     description: A vote app for Kubernetes
     digest: b622f09003de044f9ab56ca5dbbe9294bebdcb5482250955fcb94bef1f02fa43
     name: vote
     urls:
     - http://127.0.0.1:8879/charts/vote-0.5.0.tgz
     version: 0.5.0
-  mnist-demo:
-  - apiVersion: v1
-    created: 2017-12-27T06:06:04.595796352Z
-    description: A mnist demo chart for Kubernetes
-    digest: 025ab2fdf5382a5498788c3f7dca08e333772a55a4624d9bf6a83c0cca90e522
-    name: mnist-demo
-    urls:
-    - http://127.0.0.1:8879/mnist-demo-0.1.0.tgz
-    version: 0.1.0
-generated: 2017-12-05T20:41:36.878194722Z
+generated: 2018-01-03T11:35:51.87557865+08:00

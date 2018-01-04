@@ -1,9 +1,9 @@
 apiVersion: v1
 entries:
   jupyter:
-  - created: 2017-11-29T00:37:58.379368823Z
+  - created: 2018-01-03T11:37:44.196246477+08:00
     description: Chart for Jupyter Notebook with Tensorflow support.
-    digest: 02bbddf82f4336d0321f4cb943ff2f96b0ffc38434ffacdfd75ed2103801a17c
+    digest: c384ec017a45fffa3284ebfff691233f3d241ce7b3bc944f7bd38fe71afbfd99
     engine: gotpl
     home: http://jupyter.org/
     keywords:
@@ -18,10 +18,19 @@ entries:
     urls:
     - https://github.com/rivernetio/charts/raw/master/repo/stable/jupyter-1.0.0.tgz
     version: 1.0.0
+  mnist-demo:
+  - apiVersion: v1
+    created: 2018-01-03T11:37:44.197918908+08:00
+    description: A Helm chart for Kubernetes
+    digest: 025ab2fdf5382a5498788c3f7dca08e333772a55a4624d9bf6a83c0cca90e522
+    name: mnist-demo
+    urls:
+    - https://github.com/rivernetio/charts/raw/master/repo/stable/mnist-demo-0.1.0.tgz
+    version: 0.1.0
   tensorflow:
-  - created: 2017-11-29T00:37:58.379644384Z
+  - created: 2018-01-03T11:37:44.198560116+08:00
     description: Chart for tensorflow with pv support
-    digest: a4945343fa4ec435579657498bfb09893a1dd170dc48f8f335ccc2bc5e64555a
+    digest: fad0f984a58b9affd06df626d226706cd545bb1fe575a8687a86aee8c0b07ed5
     keywords:
     - tensorflow
     maintainers:
@@ -34,7 +43,7 @@ entries:
     - https://github.com/rivernetio/charts/raw/master/repo/stable/tensorflow-1.0.0.tgz
     version: 1.0.0
   tensorflow-serving:
-  - created: 2017-11-29T00:37:58.379864739Z
+  - created: 2018-01-03T11:37:44.199148477+08:00
     description: Chart for tensorflow serving with pv support
     digest: 2ddbc379cd5b061dc001eecbc81f334144429f5ad0782cdad67bb34bcd3dce3c
     keywords:
@@ -48,13 +57,4 @@ entries:
     urls:
     - https://github.com/rivernetio/charts/raw/master/repo/stable/tensorflow-serving-1.0.0.tgz
     version: 1.0.0
-  mnist-demo:
-  - apiVersion: v1
-    created: 2017-12-27T06:06:04.595796352Z
-    description: A mnist demo chart for Kubernetes
-    digest: 025ab2fdf5382a5498788c3f7dca08e333772a55a4624d9bf6a83c0cca90e522
-    name: mnist-demo
-    urls:
-    - http://127.0.0.1:8879/mnist-demo-0.1.0.tgz
-    version: 0.1.0
-generated: 2017-11-29T00:37:58.378880071Z
+generated: 2018-01-03T11:37:44.195619131+08:00

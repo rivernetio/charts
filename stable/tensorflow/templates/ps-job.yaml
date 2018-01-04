@@ -27,7 +27,7 @@ spec:
           - --worker_num={{ .Values.worker.variables.replicaCount.value }}
           - --role=ps
           - --job_name={{ .Release.Name }}
-          - --cmd={{ .Values.cmd.variables.cmd.value }} --data_dir={{ .Values.persistence.variables.dataDir.value }} --model_dir={{ .Values.persistence.variables.modelDir.value }} --log_dir={{ .Values.persistence.variables.logDir.value }}
+          - --cmd={{ .Values.cmd.variables.cmd.value }} --data_dir={{ .Values.persistence.variables.dataDir.value }} --model_dir={{ .Values.persistence.variables.modelDir.value }} 
           env:
             - name: PYTHONUNBUFFERED
               value: '1'

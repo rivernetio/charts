@@ -1,38 +1,24 @@
 isNewTemplate: true
 
-persistence:
-  name: "storage"
-  description: "Persistent Storage"
-  type: "string"
-  required: true  
-  variables:
-    pvc:
-      name: "pvc"
-      label: "PVC Name"
-      description: "The name of the persistent volume claim"
-      required: true
-      value: ""
-      type: "string"
-    mountPath:
-      name: "mountPath"
-      label: "Mount Path"
-      description: "The path within the container at which the volume should be mounted"
-      required: true
-      value: "/notebooks"
-      type: "string"
-
-jupyter:
-  name: "jupyter"
-  description: "Jupyter Notebook"
+config:
+  name: "config"
+  description: "base config"
   type: "string"
   required: true
   variables:
+    replicaCount:
+      name: "replicaCount"
+      label: "replicaCount"
+      description: "replica count"
+      required: true
+      value: 1
+      type: "int"
     image:
       name: "image"
       label: "Image"
-      description: "The image of Jupyter Notebook."
+      description: "The image of mnist demo."
       required: true
-      value: "docker.io/rivernet/jupyter:4.1"
+      value: "docker.io/rivernet/mnist-demo:4.1"
       type: "string"
     imagepullpolicy:
       name: "imagepullpolicy"
@@ -59,4 +45,5 @@ jupyter:
       description: "Memory, in MB. (1GB = 1024 MB)"
       required: true
       value: 512
-      type: "int"  
+      type: "int"
+
