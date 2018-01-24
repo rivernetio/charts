@@ -1,7 +1,7 @@
 apiVersion: v1
 entries:
   jupyter:
-  - created: 2018-01-24T15:14:37.991305099+08:00
+  - created: 2018-01-24T18:35:31.801775477+08:00
     description: Chart for Jupyter Notebook with Tensorflow support.
     digest: c384ec017a45fffa3284ebfff691233f3d241ce7b3bc944f7bd38fe71afbfd99
     engine: gotpl
@@ -20,7 +20,7 @@ entries:
     version: 1.0.0
   mnist-demo:
   - apiVersion: v1
-    created: 2018-01-24T15:14:37.992315481+08:00
+    created: 2018-01-24T18:35:31.802156999+08:00
     description: A Helm chart for Kubernetes
     digest: 9acd2897f01a782beae5b21494efeb9e0831393906e5dffd692ae500df7ae127
     name: mnist-demo
@@ -28,7 +28,7 @@ entries:
     - https://github.com/rivernetio/charts/raw/master/repo/stable/mnist-demo-0.1.0.tgz
     version: 0.1.0
   tensorflow:
-  - created: 2018-01-24T15:14:37.993743542+08:00
+  - created: 2018-01-24T18:35:31.802642384+08:00
     description: Chart for tensorflow with pv support
     digest: fad0f984a58b9affd06df626d226706cd545bb1fe575a8687a86aee8c0b07ed5
     keywords:
@@ -43,7 +43,7 @@ entries:
     - https://github.com/rivernetio/charts/raw/master/repo/stable/tensorflow-1.0.0.tgz
     version: 1.0.0
   tensorflow-serving:
-  - created: 2018-01-24T15:14:37.994196646+08:00
+  - created: 2018-01-24T18:35:31.804350766+08:00
     description: Chart for tensorflow serving with pv support
     digest: 2ddbc379cd5b061dc001eecbc81f334144429f5ad0782cdad67bb34bcd3dce3c
     keywords:
@@ -57,4 +57,4 @@ entries:
     urls:
     - https://github.com/rivernetio/charts/raw/master/repo/stable/tensorflow-serving-1.0.0.tgz
     version: 1.0.0
-generated: 2018-01-24T15:14:37.990551209+08:00
+generated: 2018-01-24T18:35:31.801100785+08:00
