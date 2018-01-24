@@ -44,6 +44,6 @@ config:
       label: "Memory (MB)"
       description: "Memory, in MB. (1GB = 1024 MB)"
       required: true
-      value: 512
+      value: 700
       type: "int"
 
