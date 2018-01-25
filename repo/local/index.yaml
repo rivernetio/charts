@@ -1,7 +1,7 @@
 apiVersion: v1
 entries:
   jupyter:
-  - created: 2018-01-24T18:35:27.138675538+08:00
+  - created: 2018-01-25T09:50:00.909764216+08:00
     description: Chart for Jupyter Notebook with Tensorflow support.
     digest: 1fca824102b03371bb1458432b0ff60a86253040f8549bf9f34b1eaad85cb907
     engine: gotpl
@@ -20,7 +20,7 @@ entries:
     version: 1.0.0
   mnist-demo:
   - apiVersion: v1
-    created: 2018-01-24T18:35:27.14032342+08:00
+    created: 2018-01-25T09:50:00.911054152+08:00
     description: A Helm chart for Kubernetes
     digest: ac1908b2c0a182fbdec87cf9946314ced2af6ecd2a7f90449723757e566d413d
     name: mnist-demo
@@ -28,7 +28,7 @@ entries:
     - http://127.0.0.1:8879/charts/mnist-demo-0.1.0.tgz
     version: 0.1.0
   tensorflow:
-  - created: 2018-01-24T18:35:27.140905015+08:00
+  - created: 2018-01-25T09:50:00.912261027+08:00
     description: Chart for tensorflow with pv support
     digest: bed87a831975fa987ddaf752e679fba3bacd288bae809b969f74c61159c672d3
     keywords:
@@ -43,7 +43,7 @@ entries:
     - http://127.0.0.1:8879/charts/tensorflow-1.0.0.tgz
     version: 1.0.0
   tensorflow-serving:
-  - created: 2018-01-24T18:35:27.141397007+08:00
+  - created: 2018-01-25T09:50:00.912808601+08:00
     description: Chart for tensorflow serving with pv support
     digest: 3cadb8417107880cc47b30f07a0c8bbaaf6e7c89e6cc0c311038895d7c9df0cd
     keywords:
@@ -58,7 +58,7 @@ entries:
     - http://127.0.0.1:8879/charts/tensorflow-serving-1.0.0.tgz
     version: 1.0.0
   tomcat:
-  - created: 2018-01-24T18:35:27.142078275+08:00
+  - created: 2018-01-25T09:50:00.913650929+08:00
     description: Chart for Apache Tomcat
     digest: b7a68fbf94932263f9de5f31f48c0927a56675d493f3e2581a5679a71891d207
     engine: gotpl
@@ -82,11 +82,11 @@ entries:
     version: 0.4.15
   vote:
   - apiVersion: v1
-    created: 2018-01-24T18:35:27.143051844+08:00
+    created: 2018-01-25T09:50:00.914840477+08:00
     description: A vote app for Kubernetes
-    digest: b622f09003de044f9ab56ca5dbbe9294bebdcb5482250955fcb94bef1f02fa43
+    digest: 138476c52a1f1918ef389813382e4c786e31022309f7b5db49b47f7eee9c1398
     name: vote
     urls:
     - http://127.0.0.1:8879/charts/vote-0.5.0.tgz
     version: 0.5.0
-generated: 2018-01-24T18:35:27.138049874+08:00
+generated: 2018-01-25T09:50:00.909109356+08:00
