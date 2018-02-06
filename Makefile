@@ -6,9 +6,9 @@ HARBOR_REPOSITORY=$(HARBOR_REGISTRY)\/sky-firmament
 SOURCE=src
 
 ifeq ($(ECP), 1)
-PACKAGE=tomcat vote tensorflow tensorflow-serving jupyter mnist-demo
+PACKAGE=tomcat vote tensorflow/4.1/tensorflow tensorflow/4.2/tensorflow tensorflow-serving jupyter mnist-demo
 else
-PACKAGE=tensorflow tensorflow-serving jupyter mnist-demo
+PACKAGE=tensorflow/4.1/tensorflow tensorflow/4.2/tensorflow tensorflow-serving jupyter mnist-demo
 endif
 
 init:
@@ -20,7 +20,8 @@ prepare_build_env:
 	cp -rf stable/* $(SOURCE)
 ifeq ($(ECP), 1)
 	# tensorflow
-	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/tensorflow/values.yaml
+	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/tensorflow/4.1/tensorflow/values.yaml
+        sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/tensorflow/4.2/tensorflow/values.yaml
 	# tensorflow-serving
 	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/tensorflow-serving/values.yaml
 	# jupyter
