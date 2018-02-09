@@ -1,3 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    release: {{ .Release.Name }}
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/port: "9102"
+    available_panels: >
+      {"GPU温度":"4", "GPU功耗":"8", "GPU使用率":"6", "内存使用率":"7"}
+spec:
+  type: ClusterIP
+  ports:
+  - port: 9102
+    targetPort: 9102
+    protocol: TCP
+    name: exporter
+  selector:
+    release: {{ .Release.Name }}
+    role: hybridjob
+---
 apiVersion: rivernet.io/v1
 kind: HybridJob
 metadata:
@@ -15,7 +38,7 @@ spec:
       spec:
         restartPolicy: Never
         containers:
-          - image: registry.harbor:5000/sky-firmament/tensorflow:{{ .Values.version.variables.version.value }}
+          - image: docker.io/rivernet/tensorflow:{{ .Values.version.variables.version.value }}
             name: ps
             command: ["bootstrap"]
             args:
@@ -45,6 +68,12 @@ spec:
             volumeMounts:
             - name: data
               mountPath: {{ .Values.persistence.variables.mountPath.value }}
+          - name: nvidia-smi-exporter
+            image: docker.io/rivernet/nvidia-smi-exporter:8.0-runtime-ubuntu14.04
+            imagePullPolicy: IfNotPresent
+            ports:
+            - name: exporter
+              containerPort: 9102
         volumes:
         - name: data
           persistentVolumeClaim:
@@ -58,7 +87,7 @@ spec:
       spec:
         restartPolicy: Never
         containers:
-          - image: registry.harbor:5000/sky-firmament/tensorflow:{{ .Values.version.variables.version.value }}
+          - image: docker.io/rivernet/tensorflow:{{ .Values.version.variables.version.value }}
             name: worker
             command: ["bootstrap"]
             args:
@@ -88,6 +117,12 @@ spec:
             volumeMounts:
             - name: data
               mountPath: {{ .Values.persistence.variables.mountPath.value }}
+          - name: nvidia-smi-exporter
+            image: docker.io/rivernet/nvidia-smi-exporter:8.0-runtime-ubuntu14.04
+            imagePullPolicy: IfNotPresent
+            ports:
+            - name: exporter
+              containerPort: 9102
         volumes:
         - name: data
           persistentVolumeClaim:

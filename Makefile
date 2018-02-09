@@ -21,9 +21,11 @@ prepare_build_env:
 ifeq ($(ECP), 1)
 	# tensorflow
 	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/tensorflow/4.1/tensorflow/values.yaml
-        sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/tensorflow/4.2/tensorflow/values.yaml
+	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/tensorflow/4.2/tensorflow/values.yaml
+	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/tensorflow/4.2/tensorflow/templates/hybridjob.yaml
 	# tensorflow-serving
 	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/tensorflow-serving/values.yaml
+	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/tensorflow-serving/templates/serving.yaml
 	# jupyter
 	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/jupyter/values.yaml
 	# tomcat

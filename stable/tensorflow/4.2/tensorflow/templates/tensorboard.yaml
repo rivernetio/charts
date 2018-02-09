@@ -36,7 +36,7 @@ spec:
     spec:
       containers:
         - name: tensorboard
-          image: registry.harbor:5000/sky-firmament/tensorflow:{{ .Values.version.variables.version.value }}
+          image: docker.io/rivernet/tensorflow:{{ .Values.version.variables.version.value }}
           command: ["tensorboard"]
           args:
           - --logdir={{ .Values.persistence.variables.logDir.value }}

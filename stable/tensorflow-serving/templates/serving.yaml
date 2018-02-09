@@ -55,7 +55,7 @@ spec:
           - name: data
             mountPath: {{ .Values.persistence.variables.mountPath.value }}
         - name: nvidia-smi-exporter
-          image: "rivernet/nvidia-smi-exporter:8.0-runtime-ubuntu14.04"
+          image: docker.io/rivernet/nvidia-smi-exporter:8.0-runtime-ubuntu14.04
           imagePullPolicy: IfNotPresent
           ports:
           - name: exporter
