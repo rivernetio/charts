@@ -10,8 +10,14 @@ spec:
   scaleTargetRef:
     kind: Deployment
     name: {{ template "fullname" . }}
-  minReplicas: {{ .Values.hpa.variables.minReplicaCount.value }}
-  maxReplicas: {{ .Values.hpa.variables.maxReplicaCount.value }}
+  minReplicas: {{ .Values.hpa.variables.minReplicas.value }}
+  maxReplicas: {{ .Values.hpa.variables.maxReplicas.value }}
   metrics:
-    {{ toYaml .Values.hpa.variables.metrics.value | indent 2 }}
+  - type: Object
+    object:
+      target:
+        kind: Service
+        name: {{ template "fullname" . }}
+      metricName: {{ .Values.hpa.variables.metricName.value }}
+      targetValue: {{ .Values.hpa.variables.targetValue.value }}
 {{- end -}}

@@ -79,35 +79,31 @@ hpa:
     required: false
     enabled: false
     variables:
-      minReplicaCount:
-        name: "minReplicaCount"
-        label: "minReplicaCount"
+      minReplicas:
+        name: "minReplicas"
+        label: "minReplicas"
         description: "The mininum replica number of serving instances"
         required: true
         value: 1
         type: "int"
-      maxReplicaCount:
-        name: "minReplicaCount"
-        label: "minReplicaCount"
+      maxReplicas:
+        name: "maxReplicas"
+        label: "maxReplicas"
         description: "The maximum replica number of serving instances"
         required: true
-        value: 1
+        value: 2
         type: "int"
-      metrics:
-        name: "metrics"
-        label: "metrics"
-        description: "The metrics used to calculate the desired replica numbers"
+      metricName:
+        name: "metricName"
+        label: "metricName"
+        description: "Autoscaling based on custom metrics (e.g., nvidia_utilization_gpu, nvidia_utilization_memory)"
         required: true
-        type: "metrics"
-        value:
-          - type: Object
-            object:
-              target:
-                kind: Service
-                name: sample-metrics-app
-            metricName: http_requests
-            targetValue: 100
-          - type: Pods
-            pods:
-              metricName: ingress_connections
-              targetAverageValue: 10
+        value: "nvidia_utilization_gpu"
+        type: "string"
+      targetValue:
+        name: "targetValue"
+        label: "targetValue"
+        description: "Target value to determine the replica count"
+        required: true
+        value: "50"
+        type: "string"

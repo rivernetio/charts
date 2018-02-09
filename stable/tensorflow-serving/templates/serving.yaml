@@ -5,6 +5,11 @@ metadata:
   labels:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     release: {{ .Release.Name }}
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/port: "9102"
+    available_panels: >
+      {"GPU温度":"4", "GPU功耗":"8", "GPU使用率":"6", "内存使用率":"7"}
 spec:
   type: NodePort
   ports:
@@ -16,8 +21,8 @@ spec:
     release: {{ .Release.Name }}
     role: serving
 ---
-apiVersion: v1
-kind: ReplicationController
+apiVersion: extensions/v1beta1
+kind: Deployment
 metadata:
   name: {{ template "fullname" . }}
   labels:
@@ -49,6 +54,12 @@ spec:
           volumeMounts: 
           - name: data
             mountPath: {{ .Values.persistence.variables.mountPath.value }}
+        - name: nvidia-smi-exporter
+          image: "rivernet/nvidia-smi-exporter:8.0-runtime-ubuntu14.04"
+          imagePullPolicy: IfNotPresent
+          ports:
+          - name: exporter
+            containerPort: 9102
       volumes:
       - name: data
         persistentVolumeClaim:
