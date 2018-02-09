@@ -1,0 +1,137 @@
+isNewTemplate: true
+
+image:
+    name: "image"
+    description: "Image Info"
+    type: "string"
+    required: true
+    variables:
+      mysqlImage:
+        name: "mysqlImage"
+        label: "mysql image"
+        description: "The image of mysql"
+        required: true
+        value: "docker.io/rivernet/mysql:5.7.20"
+        type: "string" 
+      exporterImage:
+        name: "exporterImage"
+        label: "exporter image"
+        description: "The image of mysqld-exporter"
+        required: true
+        value: "docker.io/rivernet/mysqld-exporter:latest"
+        type: "string"  
+      policyType:
+        name: "policyType"
+        label: "policy type"
+        description: "The type of image pull policy"
+        required: true
+        value: "IfNotPresent"
+        type: "string"
+
+service:
+    name: "service"
+    description: "Service Info"
+    type: "string"
+    required: true
+    variables:
+      type:
+        name: "serviceType"
+        label: "service type"
+        description: "The type of service"
+        required: true
+        value: "ClusterIP"
+        type: "string"
+      externalPort:
+        name: "externalPort"
+        label: "external port"
+        description: "The port of external"
+        required: true
+        value: "3306"
+        type: "string"
+      internalPort:
+        name: "internalPort"
+        label: "internal port"
+        description: "The port of internal"
+        required: true
+        value: "3306"
+        type: "string"
+        
+dupi:
+    name: "password"
+    description: "Database User Password Info"
+    type: "string"
+    required: true
+    variables:
+      rootPassword:
+        name: "rootPassword"
+        label: "root password"
+        description: "The password for root user"
+        required: true
+        value: "password"
+        type: "string"
+      user:
+        name: "mysqlUser"
+        label: "mysql user"
+        description: "The user for mysql"
+        required: true
+        value: "skycloud"
+        type: "string"
+      password:
+        name: "mysqlPassword"
+        label: "mysql password"
+        description: "The password for mysql"
+        required: true
+        value: "skycloud"
+        type: "string"
+      database:
+        name: "mysqlDatabase"
+        label: "mysql database"
+        description: "The database for mysql"
+        required: true
+        value: "skycloud"
+        type: "string"
+
+persistence:
+    name: "storage"
+    description: "Persistent Storage"
+    type: "checkbox"
+    required: true
+    enabled: false
+    variables:
+      accessMode:
+        name: "accessMode"
+        label: "access mode"
+        description: "The mode of access"
+        required: true
+        value: "ReadWriteOnce"
+        type: "string"
+      size:
+        name: "sizeRequest"
+        label: "storage(GB)"
+        description: "Storage, in GB. (1GB = 1024 MB)"
+        required: true
+        value: 1
+        type: "int"
+
+reosurces:
+    name: "reosurce info"
+    description: "Reosurce Info"
+    type: "string"
+    required: true
+    variables:
+      cpuRequest:
+        name: "cpuRequest"
+        label: "cpu(m)"
+        description: "CPU, in cores. (500m = 0.5 cores)"
+        required: true
+        value: 250
+        type: "int"
+      memoryRequest:
+        name: "memoryRequest"
+        label: "memory(MB)"
+        description: "Memory, in MB. (1GB = 1024 MB)"
+        required: true
+        value: 256
+        type: "int"
+
+

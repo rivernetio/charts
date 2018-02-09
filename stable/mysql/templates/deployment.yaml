@@ -1,0 +1,99 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+spec:
+  template:
+    metadata:
+      labels:
+        app: {{ template "fullname" . }}
+      annotations:
+        pod.alpha.kubernetes.io/init-containers: '
+          [
+            {
+              "name": "copy-custom-config",
+              "image": "{{ .Values.image.variables.mysqlImage.value }}",
+              "imagePullPolicy": {{ .Values.image.variables.policyType.value | quote }},
+              "command": ["sh", "-c", "mkdir -p /bitnami/mysql/conf && cp -n /bitnami/mysql_config/my.cnf /bitnami/mysql/conf/my_custom.cnf"],
+              "volumeMounts": [
+                {
+                  "name": "config",
+                  "mountPath": "/bitnami/mysql_config"
+                },
+                {
+                  "name": "data",
+                  "mountPath": "/bitnami/mysql"
+                }
+              ]
+            }
+          ]'
+    spec:
+      containers:
+      - name: prom-exporter
+        image: "{{ .Values.image.variables.exporterImage.value }}"
+        imagePullPolicy: {{ .Values.image.variables.policyType.value | quote }}
+        ports:
+        - name: exporter
+          containerPort: 9104
+        env:
+        - name: DATA_SOURCE_NAME
+          value: root:{{ .Values.dupi.variables.rootPassword.value }}@(localhost:3306)/
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.variables.mysqlImage.value }}"
+        imagePullPolicy: {{ .Values.image.variables.policyType.value | quote }}
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: {{ default "" .Values.dupi.variables.rootPassword.value | quote }}
+        - name: MYSQL_USER
+          value: {{ default "" .Values.dupi.variables.user.value | quote }}
+        - name: MYSQL_PASSWORD
+          value: {{ default "" .Values.dupi.variables.password.value | quote }}
+        - name: MYSQL_DATABASE
+          value: {{ default "" .Values.dupi.variables.database.value | quote }}
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"
+        - name: POD_IP
+          valueFrom: { fieldRef: { fieldPath: status.podIP } }
+        ports:
+        - name: mysql
+          containerPort: {{ .Values.service.variables.internalPort.value }}
+        livenessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - exec mysqladmin --host $POD_IP ping
+          initialDelaySeconds: 120
+          periodSeconds: 5
+          timeoutSeconds: 5
+          failureThreshold: 10
+        readinessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - exec mysqladmin --host $POD_IP ping
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 1
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+        volumeMounts:
+        - name: data
+          mountPath: /bitnami/mysql
+      volumes:
+      - name: config
+        configMap:
+          name: {{ template "fullname" . }}
+      - name: data
+      {{- if .Values.persistence.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ template "fullname" . }}
+      {{- else }}
+        emptyDir: {}
+      {{- end -}}

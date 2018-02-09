@@ -1,0 +1,45 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Release.Name }}-export-job
+  labels:
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    release: {{ .Release.Name }}
+spec:
+  template:
+    metadata:
+      name: {{ template "fullname" . }}
+      labels:
+        chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+      - name: grafana-import-dashboards
+        image: docker.io/rivernet/curl:latest
+        command: ["/bin/sh", "-c"]
+        workingDir: /opt/grafana-import-dashboards
+        args:
+          # FIXME use kubernetes probe instead of "until curl"
+          - >
+            until $(curl --silent --fail --show-error --output /dev/null http://admin:admin@grafana.sky-firmament.svc:3000/api/datasources); do
+              printf '.' ; sleep 1 ;
+            done ;
+            for file in *-dashboard.json ; do
+              if [ -e "$file" ] ; then
+                echo "importing $file" &&
+                curl --silent --fail --show-error \
+                  --request POST http://admin:admin@grafana.sky-firmament.svc:3000/api/dashboards/import \
+                  --header "Content-Type: application/json" \
+                  --data-binary "@$file" ;
+                echo "" ;
+              fi
+            done
+
+        volumeMounts:
+        - name: config-volume
+          mountPath: /opt/grafana-import-dashboards
+      restartPolicy: Never
+      volumes:
+      - name: config-volume
+        configMap:
+          name: {{ .Release.Name }}
