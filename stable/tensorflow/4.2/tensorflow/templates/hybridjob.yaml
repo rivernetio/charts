@@ -5,11 +5,30 @@ metadata:
   labels:
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
     release: {{ .Release.Name }}
+    app: hybridjob
+  annotations:
+    available_panels: >
+      {"GPUÎ¶È:"4", "GPU¹¦ºÄ:"8", "GPUʹÓÂ":"6", "Ä´æÓÂ":"7"}
+spec:
+  type: ClusterIP
+  clusterIP: None
+  ports:
+  - port: 1
+  selector:
+    release: {{ .Release.Name }}
+    role: hybridjob
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-exporter
+  labels:
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    release: {{ .Release.Name }}
+    app: exporter
   annotations:
     prometheus.io/scrape: 'true'
     prometheus.io/port: "9102"
-    available_panels: >
-      {"GPU温度":"4", "GPU功耗":"8", "GPU使用率":"6", "内存使用率":"7"}
 spec:
   type: ClusterIP
   ports:
