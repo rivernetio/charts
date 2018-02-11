@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}
+  annotations:
+    available_panels: >
+      {"Commands":"5","服务IO":"4","并发连接数":"3","服务启动时间":"1"}
+  labels:
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    release: {{ .Release.Name }}
+spec:
+  type: {{ .Values.service.variables.type.value }}
+  ports:
+  - port: {{ .Values.service.variables.externalPort.value }}
+    targetPort: {{ .Values.service.variables.internalPort.value }}
+    protocol: TCP
+    name: mysql
+  selector:
+    app: {{ template "fullname" . }}
+    release: {{ .Release.Name }}

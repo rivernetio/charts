@@ -12,6 +12,7 @@ spec:
     metadata:
       labels:
         app: {{ template "fullname" . }}
+        release: "{{ .Release.Name }}"
       annotations:
         pod.alpha.kubernetes.io/init-containers: '
           [
