@@ -1,9 +1,9 @@
 apiVersion: v1
 entries:
   jupyter:
-  - created: 2018-02-06T15:41:01.715309715+08:00
+  - created: 2018-02-11T09:23:57.13006489+08:00
     description: Chart for Jupyter Notebook with Tensorflow support.
-    digest: c384ec017a45fffa3284ebfff691233f3d241ce7b3bc944f7bd38fe71afbfd99
+    digest: 1fca824102b03371bb1458432b0ff60a86253040f8549bf9f34b1eaad85cb907
     engine: gotpl
     home: http://jupyter.org/
     keywords:
@@ -20,17 +20,39 @@ entries:
     version: 1.0.0
   mnist-demo:
   - apiVersion: v1
-    created: 2018-02-06T15:41:01.715797688+08:00
+    created: 2018-02-11T09:23:57.130553518+08:00
     description: A Helm chart for Kubernetes
-    digest: 9acd2897f01a782beae5b21494efeb9e0831393906e5dffd692ae500df7ae127
+    digest: ac1908b2c0a182fbdec87cf9946314ced2af6ecd2a7f90449723757e566d413d
     name: mnist-demo
     urls:
     - http://127.0.0.1:8879/charts/mnist-demo-0.1.0.tgz
     version: 0.1.0
+  mysql:
+  - created: 2018-02-11T09:23:57.131784995+08:00
+    description: MySQL is a fast, reliable, scalable, and easy to use open-source
+      relational database system. MySQL Server is intended for mission-critical, heavy-load
+      production systems as well as for embedding into mass-deployed software.
+    digest: b629aa97401fcb6cca48daa4a278abd72db660deb5a0cc4691a4e5d69c2d59a2
+    engine: gotpl
+    home: https://mysql.com
+    icon: https://bitnami.com/assets/stacks/mysql/img/mysql-stack-220x234.png
+    keywords:
+    - mysql
+    - database
+    - sql
+    maintainers:
+    - email: containers@bitnami.com
+      name: Bitnami
+    name: mysql
+    sources:
+    - https://github.com/bitnami/bitnami-docker-mysql
+    urls:
+    - http://127.0.0.1:8879/charts/mysql-5.7.20.tgz
+    version: 5.7.20
   tensorflow:
-  - created: 2018-02-06T15:41:01.717184549+08:00
+  - created: 2018-02-11T09:23:57.133165012+08:00
     description: Chart for tensorflow with pv support
-    digest: 289a2ea5050820d76956d65daf62cb98098c9291d2dd446f6594ce8482290d32
+    digest: e1ebb839eb2387f020e3245e40ab9ed7eee1efcc1acb8a177dc0986409cb45b4
     keywords:
     - tensorflow
     maintainers:
@@ -42,7 +64,7 @@ entries:
     urls:
     - http://127.0.0.1:8879/charts/tensorflow-1.1.0.tgz
     version: 1.1.0
-  - created: 2018-02-06T15:41:01.716491856+08:00
+  - created: 2018-02-11T09:23:57.132465786+08:00
     description: Chart for tensorflow with pv support
     digest: bed87a831975fa987ddaf752e679fba3bacd288bae809b969f74c61159c672d3
     keywords:
@@ -57,9 +79,9 @@ entries:
     - http://127.0.0.1:8879/charts/tensorflow-1.0.0.tgz
     version: 1.0.0
   tensorflow-serving:
-  - created: 2018-02-06T15:41:01.717754634+08:00
+  - created: 2018-02-11T09:23:57.133793027+08:00
     description: Chart for tensorflow serving with pv support
-    digest: 2ddbc379cd5b061dc001eecbc81f334144429f5ad0782cdad67bb34bcd3dce3c
+    digest: 718794ad2679f0227c72c70e915a5b68e2aec72a9fe9955f3d41e74889af9757
     keywords:
     - tensorflow-serving
     maintainers:
@@ -72,9 +94,9 @@ entries:
     - http://127.0.0.1:8879/charts/tensorflow-serving-1.0.0.tgz
     version: 1.0.0
   tomcat:
-  - created: 2018-02-06T15:41:01.718610579+08:00
+  - created: 2018-02-11T09:23:57.134712413+08:00
     description: Chart for Apache Tomcat
-    digest: efa21ba2775e62836fb420ff4ab9ae1ce29542b2d5f7addb3925a74f5a0ca202
+    digest: b7a68fbf94932263f9de5f31f48c0927a56675d493f3e2581a5679a71891d207
     engine: gotpl
     home: http://tomcat.apache.org
     icon: https://bitnami.com/assets/stacks/tomcat/img/tomcat-stack-110x117.png
@@ -96,11 +118,11 @@ entries:
     version: 0.4.15
   vote:
   - apiVersion: v1
-    created: 2018-02-06T15:41:01.71982057+08:00
+    created: 2018-02-11T09:23:57.135975184+08:00
     description: A vote app for Kubernetes
-    digest: 5b1b9779d2a1ed8630b08f59a60756e556ecb707ce855b14a31491a63219a67f
+    digest: 138476c52a1f1918ef389813382e4c786e31022309f7b5db49b47f7eee9c1398
     name: vote
     urls:
     - http://127.0.0.1:8879/charts/vote-0.5.0.tgz
     version: 0.5.0
-generated: 2018-02-06T15:41:01.71377276+08:00
+generated: 2018-02-11T09:23:57.12761642+08:00

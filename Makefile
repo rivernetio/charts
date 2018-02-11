@@ -6,9 +6,9 @@ HARBOR_REPOSITORY=$(HARBOR_REGISTRY)\/sky-firmament
 SOURCE=src
 
 ifeq ($(ECP), 1)
-PACKAGE=tomcat vote tensorflow/4.1/tensorflow tensorflow/4.2/tensorflow tensorflow-serving jupyter mnist-demo
+PACKAGE=tomcat vote tensorflow/4.1/tensorflow tensorflow/4.2/tensorflow tensorflow-serving jupyter mnist-demo mysql
 else
-PACKAGE=tensorflow/4.1/tensorflow tensorflow/4.2/tensorflow tensorflow-serving jupyter mnist-demo
+PACKAGE=tensorflow/4.1/tensorflow tensorflow/4.2/tensorflow tensorflow-serving jupyter mnist-demo mysql
 endif
 
 init:
@@ -37,6 +37,9 @@ ifeq ($(ECP), 1)
 	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/vote/charts/redis/templates/export-job.yaml
 	# mnist-demo
 	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/mnist-demo/values.yaml
+	# mysql
+	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/mysql/values.yaml
+	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/mysql/templates/export-job.yaml
 endif
 	
 $(PACKAGE): init prepare_build_env
