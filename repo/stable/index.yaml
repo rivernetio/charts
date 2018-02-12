@@ -1,7 +1,7 @@
 apiVersion: v1
 entries:
   jupyter:
-  - created: 2018-02-11T16:17:48.475460176+08:00
+  - created: 2018-02-12T14:39:05.697730601+08:00
     description: Chart for Jupyter Notebook with Tensorflow support.
     digest: c384ec017a45fffa3284ebfff691233f3d241ce7b3bc944f7bd38fe71afbfd99
     engine: gotpl
@@ -20,7 +20,7 @@ entries:
     version: 1.0.0
   mnist-demo:
   - apiVersion: v1
-    created: 2018-02-11T16:17:48.475900308+08:00
+    created: 2018-02-12T14:39:05.698256931+08:00
     description: A Helm chart for Kubernetes
     digest: 9acd2897f01a782beae5b21494efeb9e0831393906e5dffd692ae500df7ae127
     name: mnist-demo
@@ -28,7 +28,7 @@ entries:
     - https://github.com/rivernetio/charts/raw/master/repo/stable/mnist-demo-0.1.0.tgz
     version: 0.1.0
   mysql:
-  - created: 2018-02-11T16:17:48.477150157+08:00
+  - created: 2018-02-12T14:39:05.699467776+08:00
     description: MySQL is a fast, reliable, scalable, and easy to use open-source
       relational database system. MySQL Server is intended for mission-critical, heavy-load
       production systems as well as for embedding into mass-deployed software.
@@ -50,9 +50,9 @@ entries:
     - https://github.com/rivernetio/charts/raw/master/repo/stable/mysql-5.7.20.tgz
     version: 5.7.20
   tensorflow:
-  - created: 2018-02-11T16:17:48.478535666+08:00
+  - created: 2018-02-12T14:39:05.700822071+08:00
     description: Chart for tensorflow with pv support
-    digest: ffd130cc3510d1a2f4a29d5b2726f7049c8f22c2842299d3f29f8a988898ca4e
+    digest: cbe229a0b175877fbe5f54d008ca4ea2334f5a35672e0fd9cc6fb02ea6199d0a
     keywords:
     - tensorflow
     maintainers:
@@ -64,7 +64,7 @@ entries:
     urls:
     - https://github.com/rivernetio/charts/raw/master/repo/stable/tensorflow-1.1.0.tgz
     version: 1.1.0
-  - created: 2018-02-11T16:17:48.477828423+08:00
+  - created: 2018-02-12T14:39:05.700165304+08:00
     description: Chart for tensorflow with pv support
     digest: fad0f984a58b9affd06df626d226706cd545bb1fe575a8687a86aee8c0b07ed5
     keywords:
@@ -79,7 +79,7 @@ entries:
     - https://github.com/rivernetio/charts/raw/master/repo/stable/tensorflow-1.0.0.tgz
     version: 1.0.0
   tensorflow-serving:
-  - created: 2018-02-11T16:17:48.479125016+08:00
+  - created: 2018-02-12T14:39:05.701407224+08:00
     description: Chart for tensorflow serving with pv support
     digest: 6ca83c820142c76f28984daecac0c150b41fb5e408cf2bb872471c777c36408b
     keywords:
@@ -93,4 +93,4 @@ entries:
     urls:
     - https://github.com/rivernetio/charts/raw/master/repo/stable/tensorflow-serving-1.0.0.tgz
     version: 1.0.0
-generated: 2018-02-11T16:17:48.473757126+08:00
+generated: 2018-02-12T14:39:05.695188073+08:00

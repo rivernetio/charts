@@ -8,7 +8,7 @@ metadata:
     app: hybridjob
   annotations:
     available_panels: >
-      {"GPUÎ¶È:"4", "GPU¹¦ºÄ:"8", "GPUʹÓÂ":"6", "Ä´æÓÂ":"7"}
+      {"Commands":"5","服务IO":"4","并发连接数":"3","服务启动时间":"1"}
 spec:
   type: ClusterIP
   clusterIP: None
