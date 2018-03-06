@@ -1,0 +1,122 @@
+isNewTemplate: true
+
+image:
+    name: "image"
+    description: "Image Info"
+    type: "string"
+    required: true
+    variables:
+      mongoImage:
+        name: "mongoImage"
+        label: "mongo image"
+        description: "The image of mongo"
+        required: true
+        value: "registry.harbor:5000/sky-firmament/mongo:3.7.1"
+        type: "string"    
+      policyType:
+        name: "policyType"
+        label: "policy type"
+        description: "The type of image pull policy"
+        required: true
+        value: "IfNotPresent"
+        type: "string"
+
+dupi:
+    name: "password"
+    description: "Database User Password Info"
+    type: "string"
+    required: true
+    variables:
+      rootPassword:
+        name: "rootPassword"
+        label: "root password"
+        description: "The password for root user"
+        required: true
+        value: "password"
+        type: "string"
+      user:
+        name: "mongoUser"
+        label: "mongo user"
+        description: "The user for mongo"
+        required: true
+        value: "root"
+        type: "string"
+      password:
+        name: "mongoPassword"
+        label: "mongo password"
+        description: "The password for mongo"
+        required: true
+        value: "password"
+        type: "string"
+      database:
+        name: "mongoDatabase"
+        label: "mongo database"
+        description: "The database for mongo"
+        required: true
+        value: "ceilometer"
+        type: "string"
+
+service:
+    name: "service"
+    description: "Service Info"
+    type: "string"
+    required: true
+    variables:
+      name:
+        name: "serviceName"
+        label: "service name"
+        description: "The name of service"
+        required: true
+        value: "svc-mongo"
+        type: "string"
+      type:
+        name: "serviceType"
+        label: "service type"
+        description: "The type of service"
+        required: true
+        value: "ClusterIP"
+        type: "string"
+        
+persistence:
+    name: "storage"
+    description: "Persistent Storage"
+    type: "checkbox"
+    required: true
+    enabled: false
+    variables:
+      accessMode:
+        name: "accessMode"
+        label: "access mode"
+        description: "The mode of access"
+        required: true
+        value: "ReadWriteOnce"
+        type: "string"
+      size:
+        name: "sizeRequest"
+        label: "storage(GB)"
+        description: "Storage, in GB. (1GB = 1024 MB)"
+        required: true
+        value: 1
+        type: "int"
+
+reosurces:
+    name: "reosurce info"
+    description: "Reosurce Info"
+    type: "string"
+    required: true
+    variables:
+      cpuRequest:
+        name: "cpuRequest"
+        label: "cpu(m)"
+        description: "CPU, in cores. (500m = 0.5 cores)"
+        required: true
+        value: 100
+        type: "int"
+      memoryRequest:
+        name: "memoryRequest"
+        label: "memory(MB)"
+        description: "Memory, in MB. (1GB = 1024 MB)"
+        required: true
+        value: 256
+        type: "int"
+

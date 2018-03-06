@@ -1,0 +1,23 @@
+isNewTemplate: true
+
+image:
+    name: "image"
+    description: "Image Info"
+    type: "string"
+    required: true
+    variables:
+      nginxImage:
+        name: "nginxImage"
+        label: "nginx image"
+        description: "The image of nginx"
+        required: true
+        value: "registry.harbor:5000/sky-firmament/nginx:1.13.6"
+        type: "string"  
+      policyType:
+        name: "policyType"
+        label: "policy type"
+        description: "The type of image pull policy"
+        required: true
+        value: "IfNotPresent"
+        type: "string"
+

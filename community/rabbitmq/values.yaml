@@ -1,0 +1,152 @@
+isNewTemplate: true
+
+image:
+    name: "image"
+    description: "Image Info"
+    type: "string"
+    required: true
+    variables:
+      rabbitmqImage:
+        name: "rabbitmqImage"
+        label: "rabbitmq image"
+        description: "The image of rabbitmq"
+        required: true
+        value: "registry.harbor:5000/sky-firmament/rabbitmq:3.7.3"
+        type: "string"    
+      policyType:
+        name: "policyType"
+        label: "policy type"
+        description: "The type of image pull policy"
+        required: true
+        value: "IfNotPresent"
+        type: "string"
+
+upi:
+    name: "password"
+    description: "User Password Info"
+    type: "string"
+    required: true
+    variables:
+      user:
+        name: "rabbitmqUsername"
+        label: "rabbitmq username"
+        description: "The user for rabbitmq"
+        required: true
+        value: "user"
+        type: "string"
+      password:
+        name: "rabbitmqPassword"
+        label: "rabbitmq password"
+        description: "The password for rabbitmq"
+        required: true
+        value: "password"
+        type: "string"
+
+
+
+rabbitmqInfo:
+    name: "rabbitmqInfo"
+    description: "RabbitMQ Info"
+    type: "string"
+    required: true
+    variables:
+      rabbitmqNodePort:
+        name: "rabbitmqNodePort"
+        label: "rabbitmq node port"
+        description: "The port for rabbitmq node"
+        required: true
+        value: "5672"
+        type: "string"
+      rabbitmqNodeType:
+        name: "rabbitmqNodeType"
+        label: "rabbitmq node type"
+        description: "The type for rabbitmq node"
+        required: true
+        value: "stats"
+        type: "string"
+      rabbitmqNodeName:
+        name: "rabbitmqNodeName"
+        label: "rabbitmq node name"
+        description: "The name for rabbitmq node"
+        required: true
+        value: "rabbit"
+        type: "string"
+      rabbitmqManagerPort:
+        name: "rabbitmqManagerPort"
+        label: "rabbitmq manager port"
+        description: "The port for rabbitmq manager"
+        required: true
+        value: "15672"
+        type: "string"
+      rabbitmqDiskFreeLimit:
+        name: "rabbitmqDiskFreeLimit"
+        label: "rabbitmq disk free limit"
+        description: "The limit of rabbitmq disk free"
+        required: true
+        value: "6GiB"
+        type: "string"
+        
+service:
+    name: "service"
+    description: "Service Info"
+    type: "string"
+    required: true
+    variables:
+      name:
+        name: "serviceName"
+        label: "service name"
+        description: "The name of service"
+        required: true
+        value: "svc-rabbitmq"
+        type: "string"
+      type:
+        name: "serviceType"
+        label: "service type"
+        description: "The type of service"
+        required: true
+        value: "ClusterIP"
+        type: "string"
+        
+persistence:
+    name: "storage"
+    description: "Persistent Storage"
+    type: "checkbox"
+    required: true
+    enabled: false
+    variables:
+      accessMode:
+        name: "accessMode"
+        label: "access mode"
+        description: "The mode of access"
+        required: true
+        value: "ReadWriteOnce"
+        type: "string"
+      size:
+        name: "sizeRequest"
+        label: "storage(GB)"
+        description: "Storage, in GB. (1GB = 1024 MB)"
+        required: true
+        value: 8
+        type: "int"
+
+reosurces:
+    name: "reosurce info"
+    description: "Reosurce Info"
+    type: "string"
+    required: true
+    variables:
+      cpuRequest:
+        name: "cpuRequest"
+        label: "cpu(m)"
+        description: "CPU, in cores. (500m = 0.5 cores)"
+        required: true
+        value: 100
+        type: "int"
+      memoryRequest:
+        name: "memoryRequest"
+        label: "memory(MB)"
+        description: "Memory, in MB. (1GB = 1024 MB)"
+        required: true
+        value: 256
+        type: "int"
+
