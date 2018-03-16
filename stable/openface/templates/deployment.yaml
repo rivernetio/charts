@@ -6,7 +6,7 @@ metadata:
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
     release: {{ .Release.Name }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.replicaCount.variables.replicaCount.value }}
   template:
     metadata:
       labels:
@@ -15,17 +15,19 @@ spec:
     spec:
       containers:
       - name: {{ .Chart.Name }}
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        image: "{{ .Values.image.variables.image.value }}"
+        imagePullPolicy: IfNotPresent
         command: ["/bin/sh","-c"]
-        args: ["/root/openface/demos/web/start-servers.sh", "{{ .Values.service.httpPort }}", "{{ .Values.service.websocketPort }}"]
+        args: ["/root/openface/demos/web/start-servers.sh"]
         env:
         - name: WEBSOCKET_NODE_PORT
-          value: "{{ .Values.service.websocketNodePort }}"
+          value: "{{ .Values.service.variables.websocketNodePort.value }}"
         ports:
-        - containerPort: {{ .Values.service.httpPort }}
+        - containerPort: 8000
           name: http
-        - containerPort: {{ .Values.service.websocketPort }}
+        - containerPort: 9000
           name: websocket
         resources:
-{{ toYaml .Values.resources | indent 12 }}
+          requests:
+            cpu: {{ .Values.resources.variables.cpuRequest.value }}m
+            memory: {{ .Values.resources.variables.memoryRequest.value }}Mi

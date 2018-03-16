@@ -1,21 +1,70 @@
 isNewTemplate: true
 
-replicaCount: 1
+replicaCount:
+    name: "replicaCount"
+    description: "replica count"
+    type: "label"
+    variables:
+      replicaCount:
+        name: "node number"
+        label: "Node number"
+        description: "Number of the instance"
+        required: true
+        value: 1
+        type: "int"
+
 image:
-  repository: docker.io/rivernet/openface
-  tag: 4.1
-  pullPolicy: IfNotPresent
+    name: "image"
+    description: "Image Info"
+    type: "string"
+    required: true
+    variables:
+      image:
+        name: "openfaceImage"
+        label: "openface image"
+        description: "The image of openface"
+        required: true
+        value: "docker.io/rivernet/openface:4.1"
+        type: "string"
+
 service:
-  name: openface
-  type: NodePort
-  httpPort: 8000
-  httpNodePort: 31501
-  websocketPort: 9000
-  websocketNodePort: 31500
+    name: "service"
+    description: "Service Info"
+    type: "string"
+    required: true
+    variables:
+      httpNodePort:
+        name: "httpNodePort"
+        label: "httpNodePort"
+        description: "http node port"
+        required: true
+        value: 31501
+        type: "int"
+      websocketNodePort:
+        name: "websocketNodePort"
+        label: "websocketNodePort"
+        description: "websocket node port"
+        required: true
+        value: 31500
+        type: "int"
+
 resources:
-  limits:
-    cpu: 200m
-    memory: 256Mi
-  requests:
-    cpu: 100m
-    memory: 128Mi
+    name: "reosurce info"
+    description: "Reosurce Info"
+    type: "string"
+    required: true
+    variables:
+      cpuRequest:
+        name: "cpuRequest"
+        label: "cpu(m)"
+        description: "CPU, in cores. (500m = 0.5 cores)"
+        required: true
+        value: 250
+        type: "int"
+      memoryRequest:
+        name: "memoryRequest"
+        label: "memory(MB)"
+        description: "Memory, in MB. (1GB = 1024 MB)"
+        required: true
+        value: 256
+        type: "int"
