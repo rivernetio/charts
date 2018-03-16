@@ -3,7 +3,7 @@ isNewTemplate: true
 replicaCount: 1
 image:
   repository: docker.io/rivernet/openface
-  tag: latest
+  tag: 4.1
   pullPolicy: IfNotPresent
 service:
   name: openface

@@ -18,7 +18,10 @@ spec:
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         command: ["/bin/sh","-c"]
-        args: ["/root/openface/demos/web/start-servers.sh"]
+        args: ["/root/openface/demos/web/start-servers.sh", "{{ .Values.service.httpPort }}", "{{ .Values.service.websocketPort }}"]
+        env:
+        - name: WEBSOCKET_NODE_PORT
+          value: "{{ .Values.service.websocketNodePort }}"
         ports:
         - containerPort: {{ .Values.service.httpPort }}
           name: http
