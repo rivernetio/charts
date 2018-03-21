@@ -6,15 +6,16 @@ metadata:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     release: {{ .Release.Name }}
 spec:
-  type: {{ .Values.service.type }}
+  type: NodePort
   ports:
-  - port: {{ .Values.service.httpPort }}
+  - port: 8000
     name: http
-    targetPort: {{ .Values.service.httpPort }}
-    nodePort: {{.Values.service.httpNodePort}}
-  - port: {{ .Values.service.websocketPort }}
+    targetPort: 8000
+    nodePort: {{ .Values.service.variables.httpNodePort.value }}
+  - port: 9000
     name: websocket
-    targetPort: {{ .Values.service.websocketPort }}
-    nodePort: {{.Values.service.websocketNodePort}}
+    targetPort: 9000
+    nodePort: {{.Values.service.variables.websocketNodePort.value }}
   selector:
     app: {{ template "fullname" . }}
+    release: {{ .Release.Name }}
