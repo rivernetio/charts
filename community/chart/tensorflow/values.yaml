@@ -70,12 +70,19 @@ cmd:
         required: true
         value: "python /data/code/mnist.py --model_version=1"
         type: "string"
-gpu:
-    name: "gpu"
-    description: "use gpu"
-    type: checkbox
+device:
+    name: "device"
+    description: "device type(cpu or gpu)"
+    type: string
     required: true
-    enabled: true
+    variables:
+      type:
+        name: "type"
+        label: "type"
+        description: "The type of the device"
+        required: true
+        value: "cpu"
+        type: "string"
 
 version:
     name: "version"

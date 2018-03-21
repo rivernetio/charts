@@ -57,7 +57,7 @@ spec:
       spec:
         restartPolicy: Never
         containers:
-      {{- if .Values.gpu.enabled }}
+      {{- if eq .Values.device.variables.type.value "gpu" }}
           - image: registry.harbor:5000/sky-firmament/tensorflow:{{ .Values.version.variables.version.value }}-gpu
       {{- else }}
           - image: registry.harbor:5000/sky-firmament/tensorflow:{{ .Values.version.variables.version.value }}
@@ -82,9 +82,11 @@ spec:
                 valueFrom:
                   fieldRef:
                     fieldPath: metadata.namespace
-            {{- if .Values.gpu.enabled }}
               - name: USE_GPU
+            {{- if eq .Values.device.variables.type.value "gpu" }}
                 value: '1'
+            {{- else }}
+                value: '0'
             {{- end }}
             ports:
             - containerPort: 2222
@@ -111,7 +113,7 @@ spec:
       spec:
         restartPolicy: Never
         containers:
-        {{- if .Values.gpu.enabled }}
+        {{- if eq .Values.device.variables.type.value "gpu" }}
           - image: registry.harbor:5000/sky-firmament/tensorflow:{{ .Values.version.variables.version.value }}-gpu
         {{- else }}
           - image: registry.harbor:5000/sky-firmament/tensorflow:{{ .Values.version.variables.version.value }}
@@ -136,9 +138,11 @@ spec:
                 valueFrom:
                   fieldRef:
                     fieldPath: metadata.namespace
-            {{- if .Values.gpu.enabled }}
               - name: USE_GPU
+            {{- if eq .Values.device.variables.type.value "gpu" }}
                 value: '1'
+            {{- else }}
+                value: '0'
             {{- end }}
             ports:
             - containerPort: 2222
