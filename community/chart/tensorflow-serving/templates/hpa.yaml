@@ -1,0 +1,23 @@
+{{- if .Values.hpa.enabled -}}
+kind: HorizontalPodAutoscaler
+apiVersion: autoscaling/v2alpha1
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    release: {{ .Release.Name }}
+spec:
+  scaleTargetRef:
+    kind: Deployment
+    name: {{ template "fullname" . }}
+  minReplicas: {{ .Values.hpa.variables.minReplicas.value }}
+  maxReplicas: {{ .Values.hpa.variables.maxReplicas.value }}
+  metrics:
+  - type: Object
+    object:
+      target:
+        kind: Service
+        name: {{ template "fullname" . }}
+      metricName: {{ .Values.hpa.variables.metricName.value }}
+      targetValue: {{ .Values.hpa.variables.targetValue.value }}
+{{- end -}}

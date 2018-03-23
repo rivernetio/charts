@@ -70,19 +70,6 @@ cmd:
         required: true
         value: "python /data/code/mnist.py --model_version=1"
         type: "string"
-device:
-    name: "device"
-    description: "device type(cpu or gpu)"
-    type: string
-    required: true
-    variables:
-      type:
-        name: "type"
-        label: "type"
-        description: "The type of the device"
-        required: true
-        value: "cpu"
-        type: "string"
 
 version:
     name: "version"
@@ -161,6 +148,21 @@ ps:
         required: true
         value: 512
         type: "int"
+
+psGpu:
+    name: "gpu"
+    description: "PS GPU Configuration"
+    type: checkbox
+    required: true
+    enabled: true
+    variables:
+      gpuRequest:
+        name: "gpuRequest"
+        label: "Gpu (num)"
+        description: "Gpu, allowing values >=1, only one whole device per node is assigned."
+        required: false
+        value: 1
+        type: "int"
   
 worker:
     name: "worker"
@@ -195,4 +197,18 @@ worker:
         description: "Memory, in MB. (1GB = 1024 MB)"
         required: true
         value: 512
+        type: "int"
+workerGpu:
+    name: "gpu"
+    description: "Worker GPU Configuration"
+    type: checkbox
+    required: true
+    enabled: true
+    variables:
+      gpuRequest:
+        name: "gpuRequest"
+        label: "Gpu (num)"
+        description: "Gpu, allowing values >=1, only one whole device per node is assigned."
+        required: false
+        value: 1
         type: "int"

@@ -1,0 +1,55 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: {{ .Release.Name }}
+spec:
+  type: NodePort
+  ports:
+  - port: 9000
+    targetPort: 9000
+    protocol: TCP
+    name: serving
+  selector:
+    release: {{ .Release.Name }}
+    role: serving
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    release: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.serving.variables.replicaCount.value }}
+  template:
+    metadata:
+      labels:
+        name: {{ template "fullname" . }}
+        role: serving
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: serving
+          image: "{{ .Values.serving.variables.image.value }}"
+          command: ["tensorflow_model_server"]
+          args:
+          - --model_name={{ .Values.persistence.variables.modelName.value }}
+          - --model_base_path={{ .Values.persistence.variables.modelDir.value }}
+          - --port=9000
+          ports:
+          - containerPort: 9000
+          resources:
+            requests:
+              cpu: {{ .Values.serving.variables.cpuRequest.value }}m
+              memory: {{ .Values.serving.variables.memoryRequest.value }}Mi
+          volumeMounts: 
+          - name: data
+            mountPath: {{ .Values.persistence.variables.mountPath.value }}
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: {{ .Values.persistence.variables.pvc.value }}

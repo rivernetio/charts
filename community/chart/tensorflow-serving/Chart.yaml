@@ -1,0 +1,10 @@
+description: Chart for tensorflow serving with pv support
+keywords:
+- tensorflow-serving
+maintainers:
+- email: zhangwei@chinaskycloud.com
+  name: Zhang Wei
+name: tensorflow-serving
+sources:
+- https://github.com/tensorflow/serving
+version: 1.0.0

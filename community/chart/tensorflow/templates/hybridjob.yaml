@@ -8,7 +8,7 @@ metadata:
     app: hybridjob
   annotations:
     available_panels: >
-      {"Commands":"5","服务IO":"4","并发连接数":"3","服务启动时间":"1"}
+      {"GPU温度":"4","GPU功耗":"8","GPU使用率":"6","内存使用率":"7"}
 spec:
   type: ClusterIP
   clusterIP: None
@@ -57,7 +57,7 @@ spec:
       spec:
         restartPolicy: Never
         containers:
-      {{- if eq .Values.device.variables.type.value "gpu" }}
+      {{- if .Values.psGpu.enabled }}
           - image: registry.harbor:5000/sky-firmament/tensorflow:{{ .Values.version.variables.version.value }}-gpu
       {{- else }}
           - image: registry.harbor:5000/sky-firmament/tensorflow:{{ .Values.version.variables.version.value }}
@@ -83,7 +83,7 @@ spec:
                   fieldRef:
                     fieldPath: metadata.namespace
               - name: USE_GPU
-            {{- if eq .Values.device.variables.type.value "gpu" }}
+            {{- if .Values.psGpu.enabled }}
                 value: '1'
             {{- else }}
                 value: '0'
@@ -97,13 +97,26 @@ spec:
               requests:
                 cpu: {{ .Values.ps.variables.cpuRequest.value }}m
                 memory: {{ .Values.ps.variables.memoryRequest.value }}Mi
+            {{- if .Values.psGpu.enabled }}
+              limits:
+                alpha.kubernetes.io/nvidia-gpu: {{ .Values.psGpu.variables.gpuRequest.value }}
+            {{- end }}
             volumeMounts:
             - name: data
               mountPath: {{ .Values.persistence.variables.mountPath.value }}
+            {{- if .Values.psGpu.enabled }}
+            - name: nvidia-driver
+              mountPath: /usr/local/nvidia/
+            {{- end }}
         volumes:
         - name: data
           persistentVolumeClaim:
             claimName: {{ .Values.persistence.variables.pvc.value }}
+        {{- if .Values.psGpu.enabled }}
+        - name: nvidia-driver
+          hostPath:
+            path: /var/lib/nvidia-docker/volumes/nvidia_driver/390.30
+        {{- end }}
         restartPolicy: Never
     tfReplicaType: ps
   - max: {{ .Values.worker.variables.maxReplicaCount.value }}
@@ -113,7 +126,7 @@ spec:
       spec:
         restartPolicy: Never
         containers:
-        {{- if eq .Values.device.variables.type.value "gpu" }}
+        {{- if .Values.workerGpu.enabled }}
           - image: registry.harbor:5000/sky-firmament/tensorflow:{{ .Values.version.variables.version.value }}-gpu
         {{- else }}
           - image: registry.harbor:5000/sky-firmament/tensorflow:{{ .Values.version.variables.version.value }}
@@ -139,7 +152,7 @@ spec:
                   fieldRef:
                     fieldPath: metadata.namespace
               - name: USE_GPU
-            {{- if eq .Values.device.variables.type.value "gpu" }}
+            {{- if .Values.workerGpu.enabled }}
                 value: '1'
             {{- else }}
                 value: '0'
@@ -153,11 +166,24 @@ spec:
               requests:
                 cpu: {{ .Values.worker.variables.cpuRequest.value }}m
                 memory: {{ .Values.worker.variables.memoryRequest.value }}Mi
+            {{- if .Values.workerGpu.enabled }}
+              limits:
+                alpha.kubernetes.io/nvidia-gpu: {{ .Values.workerGpu.variables.gpuRequest.value }}
+            {{- end }}
             volumeMounts:
             - name: data
               mountPath: {{ .Values.persistence.variables.mountPath.value }}
+            {{- if .Values.workerGpu.enabled }}
+            - name: nvidia-driver
+              mountPath: /usr/local/nvidia/
+            {{- end }}
         volumes:
         - name: data
           persistentVolumeClaim:
             claimName: {{ .Values.persistence.variables.pvc.value }}
+        {{- if .Values.workerGpu.enabled }}
+        - name: nvidia-driver
+          hostPath:
+            path: /var/lib/nvidia-docker/volumes/nvidia_driver/390.30
+        {{- end }}
     tfReplicaType: worker
