@@ -32,7 +32,7 @@ jupyter:
       label: "Image"
       description: "The image of Jupyter Notebook."
       required: true
-      value: "docker.io/rivernet/jupyter:4.1"
+      value: "docker.io/rivernet/jupyter:4.2"
       type: "string"
     imagepullpolicy:
       name: "imagepullpolicy"

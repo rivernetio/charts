@@ -55,7 +55,7 @@ serving:
         label: "image"
         description: "The image of serving instance"
         required: true
-        value: "docker.io/rivernet/tensorflow-serving:4.1"
+        value: "docker.io/rivernet/tensorflow-serving:4.2"
         type: "string"
       cpuRequest:
         name: "cpuRequest"

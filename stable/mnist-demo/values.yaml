@@ -18,7 +18,7 @@ config:
       label: "Image"
       description: "The image of mnist demo."
       required: true
-      value: "docker.io/rivernet/mnist-demo:4.1"
+      value: "docker.io/rivernet/mnist-demo:4.2"
       type: "string"
     imagepullpolicy:
       name: "imagepullpolicy"
