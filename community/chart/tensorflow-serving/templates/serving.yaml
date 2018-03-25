@@ -5,6 +5,11 @@ metadata:
   labels:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     release: {{ .Release.Name }}
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/port: "9102"
+    available_panels: >
+      {"GPU温度":"4", "GPU功耗":"8", "GPU使用率":"6", "内存使用率":"7"}
 spec:
   type: NodePort
   ports:
@@ -34,22 +39,45 @@ spec:
     spec:
       containers:
         - name: serving
-          image: "{{ .Values.serving.variables.image.value }}"
+        {{- if .Values.gpu.enabled }}
+          image: registry.harbor:5000/sky-firmament/tensorflow-serving:{{ .Values.serving.variables.version.value }}-gpu
+        {{- else }}
+          image: registry.harbor:5000/sky-firmament/tensorflow-serving:{{ .Values.serving.variables.version.value }}
+        {{- end }}
           command: ["tensorflow_model_server"]
           args:
           - --model_name={{ .Values.persistence.variables.modelName.value }}
           - --model_base_path={{ .Values.persistence.variables.modelDir.value }}
           - --port=9000
+       {{- if .Values.gpu.enabled }}
+          lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/sh", "-c", "/start.sh"]
+       {{- end }}
           ports:
           - containerPort: 9000
           resources:
             requests:
               cpu: {{ .Values.serving.variables.cpuRequest.value }}m
               memory: {{ .Values.serving.variables.memoryRequest.value }}Mi
+          {{- if .Values.gpu.enabled }}
+            limits:
+              alpha.kubernetes.io/nvidia-gpu: {{ .Values.gpu.variables.gpuRequest.value }}
+          {{- end }}
           volumeMounts: 
           - name: data
             mountPath: {{ .Values.persistence.variables.mountPath.value }}
+        {{- if .Values.gpu.enabled }}
+          - name: nvidia-driver
+            mountPath: /usr/local/nvidia/
+        {{- end }}
       volumes:
       - name: data
         persistentVolumeClaim:
           claimName: {{ .Values.persistence.variables.pvc.value }}
+     {{- if .Values.gpu.enabled }}
+      - name: nvidia-driver
+        hostPath:
+          path: /var/lib/nvidia-docker/volumes/nvidia_driver/390.30
+     {{- end }}
