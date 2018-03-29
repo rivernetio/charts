@@ -6,9 +6,9 @@ HARBOR_REPOSITORY=$(HARBOR_REGISTRY)\/sky-firmament
 SOURCE=src
 
 ifeq ($(ECP), 1)
-PACKAGE=tomcat vote tensorflow/4.1/tensorflow tensorflow/4.2/tensorflow tensorflow-serving jupyter mnist-demo mysql jenkins gitlab
+PACKAGE=tomcat vote tensorflow/4.1/tensorflow tensorflow/4.2/tensorflow tensorflow/4.3/tensorflow tensorflow-serving jupyter mnist-demo mysql jenkins gitlab
 else
-PACKAGE=tensorflow/4.1/tensorflow tensorflow/4.2/tensorflow tensorflow-serving jupyter mnist-demo mysql
+PACKAGE=tensorflow/4.1/tensorflow tensorflow/4.2/tensorflow tensorflow/4.3/tensorflow tensorflow-serving jupyter mnist-demo mysql
 endif
 
 init:
@@ -23,6 +23,9 @@ ifeq ($(ECP), 1)
 	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/tensorflow/4.1/tensorflow/values.yaml
 	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/tensorflow/4.2/tensorflow/values.yaml
 	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/tensorflow/4.2/tensorflow/templates/hybridjob.yaml
+	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/tensorflow/4.3/tensorflow/templates/hybridjob.yaml
+	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/tensorflow/4.2/tensorflow/templates/tensorboard.yaml
+	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/tensorflow/4.3/tensorflow/templates/tensorboard.yaml
 	# tensorflow-serving
 	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/tensorflow-serving/values.yaml
 	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/tensorflow-serving/templates/serving.yaml
