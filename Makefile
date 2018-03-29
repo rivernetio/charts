@@ -6,7 +6,7 @@ HARBOR_REPOSITORY=$(HARBOR_REGISTRY)\/sky-firmament
 SOURCE=src
 
 ifeq ($(ECP), 1)
-PACKAGE=tomcat vote tensorflow/4.1/tensorflow tensorflow/4.2/tensorflow tensorflow-serving jupyter mnist-demo mysql
+PACKAGE=tomcat vote tensorflow/4.1/tensorflow tensorflow/4.2/tensorflow tensorflow-serving jupyter mnist-demo mysql jenkins gitlab
 else
 PACKAGE=tensorflow/4.1/tensorflow tensorflow/4.2/tensorflow tensorflow-serving jupyter mnist-demo mysql
 endif
@@ -40,6 +40,13 @@ ifeq ($(ECP), 1)
 	# mysql
 	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/mysql/values.yaml
 	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/mysql/templates/export-job.yaml
+	# jenkins
+	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/jenkins/values.yaml
+	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/jenkins/templates/jenkins-test.yaml
+	# gitlab
+	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/gitlab/values.yaml
+	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/gitlab/charts/redis/values.yaml
+	sed -i "s@$(DOCKER_REGISTRY)\/rivernet@$(HARBOR_REPOSITORY)@g" $(SOURCE)/gitlab/charts/postgresql/values.yaml
 endif
 	
 $(PACKAGE): init prepare_build_env

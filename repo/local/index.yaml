@@ -1,9 +1,50 @@
 apiVersion: v1
 entries:
+  gitlab:
+  - created: 2018-03-29T16:42:13.379073243+08:00
+    description: GitLab Community Edition
+    digest: 506d177379948a9a8a24bdaa9034808bdf4fa43cf289cae3ca75466afddf27de
+    keywords:
+    - git
+    - ci
+    - deploy
+    - issue tracker
+    - code review
+    - wiki
+    maintainers:
+    - email: gtaylor@gc-taylor.com
+      name: Greg Taylor
+    name: gitlab
+    sources:
+    - https://hub.docker.com/r/gitlab/gitlab-ce/
+    - https://docs.gitlab.com/omnibus/
+    urls:
+    - http://127.0.0.1:8879/charts/gitlab-0.1.3.tgz
+    version: 0.1.3
+  jenkins:
+  - created: 2018-03-29T16:42:13.380376369+08:00
+    description: Open source continuous integration server. It supports multiple SCM
+      tools including CVS, Subversion and Git. It can execute Apache Ant and Apache
+      Maven-based projects as well as arbitrary scripts.
+    digest: f6213a1ef636770edc1aaeeaf2434070da3f0ca1f25d26fc112d9880bbe53e6c
+    home: https://jenkins.io/
+    icon: https://wiki.jenkins-ci.org/download/attachments/2916393/logo.png
+    maintainers:
+    - email: lachlan.evenson@microsoft.com
+      name: lachie83
+    - email: viglesias@google.com
+      name: viglesiasce
+    name: jenkins
+    sources:
+    - https://github.com/jenkinsci/jenkins
+    - https://github.com/jenkinsci/docker-jnlp-slave
+    urls:
+    - http://127.0.0.1:8879/charts/jenkins-0.14.3.tgz
+    version: 0.14.3
   jupyter:
-  - created: 2018-02-12T14:39:02.366110145+08:00
+  - created: 2018-03-29T16:42:13.38073641+08:00
     description: Chart for Jupyter Notebook with Tensorflow support.
-    digest: 1fca824102b03371bb1458432b0ff60a86253040f8549bf9f34b1eaad85cb907
+    digest: 7f5bbfe30f4a9098c6f696c2202b7d39b1542193fd8d47b8e504527ad1a97a1d
     engine: gotpl
     home: http://jupyter.org/
     keywords:
@@ -20,15 +61,15 @@ entries:
     version: 1.0.0
   mnist-demo:
   - apiVersion: v1
-    created: 2018-02-12T14:39:02.366912907+08:00
+    created: 2018-03-29T16:42:13.381042988+08:00
     description: A Helm chart for Kubernetes
-    digest: ac1908b2c0a182fbdec87cf9946314ced2af6ecd2a7f90449723757e566d413d
+    digest: 1ddc85aebd170d619f20fb839d9d68173f49fc5b4fae4bfde22ece88428f9186
     name: mnist-demo
     urls:
     - http://127.0.0.1:8879/charts/mnist-demo-0.1.0.tgz
     version: 0.1.0
   mysql:
-  - created: 2018-02-12T14:39:02.369184077+08:00
+  - created: 2018-03-29T16:42:13.381842308+08:00
     description: MySQL is a fast, reliable, scalable, and easy to use open-source
       relational database system. MySQL Server is intended for mission-critical, heavy-load
       production systems as well as for embedding into mass-deployed software.
@@ -50,7 +91,7 @@ entries:
     - http://127.0.0.1:8879/charts/mysql-5.7.20.tgz
     version: 5.7.20
   tensorflow:
-  - created: 2018-02-12T14:39:02.370351289+08:00
+  - created: 2018-03-29T16:42:13.382782378+08:00
     description: Chart for tensorflow with pv support
     digest: 42e18acfe87e286828de46812b659ad2d2bd9d515932e2554eef6dff5fe73188
     keywords:
@@ -64,7 +105,7 @@ entries:
     urls:
     - http://127.0.0.1:8879/charts/tensorflow-1.1.0.tgz
     version: 1.1.0
-  - created: 2018-02-12T14:39:02.369757207+08:00
+  - created: 2018-03-29T16:42:13.382288512+08:00
     description: Chart for tensorflow with pv support
     digest: bed87a831975fa987ddaf752e679fba3bacd288bae809b969f74c61159c672d3
     keywords:
@@ -79,9 +120,9 @@ entries:
     - http://127.0.0.1:8879/charts/tensorflow-1.0.0.tgz
     version: 1.0.0
   tensorflow-serving:
-  - created: 2018-02-12T14:39:02.3708327+08:00
+  - created: 2018-03-29T16:42:13.383263338+08:00
     description: Chart for tensorflow serving with pv support
-    digest: 718794ad2679f0227c72c70e915a5b68e2aec72a9fe9955f3d41e74889af9757
+    digest: 37fdd10f2976e951ec22e99bbfcf10cacc6619b51be6673749e841b52a843b1e
     keywords:
     - tensorflow-serving
     maintainers:
@@ -94,7 +135,7 @@ entries:
     - http://127.0.0.1:8879/charts/tensorflow-serving-1.0.0.tgz
     version: 1.0.0
   tomcat:
-  - created: 2018-02-12T14:39:02.371570899+08:00
+  - created: 2018-03-29T16:42:13.384014479+08:00
     description: Chart for Apache Tomcat
     digest: b7a68fbf94932263f9de5f31f48c0927a56675d493f3e2581a5679a71891d207
     engine: gotpl
@@ -118,11 +159,11 @@ entries:
     version: 0.4.15
   vote:
   - apiVersion: v1
-    created: 2018-02-12T14:39:02.372600823+08:00
+    created: 2018-03-29T16:42:13.385031155+08:00
     description: A vote app for Kubernetes
     digest: 138476c52a1f1918ef389813382e4c786e31022309f7b5db49b47f7eee9c1398
     name: vote
     urls:
     - http://127.0.0.1:8879/charts/vote-0.5.0.tgz
     version: 0.5.0
-generated: 2018-02-12T14:39:02.365321327+08:00
+generated: 2018-03-29T16:42:13.375373259+08:00
