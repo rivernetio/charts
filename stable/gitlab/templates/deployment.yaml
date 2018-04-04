@@ -78,20 +78,20 @@ spec:
             port: http
           # This pod takes a very long time to start up. Be cautious when
           # lowering this value to avoid Pod death during startup.
-          initialDelaySeconds: 200
+          initialDelaySeconds: 300
           timeoutSeconds: 1
-          periodSeconds: 10
+          periodSeconds: 20
           successThreshold: 1
-          failureThreshold: 10
+          failureThreshold: 20
         readinessProbe:
           httpGet:
             path: /help
             port: http
-          initialDelaySeconds: 200
+          initialDelaySeconds: 300
           timeoutSeconds: 1
-          periodSeconds: 10
+          periodSeconds: 20
           successThreshold: 1
-          failureThreshold: 3
+          failureThreshold: 20
         volumeMounts:
         - name: gitlab-etc
           mountPath: /etc/gitlab
