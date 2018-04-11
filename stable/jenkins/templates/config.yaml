@@ -141,6 +141,8 @@ data:
     </scriptApproval>
 {{- end }}
   apply_config.sh: |-
+    mkdir -p /var/jenkins_home/plugins/;
+    cp /tmp/plugins/* /var/jenkins_home/plugins/;
     mkdir -p /usr/share/jenkins/ref/secrets/;
     echo "false" > /usr/share/jenkins/ref/secrets/slave-to-master-security-kill-switch;
     cp -n /var/jenkins_config/config.xml /var/jenkins_home;
