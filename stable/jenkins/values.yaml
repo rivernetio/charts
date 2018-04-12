@@ -18,8 +18,8 @@ Master:
   UseSecurity: true
   AdminUser: admin
   AdminPassword: password
-  Cpu: "200m"
-  Memory: "256Mi"
+  Cpu: "1"
+  Memory: "2048Mi"
   # Environment variables that get added to the init container (useful for e.g. http_proxy)
   # InitContainerEnv:
   #   - name: http_proxy
@@ -109,8 +109,8 @@ Agent:
 # ImagePullSecret: jenkins
   Component: "jenkins-slave"
   Privileged: false
-  Cpu: "200m"
-  Memory: "256Mi"
+  Cpu: "1"
+  Memory: "2048Mi"
   # You may want to change this to true while testing a new image
   AlwaysPullImage: false
   # You can define the volumes that you want to mount for this container
