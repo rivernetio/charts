@@ -13,5 +13,6 @@ spec:
   - name: http
     port: {{ .Values.httpPort | int }}
     targetPort: http
+    nodePort: {{ .Values.nodePort | int }}
   selector:
     app: {{ template "fullname" . }}
