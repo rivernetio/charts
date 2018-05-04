@@ -137,7 +137,7 @@ resources:
 config:
    name: "config"
    description: "Mysql custom config"
-   type: "string"
+   type: "text"
    required: true
    variables:
      config: 
