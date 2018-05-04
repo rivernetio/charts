@@ -13,26 +13,6 @@ spec:
       labels:
         app: {{ template "fullname" . }}
         release: "{{ .Release.Name }}"
-      annotations:
-        pod.alpha.kubernetes.io/init-containers: '
-          [
-            {
-              "name": "copy-custom-config",
-              "image": "{{ .Values.image.variables.mysqlImage.value }}",
-              "imagePullPolicy": {{ .Values.image.variables.policyType.value | quote }},
-              "command": ["sh", "-c", "mkdir -p /bitnami/mysql/conf && cp -n /bitnami/mysql_config/my.cnf /bitnami/mysql/conf/my_custom.cnf"],
-              "volumeMounts": [
-                {
-                  "name": "config",
-                  "mountPath": "/bitnami/mysql_config"
-                },
-                {
-                  "name": "data",
-                  "mountPath": "/bitnami/mysql"
-                }
-              ]
-            }
-          ]'
     spec:
       containers:
       - name: prom-exporter
@@ -83,10 +63,14 @@ spec:
           periodSeconds: 5
           timeoutSeconds: 1
         resources:
-{{ toYaml .Values.resources | indent 10 }}
+          requests:
+             cpu: {{ .Values.resources.variables.cpuRequest.value }}m
+             memory: {{ .Values.resources.variables.memoryRequest.value }}Mi
         volumeMounts:
         - name: data
-          mountPath: /bitnami/mysql
+          mountPath: /var/lib/mysql/
+        - name: config
+          mountPath: /etc/mysql/mysql.conf.d/
       volumes:
       - name: config
         configMap:

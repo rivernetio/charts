@@ -39,7 +39,7 @@ service:
         label: "service type"
         description: "The type of service"
         required: true
-        value: "ClusterIP"
+        value: "NodePort"
         type: "string"
       externalPort:
         name: "externalPort"
@@ -113,9 +113,9 @@ persistence:
         value: 1
         type: "int"
 
-reosurces:
-    name: "reosurce info"
-    description: "Reosurce Info"
+resources:
+    name: "resource info"
+    description: "Resource Info"
     type: "string"
     required: true
     variables:
@@ -134,4 +134,23 @@ reosurces:
         value: 256
         type: "int"
 
-
+config:
+   name: "config"
+   description: "Mysql custom config"
+   type: "string"
+   required: true
+   variables:
+     config: 
+       name: "customConfig"
+       label: "custom config"
+       description: "Custom Config.(related to my.cnf)"
+       required: true
+       type: "text"
+       value: |-
+         [mysqld]
+         pid-file                = /var/run/mysqld/mysqld.pid
+         socket                  = /var/run/mysqld/mysqld.sock
+         datadir                 = /var/lib/mysql
+         symbolic-links          = 0
+         innodb_buffer_pool_size = 2G
+         max_connections         = 200
