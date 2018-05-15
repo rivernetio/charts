@@ -1,0 +1,115 @@
+isNewTemplate: true
+
+common:
+  name: "common"
+  description: "common config"
+  type: "string"
+  required: true
+  variables:
+    replicaCount:
+      name: "replicaCount"
+      label: "replicaCount"
+      description: "The replica number of instance"
+      required: true
+      value: 1
+      type: "int"
+    image:
+      name: "image"
+      label: "image"
+      description: "The image of serving instance"
+      required: true
+      value: ""
+      type: "string"
+    pullPolicy:
+      name: "imagePullPolicy"
+      label: "imagePullPolicy"
+      description: "Image pull policy. Support Always,IfNotPresente"
+      required: true
+      value: "IfNotPresent"
+      type: "string"
+
+service:
+  name: "service"
+  description: "service config"
+  type: "string"
+  required: true
+  variables:
+    type:
+      name: "serviceType"
+      label: "serviceType"
+      description: "The type of service. Support ClusterIP,NodePort"
+      required: true
+      value: "NodePort"
+      type: "string"
+    externalPort:
+      name: "externalPort"
+      label: "externalPort"
+      description: "external port. (service port)"
+      required: true
+      value: 80
+      type: "int"
+    internalPort:
+      name: "internalPort"
+      label: "internalPort"
+      description: "internal port. (container port)"
+      required: true
+      value: 80
+      type: "int"
+
+resource:
+  name: "resource"
+  description: "resource config"
+  type: "string"
+  required: true
+  variables:
+    cpuRequest:
+      name: "cpuRequest"
+      label: "cpu(m)"
+      description: "CPU, in cores. (500m = 0.5 cores)"
+      required: true
+      value: 100
+      type: "int"
+    memoryRequest:
+      name: "memoryRequest"
+      label: "memory(MB)"
+      description: "Memory, in MB. (1GB = 1024 MB)"
+      required: true
+      value: 512
+      type: "int"
+
+gpu:
+  name: "gpu"
+  description: "GPU Configuration"
+  type: checkbox
+  required: true
+  enabled: false
+  variables:
+    gpuRequest:
+      name: "gpuRequest"
+      label: "Gpu (num)"
+      description: "Gpu, allowing values >=1, only one whole device per node is assigned."
+      required: false
+      value: 1
+      type: "int"
+
+persistence:
+  name: "storage"
+  description: "Persistent Storage"
+  type: "checkbox"
+  enabled: false
+  required: true
+  variables:
+    pvc:
+      name: "pvc"
+      label: "PVC name"
+      description: "The name of the pvc"
+      required: true
+      value: ""
+      type: "string"
+    mountPath:
+      name: "mountPath"
+      label: "mount path"
+      description: "The path within the container at which the volume should be mounted"
+      required: true
+      value: ""
+      type: "string"

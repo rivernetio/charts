@@ -1,0 +1,40 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    release: "{{ .Release.Name }}"
+spec:
+  replicas: {{ .Values.common.variables.replicaCount.value }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "fullname" . }}
+        release: "{{ .Release.Name }}"
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: {{ .Values.common.variables.image.value }}
+        imagePullPolicy: {{ .Values.common.variables.pullPolicy.value }}
+        ports:
+        - containerPort: {{ .Values.service.variables.internalPort.value }}
+        resources:
+          requests:
+            cpu: {{ .Values.resource.variables.cpuRequest.value }}m
+            memory: {{ .Values.resource.variables.memoryRequest.value }}Mi
+        {{- if .Values.gpu.enabled }}
+          limits:
+            nvidia.com/gpu: {{ .Values.gpu.variables.gpuRequest.value }}
+        {{- end }}
+        volumeMounts:
+        - name: data
+          mountPath: {{ .Values.persistence.variables.mountPath.value }}
+      volumes:
+      - name: data
+      {{- if .Values.persistence.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ .Values.persistence.variables.pvc.value }}
+      {{- else }}
+        emptyDir: {}
+      {{- end -}}
