@@ -19,6 +19,20 @@ spec:
         imagePullPolicy: {{ .Values.common.variables.pullPolicy.value }}
         ports:
         - containerPort: {{ .Values.service.variables.internalPort.value }}
+    {{- if .Values.cmd.enabled }}
+      {{- if .Values.cmd.variables.cmd.value }}
+        command: 
+        {{- range $cmd := .Values.cmd.variables.cmd.value }}
+        - {{ $cmd }}
+        {{- end }}
+      {{- end }}
+      {{- if .Values.cmd.variables.args.value }}
+        args: 
+        {{- range $arg := .Values.cmd.variables.args.value }}
+        - {{ $arg }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
         resources:
           requests:
             cpu: {{ .Values.resource.variables.cpuRequest.value }}m

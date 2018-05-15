@@ -18,7 +18,7 @@ common:
       label: "image"
       description: "The image of serving instance"
       required: true
-      value: ""
+      value: "registry.harbor:5000/sky-firmament/tensorflow-serving:4.1"
       type: "string"
     pullPolicy:
       name: "imagePullPolicy"
@@ -27,6 +27,28 @@ common:
       required: true
       value: "IfNotPresent"
       type: "string"
+
+cmd:
+    name: "command"
+    description: "Command"
+    type: checkbox
+    required: true
+    enabled: true
+    variables:
+      cmd:
+        name: "cmd"
+        label: "CMD"
+        description: "The command to start the container"
+        required: true
+        value: ["tensorflow_model_server"]
+        type: "strings"
+      args:
+        name: "args"
+        label: "ARGS"
+        description: "The args to start the container"
+        required: true
+        value: ["--model_name=mnist", "--model_base_path=/data/model/", "--port=9000"]
+        type: "strings"
 
 service:
   name: "service"
@@ -46,14 +68,14 @@ service:
       label: "externalPort"
       description: "external port. (service port)"
       required: true
-      value: 80
+      value: 9000
       type: "int"
     internalPort:
       name: "internalPort"
       label: "internalPort"
       description: "internal port. (container port)"
       required: true
-      value: 80
+      value: 9000
       type: "int"
 
 resource:
@@ -96,7 +118,7 @@ persistence:
   name: "storage"
   description: "Persistent Storage"
   type: "checkbox"
-  enabled: false
+  enabled: true
   required: true
   variables:
     pvc:
@@ -104,12 +126,12 @@ persistence:
       label: "PVC name"
       description: "The name of the pvc"
       required: true
-      value: ""
+      value: "mnist"
       type: "string"
     mountPath:
       name: "mountPath"
       label: "mount path"
       description: "The path within the container at which the volume should be mounted"
       required: true
-      value: ""
+      value: "/data"
       type: "string"
