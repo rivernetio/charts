@@ -11,14 +11,14 @@ image:
         label: "mysql image"
         description: "The image of mysql"
         required: true
-        value: "docker.io/rivernet/mysql:5.7.20"
+        value: "registry.harbor:5000/sky-firmament/mysql:5.7.20"
         type: "string" 
       exporterImage:
         name: "exporterImage"
         label: "exporter image"
         description: "The image of mysqld-exporter"
         required: true
-        value: "docker.io/rivernet/mysqld-exporter:latest"
+        value: "registry.harbor:5000/sky-firmament/mysqld-exporter:latest"
         type: "string"  
       policyType:
         name: "policyType"
@@ -54,6 +54,13 @@ service:
         description: "The port of internal"
         required: true
         value: "3306"
+        type: "string"
+      nodePort:
+        name: "nodePort"
+        label: "node port"
+        description: "Node port"
+        required: false
+        value: ""
         type: "string"
         
 dupi:
@@ -145,7 +152,7 @@ config:
        label: "custom config"
        description: "Custom Config.(related to my.cnf)"
        required: true
-       type: "text"
+       type: "string"
        value: |-
          [mysqld]
          pid-file                = /var/run/mysqld/mysqld.pid

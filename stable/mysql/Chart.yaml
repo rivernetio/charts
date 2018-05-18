@@ -1,15 +1,17 @@
-name: mysql
-version: 5.7.20
-description: MySQL is a fast, reliable, scalable, and easy to use open-source relational database system. MySQL Server is intended for mission-critical, heavy-load production systems as well as for embedding into mass-deployed software.
+description: MySQL is a fast, reliable, scalable, and easy to use open-source relational
+  database system. MySQL Server is intended for mission-critical, heavy-load production
+  systems as well as for embedding into mass-deployed software.
+engine: gotpl
+home: https://mysql.com
+icon: https://bitnami.com/assets/stacks/mysql/img/mysql-stack-220x234.png
 keywords:
 - mysql
 - database
 - sql
-home: https://mysql.com
-icon: https://bitnami.com/assets/stacks/mysql/img/mysql-stack-220x234.png
+maintainers:
+- email: containers@bitnami.com
+  name: Bitnami
+name: mysql
 sources:
 - https://github.com/bitnami/bitnami-docker-mysql
-maintainers:
-- name: Bitnami
-  email: containers@bitnami.com
-engine: gotpl
+version: 5.7.20

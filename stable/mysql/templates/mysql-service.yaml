@@ -13,6 +13,9 @@ spec:
   ports:
   - port: {{ .Values.service.variables.externalPort.value }}
     targetPort: {{ .Values.service.variables.internalPort.value }}
+  {{- if ( and (eq .Values.service.variables.type.value "NodePort") (.Values.service.variables.nodePort.value) ) }}
+    nodePort: {{ .Values.service.variables.nodePort.value }}
+  {{- end }}
     protocol: TCP
     name: mysql
   selector:
