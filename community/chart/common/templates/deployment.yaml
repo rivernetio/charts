@@ -43,7 +43,11 @@ spec:
         {{- end }}
         volumeMounts:
         - name: data
+        {{- if .Values.persistence.variables.mountPath.value }}
           mountPath: {{ .Values.persistence.variables.mountPath.value }}
+        {{- else }}
+          mountPath: /data
+        {{- end }}
       volumes:
       - name: data
       {{- if .Values.persistence.enabled }}
