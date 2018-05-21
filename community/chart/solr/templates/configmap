@@ -1,0 +1,14 @@
+piVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+data:
+  managed-schema: |-
+{{ .Values.config.variables.managedSchema.value | indent 4 }}
+  solrconfig.xml: |-
+{{ .Values.config.variables.solrConfig.value | indent 4 }} 
