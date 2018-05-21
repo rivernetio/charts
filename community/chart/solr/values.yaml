@@ -70,6 +70,35 @@ resources:
         value: 256
         type: "int"
 
+persistence:
+    name: "storage"
+    description: "Persistent Storage"
+    type: "checkbox"
+    required: true
+    enabled: false
+    variables:
+      accessMode:
+        name: "accessMode"
+        label: "access mode"
+        description: "The mode of access"
+        required: true
+        value: "ReadWriteOnce"
+        type: "string"
+      size:
+        name: "sizeRequest"
+        label: "storage(GB)"
+        description: "Storage, in GB. (1GB = 1024 MB)"
+        required: true
+        value: 1
+        type: "int"
+      mountPath:
+        name: "mountPath"
+        label: "mount path"
+        description: "The path within the container at which the volume should be mounted"
+        required: true
+        value: ""
+        type: "string"
+
 config:
    name: "config"
    description: "Solr custom config"
@@ -1050,7 +1079,7 @@ config:
          
          </schema>
 
-       solrConfig:
+     solrConfig:
        name: "solrConfig"
        label: "solrConfig"
        description: "solrconfig.yaml.(related to $solr-home/solr/configsets/_default/conf/solrconfig.yaml)"

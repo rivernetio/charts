@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: {{ .Chart.Name }}
-        image: "{{ .Values.image.variables.mysqlImage.value }}"
+        image: "{{ .Values.image.variables.solrImage.value }}"
         imagePullPolicy: {{ .Values.image.variables.policyType.value | quote }}
         ports:
         - containerPort: 8983
@@ -32,3 +32,23 @@ spec:
           requests:
              cpu: {{ .Values.resources.variables.cpuRequest.value }}m
              memory: {{ .Values.resources.variables.memoryRequest.value }}Mi
+        volumeMounts:
+        - name: data
+       {{- if .Values.persistence.enabled }}
+          mountPath: {{ .Values.persistence.variables.mountPath.value }}
+       {{- else }}
+          mountPath: /data
+       {{- end }}
+        - name: config
+          mountPath: /tmp
+      volumes:
+      - name: config
+        configMap:
+          name: {{ template "fullname" . }}
+      - name: data
+      {{- if .Values.persistence.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ template "fullname" . }}
+      {{- else }}
+        emptyDir: {}
+      {{- end -}}
