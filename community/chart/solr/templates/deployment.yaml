@@ -24,10 +24,18 @@ spec:
           httpGet:
             path: /
             port: 8983
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 5
         readinessProbe:
           httpGet:
             path: /
             port: 8983
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 5
         resources:
           requests:
              cpu: {{ .Values.resources.variables.cpuRequest.value }}m
@@ -40,7 +48,7 @@ spec:
           mountPath: /data
        {{- end }}
         - name: config
-          mountPath: /tmp
+          mountPath: /opt/tmp/
       volumes:
       - name: config
         configMap:

@@ -8,7 +8,7 @@ metadata:
 spec:
   type: {{ .Values.service.variables.type.value }}
   ports:
-  - port: {{ .Values.service.externalPort }}
+  - port: {{ .Values.service.variables.externalPort.value }}
     targetPort: 8983
     protocol: TCP
     name: api
