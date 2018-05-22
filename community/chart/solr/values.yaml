@@ -51,7 +51,7 @@ service:
 
 jvm:
     name: "jvm"
-    description: "jvm config.(Make sure the max heap size is smaller than the container request size by about 100M.)"
+    description: "Jvm Config(Make sure the max heap size is smaller than the container request size by about 100M)"
     type: "string"
     required: true
     variables:
