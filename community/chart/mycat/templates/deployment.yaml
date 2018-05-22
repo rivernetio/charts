@@ -1,29 +1,43 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: {{ template "fullname" . }}
+  name: {{ .Release.Name }}
   labels:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    app: {{ template "fullname" . }}
 spec:
-  replicas: {{ .Values.replicaCount }}
   template:
     metadata:
       labels:
         app: {{ template "fullname" . }}
+        chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+        release: "{{ .Release.Name }}"
     spec:
       containers:
       - name: {{ .Chart.Name }}
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        image: "{{ .Values.image.variables.mycatImage.value }}"
+        imagePullPolicy: {{ .Values.image.variables.policyType.value | quote }}
         ports:
-        - containerPort: {{ .Values.service.internalPort }}
-        livenessProbe:
-          httpGet:
-            path: /
-            port: {{ .Values.service.internalPort }}
-        readinessProbe:
-          httpGet:
-            path: /
-            port: {{ .Values.service.internalPort }}
+        - containerPort: 8066
+        - containerPort: 9066
+        env:
+        - name: MAX_JAVA_HEAP_SIZE
+          value: "{{ .Values.jvm.variables.maxHeap.value }}"
+        - name: Min_JAVA_HEAP_SIZE
+          value: "{{ .Values.jvm.variables.minHeap.value }}"
+        - name: JAVA_STACK_SIZE
+          value: "{{ .Values.jvm.variables.stack.value }}"
+        - name: JAVA_DIRECT_SIZE
+          value: "{{ .Values.jvm.variables.direct.value }}"
         resources:
-{{ toYaml .Values.resources | indent 12 }}
+          requests:
+             cpu: {{ .Values.resources.variables.cpuRequest.value }}m
+             memory: {{ .Values.resources.variables.memoryRequest.value }}Mi
+        volumeMounts:
+        - name: config
+          mountPath: /opt/tmp/
+      volumes:
+      - name: config
+        configMap:
+          name: {{ template "fullname" . }}
