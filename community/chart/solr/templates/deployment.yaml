@@ -20,6 +20,11 @@ spec:
         imagePullPolicy: {{ .Values.image.variables.policyType.value | quote }}
         ports:
         - containerPort: 8983
+        env:
+        - name: SOLR_JAVA_MEM
+          value: "{{ .Values.jvm.variables.heap.value }}"
+        - name: SOLR_JAVA_STACK_SIZE
+          value: "{{ .Values.jvm.variables.stack.value }}"
         livenessProbe:
           httpGet:
             path: /

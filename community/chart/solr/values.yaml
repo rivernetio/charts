@@ -49,6 +49,27 @@ service:
         value: ""
         type: "string"
 
+jvm:
+    name: "jvm"
+    description: "jvm config.(Make sure the max heap size is smaller than the container request size by about 100M.)"
+    type: "string"
+    required: true
+    variables:
+      heap:
+        name: "javaHeapSize"
+        label: "java heap size"
+        description: "Java heap size"
+        required: true
+        value: "-Xms512m -Xmx512m"
+        type: "string"
+      stack:
+        name: "javaStackSize"
+        label: "java stack size"
+        description: "Java stack size"
+        required: true
+        value: "-Xss256k"
+        type: "string"
+
 resources:
     name: "resource info"
     description: "Resource Info"
@@ -67,7 +88,7 @@ resources:
         label: "memory(MB)"
         description: "Memory, in MB. (1GB = 1024 MB)"
         required: true
-        value: 256
+        value: 600
         type: "int"
 
 persistence:
