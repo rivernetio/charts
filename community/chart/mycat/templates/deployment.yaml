@@ -36,7 +36,14 @@ spec:
              memory: {{ .Values.resources.variables.memoryRequest.value }}Mi
         volumeMounts:
         - name: config
-          mountPath: /opt/tmp/
+          mountPath: /usr/local/mycat/conf/schema.xml
+          subPath: schema.xml
+        - name: config
+          mountPath: /usr/local/mycat/conf/server.xml
+          subPath: server.xml
+        - name: config
+          mountPath: /usr/local/mycat/conf/rule.xml
+          subPath: rule.xml
       volumes:
       - name: config
         configMap:
