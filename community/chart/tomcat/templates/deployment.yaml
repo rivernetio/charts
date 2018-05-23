@@ -1,0 +1,43 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+spec:
+  template:
+    metadata:
+      labels:
+        app: {{ template "fullname" . }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.variables.image.value }}"
+        imagePullPolicy: {{ default "" .Values.image.variables.policyType.value | quote }}
+        resources:
+          requests:
+             cpu: {{ .Values.resources.variables.cpuRequest.value }}m
+             memory: {{ .Values.resources.variables.memoryRequest.value }}Mi
+        ports:
+        - name: api
+          containerPort: {{ .Values.service.variables.port.value }}
+        volumeMounts:
+        - name: data
+          mountPath: {{ .Values.persistence.variables.mountPath.value | quote }}
+        - name: config
+          mountPath: {{ .Values.config.variables.path.value }}
+          subPath: {{ .Values.config.variables.path.value | base }}
+      volumes:
+      - name: data
+      {{- if .Values.persistence.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ template "fullname" . }}
+      {{- else }}
+        emptyDir: {}
+      {{- end }}
+      - name: config
+        configMap:
+          name: {{ template "fullname" . }}
