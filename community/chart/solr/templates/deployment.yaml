@@ -53,7 +53,11 @@ spec:
           mountPath: /data
        {{- end }}
         - name: config
-          mountPath: /opt/tmp/
+          mountPath: /opt/solr/server/solr/configsets/_default/conf/solrconfig.xml
+          subPath: solrconfig.xml
+        - name: config
+          mountPath: /opt/solr/server/solr/configsets/_default/conf/managed-schema
+          subPath: managed-schema
       volumes:
       - name: config
         configMap:
