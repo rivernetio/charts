@@ -62,6 +62,7 @@ spec:
       - name: config
         configMap:
           name: {{ template "fullname" . }}
+          defaultMode: 0777
       - name: data
       {{- if .Values.persistence.enabled }}
         persistentVolumeClaim:
