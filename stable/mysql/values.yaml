@@ -40,7 +40,8 @@ service:
         description: "The type of service"
         required: true
         value: "NodePort"
-        type: "string"
+        selectValue: ["NodePort", "ClusterIP", "LoadBalancer"]
+        type: "selectbox"
       externalPort:
         name: "externalPort"
         label: "external port"
