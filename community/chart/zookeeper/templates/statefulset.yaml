@@ -10,96 +10,115 @@ metadata:
     component: server
 spec:
   serviceName: {{ template "zookeeper.fullname" . }}-headless
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.replica.variables.count.value }}
   selector:
     matchLabels:
       app: {{ template "zookeeper.name" . }}
       release: {{ .Release.Name }}
       component: server
-  updateStrategy:
-{{ toYaml .Values.updateStrategy | indent 4 }}
   template:
     metadata:
       labels:
         app: {{ template "zookeeper.name" . }}
         release: {{ .Release.Name }}
         component: server
-      {{- if .Values.podLabels }}
-        ## Custom pod labels
-        {{- range $key, $value := .Values.podLabels }}
-        {{ $key }}: {{ $value | quote }}
-        {{- end }}
-      {{- end }}
-      annotations:
-      {{- if .Values.podAnnotations }}
-        ## Custom pod annotations
-        {{- range $key, $value := .Values.podAnnotations }}
-        {{ $key }}: {{ $value | quote }}
-        {{- end }}
-      {{- end }}
     spec:
-{{- if .Values.schedulerName }}
-      schedulerName: "{{ .Values.schedulerName }}"
-{{- end }}
-      securityContext:
-{{ toYaml .Values.securityContext | indent 8 }}
+      terminationGracePeriodSeconds: 300
       containers:
-
         - name: zookeeper
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ .Values.image.variables.image.value }}"
+          imagePullPolicy: {{ .Values.image.variables.policyType.value | quote }}
           command:
             - /bin/bash
             - -xec
             - zkGenConfig.sh && exec zkServer.sh start-foreground
           ports:
-{{- range $key, $port := .Values.ports }}
-            - name: {{ $key }}
-{{ toYaml $port | indent 14 }}
-{{- end }}
+          - name: client
+            containerPort: 2181
+            protocol: TCP
+          - name: election
+            containerPort: 3888
+            protocol: TCP
+          - name: server
+            containerPort: 2888
+            protocol: TCP
           livenessProbe:
-{{ toYaml .Values.livenessProbe | indent 12 }}
+            exec:
+              command:
+                - zkOk.sh
+            initialDelaySeconds: 20
+            periodSeconds: 30
+            timeoutSeconds: 30
+            failureThreshold: 6
+            successThreshold: 1
           readinessProbe:
-{{ toYaml .Values.readinessProbe | indent 12 }}
+            exec:
+              command:
+                - zkOk.sh
+            initialDelaySeconds: 20
+            periodSeconds: 30
+            timeoutSeconds: 30
+            failureThreshold: 6
+            successThreshold: 1
           env:
             - name: ZK_REPLICAS
-              value: {{ .Values.replicaCount | quote }}
-          {{- range $key, $value := .Values.env }}
-            - name: {{ $key | upper | replace "." "_" }}
-              value: {{ $value | quote }}
-          {{- end }}
+              value: {{ .Values.replica.variables.count.value | quote }}
+            - name: JMXAUTH
+              value: "false"
+            - name: JMXDISABLE
+              value: "false"
+            - name: JMXPORT
+              value: "1099"
+            - name: JMXSSL
+              value: "false"
+            - name: ZK_CLIENT_PORT
+              value: "2181"
+            - name: ZK_ELECTION_PORT
+              value: "3888"
+            - name: ZK_HEAP_SIZE
+              value: 2G
+            - name: ZK_INIT_LIMIT
+              value: "5"
+            - name: ZK_LOG_LEVEL
+              value: INFO
+            - name: ZK_MAX_CLIENT_CNXNS
+              value: "60"
+            - name: ZK_MAX_SESSION_TIMEOUT
+              value: "40000"
+            - name: ZK_MIN_SESSION_TIMEOUT
+              value: "4000"
+            - name: ZK_PURGE_INTERVAL
+              value: "0"
+            - name: ZK_SERVER_PORT
+              value: "2888"
+            - name: ZK_SNAP_RETAIN_COUNT
+              value: "3"
+            - name: ZK_SYNC_LIMIT
+              value: "10"
+            - name: ZK_TICK_TIME
+              value: "2000"
           resources:
-{{ toYaml .Values.resources | indent 12 }}
+            requests:
+              cpu: {{ .Values.resources.variables.cpuRequest.value }}m
+              memory: {{ .Values.resources.variables.memoryRequest.value }}Mi
+ {{- if .Values.persistence.enabled -}}
           volumeMounts:
             - name: data
               mountPath: /var/lib/zookeeper
-
-    {{- with .Values.nodeSelector }}
-      nodeSelector:
-{{ toYaml . | indent 8 }}
-    {{- end }}
-    {{- with .Values.affinity }}
-      affinity:
-{{ toYaml . | indent 8 }}
-    {{- end }}
-    {{- with .Values.tolerations }}
-      tolerations:
-{{ toYaml . | indent 8 }}
-    {{- end }}
-
   volumeClaimTemplates:
     - metadata:
         name: data
       spec:
         accessModes:
-          - {{ .Values.persistence.accessMode | quote }}
+          - {{ .Values.persistence.variables.accessMode.value | quote }}
         resources:
           requests:
-            storage: {{ .Values.persistence.size }}Gi
+            storage: {{ .Values.persistence.variables.size.value }}Gi
       {{- if .Values.persistence.storageClass }}
-        {{- if (eq "-" .Values.persistence.storageClass) }}
+        {{- if (eq "-" .Values.persistence.variables.storageClass.value) }}
         storageClassName: ""
         {{- else }}
-        storageClassName: "{{ .Values.persistence.storageClass }}"
+        storageClassName: "{{ .Values.persistence.variables.storageClass.value }}"
         {{- end }}
       {{- end }}
+ {{- end }}

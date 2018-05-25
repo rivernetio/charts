@@ -10,12 +10,18 @@ metadata:
 spec:
   clusterIP: None
   ports:
-{{- range $key, $port := .Values.ports }}
-    - name: {{ $key }}
-      port: {{ $port.containerPort }}
-      targetPort: {{ $port.name }}
-      protocol: {{ $port.protocol }}
-{{- end }}
+    - name: client
+      port: 2181
+      targetPort: client
+      protocol: TCP
+    - name: election
+      port: 3888
+      targetPort: election
+      protocol: TCP
+    - name: server
+      port: 2888
+      targetPort: server
+      protocol: TCP
   selector:
     app: {{ template "zookeeper.name" . }}
     release: {{ .Release.Name }}

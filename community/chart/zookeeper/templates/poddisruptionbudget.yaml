@@ -14,4 +14,4 @@ spec:
       app: {{ template "zookeeper.name" . }}
       release: {{ .Release.Name }}
       component: server
-{{ toYaml .Values.podDisruptionBudget | indent 2 }}
+  minAvailable: {{ .Values.replica.variables.minCount.value }}
