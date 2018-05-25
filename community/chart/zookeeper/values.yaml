@@ -72,6 +72,20 @@ service:
         value: ""
         type: "string"
 
+jvm:
+    name: "jvm"
+    description: "Jvm Config(Make sure the max heap size is smaller than the container request size by about 100M)"
+    type: "string"
+    required: true
+    variables:
+      maxHeap:
+        name: "maxJavaHeapSize"
+        label: "max java heap size"
+        description: "Max java heap size"
+        required: true
+        value: "1G"
+        type: "string"
+
 resources:
     name: "resource info"
     description: "Resource Info"

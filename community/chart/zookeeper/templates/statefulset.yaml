@@ -76,7 +76,7 @@ spec:
             - name: ZK_ELECTION_PORT
               value: "3888"
             - name: ZK_HEAP_SIZE
-              value: 2G
+              value: {{ .Values.jvm.variables.maxHeap.value | quote }}
             - name: ZK_INIT_LIMIT
               value: "5"
             - name: ZK_LOG_LEVEL
@@ -101,7 +101,7 @@ spec:
             requests:
               cpu: {{ .Values.resources.variables.cpuRequest.value }}m
               memory: {{ .Values.resources.variables.memoryRequest.value }}Mi
- {{- if .Values.persistence.enabled -}}
+          {{ if .Values.persistence.enabled -}}
           volumeMounts:
             - name: data
               mountPath: /var/lib/zookeeper
