@@ -1,5 +1,5 @@
-apiVersion: extensions/v1beta1
-kind: Deployment
+apiVersion: apps/v1beta1
+kind: StatefulSet
 metadata:
   name: {{ .Release.Name }}
   labels:
@@ -7,6 +7,10 @@ metadata:
     release: "{{ .Release.Name }}"
     app: {{ template "fullname" . }}
 spec:
+  serviceName: {{ template "fullname" . }}-headless
+{{- if .Values.cluster.enabled }}
+  replicas: {{ .Values.cluster.variables.replica.value }}
+{{- end }}
   template:
     metadata:
       labels:
@@ -25,6 +29,10 @@ spec:
           value: "{{ .Values.jvm.variables.heap.value }}"
         - name: SOLR_JAVA_STACK_SIZE
           value: "{{ .Values.jvm.variables.stack.value }}"
+      {{- if (add (.Values.cluster.enabled) (.Values.cluster.variables.zk.value)) }}
+        - name: ZK_HOST
+          value: "{{ .Values.cluster.variables.zk.value }}"
+      {{- end }}
         livenessProbe:
           httpGet:
             path: /
@@ -63,10 +71,29 @@ spec:
         configMap:
           name: {{ template "fullname" . }}
           defaultMode: 0777
+  {{ if not .Values.persistence.enabled -}}
       - name: data
-      {{- if .Values.persistence.enabled }}
-        persistentVolumeClaim:
-          claimName: {{ template "fullname" . }}
-      {{- else }}
         emptyDir: {}
-      {{- end -}}
+  {{- else -}}
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+        labels:
+          app: {{ template "fullname" . }}
+          chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+          release: "{{ .Release.Name }}"
+          heritage: "{{ .Release.Service }}"
+      spec:
+        accessModes:
+          - {{ .Values.persistence.variables.accessMode.value | quote }}
+        resources:
+            requests:
+              storage: {{ .Values.persistence.variables.size.value }}Gi
+      {{- if .Values.persistence.variables.storageClass.value }}
+      {{- if (eq "-" .Values.persistence.variables.storageClass.value ) }}
+        storageClassName: ""
+      {{- else }}
+        storageClassName: "{{ .Values.persistence.variables.storageClass.value }}"
+      {{- end }}
+      {{- end }}
+  {{- end }}
