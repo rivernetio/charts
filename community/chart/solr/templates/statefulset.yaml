@@ -71,7 +71,7 @@ spec:
         configMap:
           name: {{ template "fullname" . }}
           defaultMode: 0777
-  {{ if not .Values.persistence.enabled -}}
+      {{ if not .Values.persistence.enabled -}}
       - name: data
         emptyDir: {}
   {{- else -}}
