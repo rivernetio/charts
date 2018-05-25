@@ -34,19 +34,33 @@ service:
         required: true
         value: "NodePort"
         type: "string"
-      externalPort:
-        name: "externalPort"
-        label: "external port"
-        description: "The port of external"
+      ctrlPort:
+        name: "ctrlPort"
+        label: "ctrl port"
+        description: "The Control port"
         required: true
         value: "9066"
         type: "string"
-      nodePort:
-        name: "nodePort"
-        label: "node port"
-        description: "Node port"
+      dataPort:
+        name: "dataPort"
+        label: "data port"
+        description: "The data port"
+        required: true
+        value: "8066"
+        type: "string"
+      ctrlNodePort:
+        name: "ctrlNodePort"
+        label: "ctrl node port"
+        description: "Control node port"
         required: false
         value: ""
+        type: "string"
+      dataNodePort:
+        name: "dataNodePort"
+        label: "data node port"
+        description: "Data node port"
+        required: false
+        vaule: ""
         type: "string"
 
 jvm:

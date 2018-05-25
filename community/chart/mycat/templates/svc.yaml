@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: {{ .Release.Name }}
+spec:
+  type: {{ .Values.service.variables.type.value }}
+  ports:
+  - port: {{ .Values.service.variables.ctrlPort.value }}
+    targetPort: 9066
+    protocol: TCP
+    name: ctrl
+  {{- if ( and (eq .Values.service.variables.type.value "NodePort") (.Values.service.variables.ctrlNodePort.value) ) }}
+    nodePort: {{ .Values.service.variables.ctrlNodePort.value }}
+  {{- end }}
+  - port: {{ .Values.service.variables.dataPort.value }}
+    targetPort: 8066
+    protocol: TCP
+    name: data
+  {{- if ( and (eq .Values.service.variables.type.value "NodePort") (.Values.service.variables.dataNodePort.value) ) }}
+    nodePort: {{ .Values.service.variables.dataNodePort.value }}
+  {{- end }}
+  selector:
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: {{ .Release.Name }}
