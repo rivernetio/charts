@@ -1,0 +1,131 @@
+isNewTemplate: true
+
+image:
+    name: "image"
+    description: "Image Info"
+    type: "string"
+    required: true
+    variables:
+      image:
+        name: "image"
+        label: "image"
+        description: "The image of rabbitmq"
+        required: true
+        value: "registry.harbor:5000/sky-firmament/rabbitmq:3.7-alpine"
+        type: "string"
+      policyType:
+        name: "policyType"
+        label: "policy type"
+        description: "The type of image pull policy"
+        required: true
+        value: "IfNotPresent"
+        type: "string"
+
+service:
+    name: "service"
+    description: "Service Info"
+    type: "string"
+    required: true
+    variables:
+      type:
+        name: "serviceType"
+        label: "service type"
+        description: "The type of service"
+        required: true
+        value: "NodePort"
+        type: "string"
+      externalPort:
+        name: "externalPort"
+        label: "external port"
+        description: "The port of external"
+        required: true
+        value: "8983"
+        type: "string"
+      nodePort:
+        name: "nodePort"
+        label: "node port"
+        description: "Node port"
+        required: false
+        value: ""
+        type: "string"
+
+cluster:
+    name: "cluster"
+    description: "Cluster Config"
+    type: "checkbox"
+    reuqired: true
+    enabled: false
+    variables:
+      replica:
+        name: "replicaCount"
+        label: "replica count"
+        description: "Replica count"
+        required: true
+        value: 3
+        type: "int"
+      username:
+        name: "username"
+        label: "user name"
+        description: "User Name"
+        required: true
+        value: "guest"
+        type: "string"
+      password:
+        name: "password"
+        label: "password"
+        description: "password"
+        required: true
+        value: "password"
+        type: "string"
+        
+
+resources:
+    name: "resource info"
+    description: "Resource Info"
+    type: "string"
+    required: true
+    variables:
+      cpuRequest:
+        name: "cpuRequest"
+        label: "cpu(m)"
+        description: "CPU, in cores. (500m = 0.5 cores)"
+        required: true
+        value: 250
+        type: "int"
+      memoryRequest:
+        name: "memoryRequest"
+        label: "memory(MB)"
+        description: "Memory, in MB. (1GB = 1024 MB)"
+        required: true
+        value: 600
+        type: "int"
+
+persistence:
+    name: "storage"
+    description: "Persistent Storage"
+    type: "checkbox"
+    required: true
+    enabled: false
+    variables:
+      accessMode:
+        name: "accessMode"
+        label: "access mode"
+        description: "The mode of access"
+        required: true
+        value: "ReadWriteOnce"
+        type: "string"
+      size:
+        name: "sizeRequest"
+        label: "storage(GB)"
+        description: "Storage, in GB. (1GB = 1024 MB)"
+        required: true
+        value: 1
+        type: "int"
+      storageClass:
+        name: "storageClass"
+        label: "storage class"
+        description: "StorageClass"
+        required: false
+        value: ""
+        type: string
+

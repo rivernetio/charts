@@ -1,0 +1,130 @@
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: {{ template "rabbitmq-ha.fullname" . }}
+  labels:
+    app: {{ template "rabbitmq-ha.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  serviceName: {{ template "rabbitmq-ha.fullname" . }}-discovery
+  replicas: {{ .Values.cluster.variables.replica.value }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "rabbitmq-ha.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      terminationGracePeriodSeconds: 120
+      serviceAccountName: {{ .Release.Name }}
+      initContainers:
+        - name: copy-rabbitmq-config
+          image: busybox
+          command: ['sh', '-c', 'cp /configmap/* /etc/rabbitmq; rm -f /var/lib/rabbitmq/.erlang.cookie']
+          volumeMounts:
+            - name: configmap
+              mountPath: /configmap
+            - name: config
+              mountPath: /etc/rabbitmq
+            - name: data
+              mountPath: /var/lib/rabbitmq
+      containers:
+        - name: {{ .Chart.Name }}
+          image: {{ .Values.image.variables.image.value }}
+          imagePullPolicy: {{ .Values.image.variables.policyType.value }}
+          ports:
+            - name: epmd
+              protocol: TCP
+              containerPort: 4369
+            - name: amqp
+              protocol: TCP
+              containerPort: 5672
+            - name: http
+              protocol: TCP
+              containerPort: 15672
+          livenessProbe:
+            exec:
+              command:
+                - rabbitmqctl
+                - status
+            initialDelaySeconds: 120
+            timeoutSeconds: 5
+            failureThreshold: 6
+          readinessProbe:
+            exec:
+              command:
+                - rabbitmqctl
+                - status
+            initialDelaySeconds: 120
+            timeoutSeconds: 5
+            periodSeconds: 6
+          env:
+            - name: MY_POD_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.name
+            - name: RABBITMQ_USE_LONGNAME
+              value: "true"
+            - name: RABBITMQ_NODENAME
+              value: rabbit@$(MY_POD_NAME).{{ template "rabbitmq-ha.fullname" . }}-discovery.{{ .Release.Namespace }}.svc.cluster.local
+            - name: K8S_HOSTNAME_SUFFIX
+              value: .{{ template "rabbitmq-ha.fullname" . }}-discovery.{{ .Release.Namespace }}.svc.cluster.local
+            - name: K8S_SERVICE_NAME
+              value: {{ template "rabbitmq-ha.fullname" . }}-discovery
+            - name: RABBITMQ_ERLANG_COOKIE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "rabbitmq-ha.fullname" . }}
+                  key: rabbitmq-erlang-cookie
+            - name: RABBITMQ_DEFAULT_USER
+              value: {{ .Values.cluster.variables.username.value | quote }}
+            - name: RABBITMQ_DEFAULT_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "rabbitmq-ha.fullname" . }}
+                  key: rabbitmq-password
+            - name: RABBITMQ_DEFAULT_VHOST
+              value: /
+          resources:
+            requests:
+             cpu: {{ .Values.resources.variables.cpuRequest.value }}m
+             memory: {{ .Values.resources.variables.memoryRequest.value }}Mi
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/rabbitmq
+            - name: config
+              mountPath: /etc/rabbitmq
+      volumes:
+        - name: config
+          emptyDir: {}
+        - name: configmap
+          configMap:
+            name: {{ template "rabbitmq-ha.fullname" . }}
+{{- if .Values.persistence.enabled }}
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+        labels:
+          app: {{ template "fullname" . }}
+          chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+          release: "{{ .Release.Name }}"
+          heritage: "{{ .Release.Service }}"
+      spec:
+        accessModes:
+          - {{ .Values.persistence.variables.accessMode.value | quote }}
+        resources:
+          requests:
+            storage: {{ .Values.persistence.variables.size.value }}Gi
+      {{- if .Values.persistent.variables.storageClass.value }}
+      {{- if (eq "-" .Values.persistent.variables.storageClass.value ) }}
+        storageClassName: ""
+      {{- else }}
+        storageClassName: "{{ .Values.persistent.variables.storageClass.value }}"
+      {{- end }}
+      {{- end }}
+{{- else }}
+        - name: data
+          emptyDir: {}
+{{- end }}
