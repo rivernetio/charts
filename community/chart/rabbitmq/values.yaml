@@ -1,152 +1,148 @@
 isNewTemplate: true
 
 image:
-    name: "image"
-    description: "Image Info"
-    type: "string"
-    required: true
-    variables:
-      rabbitmqImage:
-        name: "rabbitmqImage"
-        label: "rabbitmq image"
-        description: "The image of rabbitmq"
-        required: true
-        value: "registry.harbor:5000/sky-firmament/rabbitmq:3.7.3"
-        type: "string"    
-      policyType:
-        name: "policyType"
-        label: "policy type"
-        description: "The type of image pull policy"
-        required: true
-        value: "IfNotPresent"
-        type: "string"
+   name: "image"
+   description: "Image Info"
+   type: "string"
+   required: true
+   variables:
+     image:
+       name: "image"
+       label: "image"
+       description: "The image of app"
+       required: true
+       value: "registry.harbor:5000/sky-firmament/rabbitmq:3.7.5-management"
+       type: "string"    
+     policyType:
+       name: "policyType"
+       label: "policy type"
+       description: "The type of image pull policy"
+       required: true
+       value: "Always"
+       type: "string"
 
-upi:
-    name: "password"
-    description: "User Password Info"
-    type: "string"
-    required: true
-    variables:
-      user:
-        name: "rabbitmqUsername"
-        label: "rabbitmq username"
-        description: "The user for rabbitmq"
-        required: true
-        value: "user"
-        type: "string"
-      password:
-        name: "rabbitmqPassword"
-        label: "rabbitmq password"
-        description: "The password for rabbitmq"
-        required: true
-        value: "password"
-        type: "string"
+resources:
+   name: "reosurce info"
+   description: "Reosurce Info"
+   type: "string"
+   required: true
+   variables:
+     cpuRequest:
+       name: "cpuRequest"
+       label: "cpu(m)"
+       description: "CPU, in cores. (500m = 0.5 cores)"
+       required: true
+       value: 100
+       type: "int"
+     memoryRequest:
+       name: "memoryRequest"
+       label: "memory(MB)"
+       description: "Memory, in MB. (1GB = 1024 MB)"
+       required: true
+       value: 256
+       type: "int"
 
-
-
-rabbitmqInfo:
-    name: "rabbitmqInfo"
-    description: "RabbitMQ Info"
-    type: "string"
-    required: true
-    variables:
-      rabbitmqNodePort:
-        name: "rabbitmqNodePort"
-        label: "rabbitmq node port"
-        description: "The port for rabbitmq node"
-        required: true
-        value: "5672"
-        type: "string"
-      rabbitmqNodeType:
-        name: "rabbitmqNodeType"
-        label: "rabbitmq node type"
-        description: "The type for rabbitmq node"
-        required: true
-        value: "stats"
-        type: "string"
-      rabbitmqNodeName:
-        name: "rabbitmqNodeName"
-        label: "rabbitmq node name"
-        description: "The name for rabbitmq node"
-        required: true
-        value: "rabbit"
-        type: "string"
-      rabbitmqManagerPort:
-        name: "rabbitmqManagerPort"
-        label: "rabbitmq manager port"
-        description: "The port for rabbitmq manager"
-        required: true
-        value: "15672"
-        type: "string"
-      rabbitmqDiskFreeLimit:
-        name: "rabbitmqDiskFreeLimit"
-        label: "rabbitmq disk free limit"
-        description: "The limit of rabbitmq disk free"
-        required: true
-        value: "6GiB"
-        type: "string"
-        
-service:
-    name: "service"
-    description: "Service Info"
-    type: "string"
-    required: true
-    variables:
-      name:
-        name: "serviceName"
-        label: "service name"
-        description: "The name of service"
-        required: true
-        value: "svc-rabbitmq"
-        type: "string"
-      type:
-        name: "serviceType"
-        label: "service type"
-        description: "The type of service"
-        required: true
-        value: "ClusterIP"
-        type: "string"
-        
 persistence:
-    name: "storage"
-    description: "Persistent Storage"
-    type: "checkbox"
-    required: true
-    enabled: false
-    variables:
-      accessMode:
-        name: "accessMode"
-        label: "access mode"
-        description: "The mode of access"
-        required: true
-        value: "ReadWriteOnce"
-        type: "string"
-      size:
-        name: "sizeRequest"
-        label: "storage(GB)"
-        description: "Storage, in GB. (1GB = 1024 MB)"
-        required: true
-        value: 8
-        type: "int"
+   name: "storage"
+   description: "Persistent Storage"
+   type: "checkbox"
+   required: true
+   enabled: true
+   variables:
+     mountPath:
+       name: "mountPath"
+       label: "Mount Path"
+       description: "The path within the container at which the volume should be mounted"
+       required: true
+       value: "/var/lib/rabbitmq"
+       type: "string"
+     size:
+       name: "sizeRequest"
+       label: "storage(GB)"
+       description: "Storage, in GB. (1GB = 1024 MB)"
+       required: true
+       value: 1
+       type: "int"
+     storagePool:
+       name: "storagePool"
+       label: "storagePool"
+       description: "storage pool for volume, use default pool if value is null"
+       required: false
+       value: ""
+       type: "string"
 
-reosurces:
-    name: "reosurce info"
-    description: "Reosurce Info"
-    type: "string"
-    required: true
-    variables:
-      cpuRequest:
-        name: "cpuRequest"
-        label: "cpu(m)"
-        description: "CPU, in cores. (500m = 0.5 cores)"
-        required: true
-        value: 100
-        type: "int"
-      memoryRequest:
-        name: "memoryRequest"
-        label: "memory(MB)"
-        description: "Memory, in MB. (1GB = 1024 MB)"
-        required: true
-        value: 256
-        type: "int"
-
+service:
+   name: "service"
+   description: "Service Info"
+   type: "string"
+   required: true
+   variables:
+     type:
+       name: "serviceType"
+       label: "service type"
+       description: "The type of service"
+       required: true
+       value: "LoadBalancer"
+       type: "selectbox"
+       selectValue: ["ClusterIP", "LoadBalancer", "NodePort"]
+     port:
+       name: "servicePort"
+       label: "service port"
+       description: "The port of service"
+       required: true
+       value: "5672"
+       type: "string"
+     nodePort:
+       name: "nodePort"
+       label: "nodePort"
+       description: "The nodePort of service,range 30000-32767,only available when serviceType is NodePort"
+       required: false
+       value: ""
+       type: "string"
+managementService:
+   name: "managementService"
+   description: "management Service Info"
+   type: "string"
+   required: true
+   variables:
+     type:
+       name: "serviceType"
+       label: "service type"
+       description: "The type of service"
+       required: true
+       value: "LoadBalancer"
+       type: "selectbox"
+       selectValue: ["ClusterIP", "LoadBalancer", "NodePort"]
+     port:
+       name: "servicePort"
+       label: "service port"
+       description: "The port of service"
+       required: true
+       value: "15672"
+       type: "string" 
+     nodePort:
+       name: "nodePort"
+       label: "nodePort"
+       description: "The nodePort of service,range 30000-32767,only available when serviceType is NodePort"
+       required: false
+       value: ""
+       type: "string"
+config:
+  name: "config"
+  description: "custom config"
+  type: "text"
+  required: true
+  variables:
+    config: 
+      name: "config"
+      label: "rabbitmq.conf"
+      path: "/etc/rabbitmq/rabbitmq.conf"
+      description: "The config of rabbitmq.conf"
+      required: true
+      type: "text"
+      value: |-
+        loopback_users.guest = false
+        listeners.tcp.default = 5672
+        hipe_compile = false
+        management.listener.port = 15672
+        management.listener.ssl = false

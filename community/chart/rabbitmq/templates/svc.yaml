@@ -1,26 +1,20 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "rabbitmq.fullname" . }}
+  name: {{ template "fullname" . }}
   labels:
-    app: {{ template "rabbitmq.fullname" . }}
+    app: {{ template "fullname" . }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"
 spec:
   type: {{ .Values.service.variables.type.value }}
   ports:
-  - name: epmd
-    port: 4369
-    targetPort: epmd
-  - name: amqp
-    port: {{ default "5672" .Values.rabbitmqInfo.variables.rabbitmqNodePort.value }}
-    targetPort: amqp
-  - name: dist
-    port: {{ default "5672" .Values.rabbitmqInfo.variables.rabbitmqNodePort.value | add 20000 }}
-    targetPort: dist
-  - name: stats
-    port: {{ default "15672" .Values.rabbitmqInfo.variables.rabbitmqManagerPort.value }}
-    targetPort: stats
+  - name: api
+    port: {{ .Values.service.variables.port.value }}
+    targetPort: {{ .Values.service.variables.port.value }}
+    {{- if eq .Values.service.variables.type.value  "NodePort" }}
+    nodePort: {{ .Values.service.variables.nodePort.value }}
+    {{- end }}
   selector:
-    app: {{ template "rabbitmq.fullname" . }}
+    app: {{ template "fullname" . }}
