@@ -38,5 +38,5 @@ data:
     loopback_users.guest = false
 
     ## Memory-based Flow Control threshold
-    vm_memory_high_watermark.absolute = 256MB
+    vm_memory_high_watermark.absolute = {{ .Values.memory.variables.memoryThreshold.value }}
 
