@@ -34,17 +34,45 @@ service:
         required: true
         value: "NodePort"
         type: "string"
-      externalPort:
-        name: "externalPort"
-        label: "external port"
-        description: "The port of external"
+      httpPort:
+        name: "httpPort"
+        label: "http port"
+        description: "The port of http"
         required: true
-        value: "8983"
+        value: "15672"
         type: "string"
-      nodePort:
-        name: "nodePort"
-        label: "node port"
-        description: "Node port"
+      amqpPort:
+        name: "amqpPort"
+        label: "amqp port"
+        description: "The port of amqp"
+        required: true
+        value: "5672"
+        type: "string"
+      epmdPort:
+        name: "epmdPort"
+        label: "epmd port"
+        description: "The port of epmd"
+        required: true
+        value: "4369"
+        type: "string"
+      httpNodePort:
+        name: "httpNodePort"
+        label: "http node port"
+        description: "Http Node Port"
+        required: false
+        value: ""
+        type: "string"
+      amqpNodePort:
+        name: "amqpNodePort"
+        label: "amqp node port"
+        description: "AMQP Node Port"
+        required: false
+        value: ""
+        type: "string"
+      epmdNodePort:
+        name: "epmdNodePort"
+        label: "epmd node port"
+        description: "EPMD Node Port"
         required: false
         value: ""
         type: "string"
@@ -105,7 +133,7 @@ persistence:
     description: "Persistent Storage"
     type: "checkbox"
     required: true
-    enabled: false
+    enabled: true
     variables:
       accessMode:
         name: "accessMode"

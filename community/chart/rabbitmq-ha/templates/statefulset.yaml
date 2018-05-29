@@ -20,7 +20,7 @@ spec:
       serviceAccountName: {{ .Release.Name }}
       initContainers:
         - name: copy-rabbitmq-config
-          image: busybox
+          image: registry.harbor:5000/sky-firmament/busybox
           command: ['sh', '-c', 'cp /configmap/* /etc/rabbitmq; rm -f /var/lib/rabbitmq/.erlang.cookie']
           volumeMounts:
             - name: configmap
@@ -107,7 +107,7 @@ spec:
     - metadata:
         name: data
         labels:
-          app: {{ template "fullname" . }}
+          app: {{ template "rabbitmq-ha.fullname" . }}
           chart: {{ .Chart.Name }}-{{ .Chart.Version }}
           release: "{{ .Release.Name }}"
           heritage: "{{ .Release.Service }}"
@@ -117,11 +117,11 @@ spec:
         resources:
           requests:
             storage: {{ .Values.persistence.variables.size.value }}Gi
-      {{- if .Values.persistent.variables.storageClass.value }}
-      {{- if (eq "-" .Values.persistent.variables.storageClass.value ) }}
+      {{- if .Values.persistence.variables.storageClass.value }}
+      {{- if (eq "-" .Values.persistence.variables.storageClass.value ) }}
         storageClassName: ""
       {{- else }}
-        storageClassName: "{{ .Values.persistent.variables.storageClass.value }}"
+        storageClassName: "{{ .Values.persistence.variables.storageClass.value }}"
       {{- end }}
       {{- end }}
 {{- else }}

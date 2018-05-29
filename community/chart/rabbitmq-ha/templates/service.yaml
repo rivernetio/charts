@@ -11,16 +11,25 @@ spec:
   ports:
     - name: http
       protocol: TCP
-      port: 15672
+      port: {{ .Values.service.variables.httpPort.value }}
       targetPort: http
+      {{- if ( and (eq .Values.service.variables.type.value "NodePort") (.Values.service.variables.httpNodePort.value) ) }}
+      nodePort: {{ .Values.service.variables.httpNodePort.value }}
+      {{- end }}
     - name: amqp
       protocol: TCP
-      port: 5672
+      port: {{ .Values.service.variables.amqpPort.value }}
       targetPort: amqp
+      {{- if ( and (eq .Values.service.variables.type.value "NodePort") (.Values.service.variables.amqpNodePort.value) ) }}
+      nodePort: {{ .Values.service.variables.amqpNodePort.value }}
+      {{- end }}
     - name: epmd
       protocol: TCP
-      port: 4369
+      port: {{ .Values.service.variables.epmdPort.value }}
       targetPort: epmd
+      {{- if ( and (eq .Values.service.variables.type.value "NodePort") (.Values.service.variables.epmdNodePort.value) ) }}
+      nodePort: {{ .Values.service.variables.epmdNodePort.value }}
+      {{- end }}
   selector:
     app: {{ template "rabbitmq-ha.name" . }}
     release: {{ .Release.Name }}

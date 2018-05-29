@@ -12,15 +12,15 @@ spec:
   ports:
     - name: http
       protocol: TCP
-      port: 15672
+      port: {{ .Values.service.variables.httpPort.value }}
       targetPort: http
     - name: amqp
       protocol: TCP
-      port: 5672
+      port: {{ .Values.service.variables.amqpPort.value }}
       targetPort: amqp
     - name: epmd
       protocol: TCP
-      port: 4369
+      port: {{ .Values.service.variables.epmdPort.value }}
       targetPort: epmd
   selector:
     app: {{ template "rabbitmq-ha.name" . }}
