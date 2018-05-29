@@ -33,7 +33,8 @@ service:
         description: "The type of service"
         required: true
         value: "NodePort"
-        type: "string"
+        selectValue: ["NodePort", "ClusterIP", "LoadBalancer"]
+        type: "selectbox"
       httpPort:
         name: "httpPort"
         label: "http port"
@@ -80,9 +81,8 @@ service:
 cluster:
     name: "cluster"
     description: "Cluster Config"
-    type: "checkbox"
+    type: "string"
     reuqired: true
-    enabled: false
     variables:
       replica:
         name: "replicaCount"
@@ -133,7 +133,7 @@ persistence:
     description: "Persistent Storage"
     type: "checkbox"
     required: true
-    enabled: true
+    enabled: false
     variables:
       accessMode:
         name: "accessMode"
