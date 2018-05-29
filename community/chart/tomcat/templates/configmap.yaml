@@ -8,5 +8,7 @@ metadata:
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"
 data:
-  {{ .Values.config.variables.path.value | base }}: |-
-{{ .Values.config.variables.content.value | indent 4 }}
+  {{ .Values.config.variables.config.path | base }}: |-
+{{ .Values.config.variables.config.value | indent 4 }}
+  {{ .Values.config.variables.config1.path | base }}: |-
+{{ .Values.config.variables.config1.value | indent 4 }}

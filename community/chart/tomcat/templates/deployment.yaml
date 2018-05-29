@@ -28,8 +28,11 @@ spec:
         - name: data
           mountPath: {{ .Values.persistence.variables.mountPath.value | quote }}
         - name: config
-          mountPath: {{ .Values.config.variables.path.value }}
-          subPath: {{ .Values.config.variables.path.value | base }}
+          mountPath: {{ .Values.config.variables.config.path }}
+          subPath: {{ .Values.config.variables.config.path | base }}
+        - name: config
+          mountPath: {{ .Values.config.variables.config1.path }}
+          subPath: {{ .Values.config.variables.config1.path | base }}
       volumes:
       - name: data
       {{- if .Values.persistence.enabled }}
@@ -41,3 +44,4 @@ spec:
       - name: config
         configMap:
           name: {{ template "fullname" . }}
+          defaultMode: 0777

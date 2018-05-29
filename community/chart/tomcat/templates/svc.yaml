@@ -13,5 +13,8 @@ spec:
   - name: api
     port: {{ .Values.service.variables.port.value }}
     targetPort: {{ .Values.service.variables.port.value }}
+    {{- if eq .Values.service.variables.type.value  "NodePort" }}
+    nodePort: {{ .Values.service.variables.nodePort.value }}
+    {{- end }}
   selector:
     app: {{ template "fullname" . }}
