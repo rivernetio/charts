@@ -1,163 +1,118 @@
 isNewTemplate: true
 
 image:
-    name: "image"
-    description: "Image Info"
-    type: "string"
-    required: true
-    variables:
-      redisImage:
-        name: "redisImage"
-        label: "redis image"
-        description: "The image of redis"
-        required: true
-        value: "registry.harbor:5000/sky-firmament/redis:4.0.2"
-        type: "string"    
-      policyType:
-        name: "policyType"
-        label: "policy type"
-        description: "The type of image pull policy"
-        required: true
-        value: "IfNotPresent"
-        type: "string"
-        
-service:
-    name: "service"
-    description: "Service Info"
-    type: "string"
-    required: true
-    variables:
-      name:
-        name: "serviceName"
-        label: "service name"
-        description: "The name of service"
-        required: true
-        value: "svc-redis"
-        type: "string"
-      type:
-        name: "serviceType"
-        label: "service type"
-        description: "The type of service"
-        required: true
-        value: "ClusterIP"
-        type: "string"
-      externalPort:
-        name: "externalPort"
-        label: "external port"
-        description: "The port of external"
-        required: true
-        value: "6379"
-        type: "string"
-      internalPort:
-        name: "internalPort"
-        label: "internal port"
-        description: "The port of internal"
-        required: true
-        value: "6379"
-        type: "string"
-        
-password:
-    name: "password"
-    description: "Password"
-    type: "string"
-    required: true
-    variables:
-      usePassword:
-        name: "usePassword"
-        label: "use password"
-        description: "Use password"
-        required: true
-        value: true
-        type: "bool"
-      redisPassword:
-        name: "redisPassword"
-        label: "redis password"
-        description: "The password of redis"
-        required: true
-        value: "password"
-        type: "string"
+   name: "image"
+   description: "Image Info"
+   type: "string"
+   required: true
+   variables:
+     image:
+       name: "image"
+       label: "image"
+       description: "The image of app"
+       required: true
+       value: "registry.harbor:5000/sky-firmament/redis:4.0.2"
+       type: "string"    
+     policyType:
+       name: "policyType"
+       label: "policy type"
+       description: "The type of image pull policy"
+       required: true
+       value: "Always"
+       type: "string"
+
+resources:
+   name: "reosurce info"
+   description: "Reosurce Info"
+   type: "string"
+   required: true
+   variables:
+     cpuRequest:
+       name: "cpuRequest"
+       label: "cpu(m)"
+       description: "CPU, in cores. (500m = 0.5 cores)"
+       required: true
+       value: 100
+       type: "int"
+     memoryRequest:
+       name: "memoryRequest"
+       label: "memory(MB)"
+       description: "Memory, in MB. (1GB = 1024 MB)"
+       required: true
+       value: 256
+       type: "int"
 
 persistence:
-    name: "storage"
-    description: "Persistent Storage"
-    type: "checkbox"
-    required: true
-    enabled: false
-    variables:
-      accessMode:
-        name: "accessMode"
-        label: "access mode"
-        description: "The mode of access"
-        required: true
-        value: "ReadWriteOnce"
-        type: "string"
-      size:
-        name: "sizeRequest"
-        label: "storage(GB)"
-        description: "Storage, in GB. (1GB = 1024 MB)"
-        required: true
-        value: 1
-        type: "int"
+   name: "storage"
+   description: "Persistent Storage"
+   type: "checkbox"
+   required: true
+   enabled: false
+   variables:
+     mountPath:
+       name: "mountPath"
+       label: "Mount Path"
+       description: "The path within the container at which the volume should be mounted"
+       required: true
+       value: "/data"
+       type: "string"
+     size:
+       name: "sizeRequest"
+       label: "storage(GB)"
+       description: "Storage, in GB. (1GB = 1024 MB)"
+       required: true
+       value: 1
+       type: "int"
+     storagePool:
+       name: "storagePool"
+       label: "storagePool"
+       description: "storage pool for volume, use default pool if value is null"
+       required: false
+       value: ""
+       type: "string"
 
-metrics:
-    name: "metrics"
-    description: "Metrics"
-    type: "checkbox"
-    required: true
-    enabled: false
-    variables:
-      exporterImage:
-        name: "exporterImage"
-        label: "exporter image"
-        description: "The image of redis_exporter"
-        required: true
-        value: "oliver006/redis_exporter:v0.11"
-        type: "string"
-      policyType:
-        name: "policyType"
-        label: "policy type"
-        description: "The type of image pull policy"
-        required: true
-        value: "IfNotPresent"
-        type: "string"
-      resources: {}
-      annotations:
-        prometheus.io/scrape: "true"
-        prometheus.io/port: "9121"
+service:
+   name: "service"
+   description: "Service Info"
+   type: "string"
+   required: true
+   variables:
+     type:
+       name: "serviceType"
+       label: "service type"
+       description: "The type of service"
+       required: true
+       value: "NodePort"
+       type: "string"
+     port:
+       name: "port"
+       label: "port"
+       description: "The port of service"
+       required: true
+       value: "6379"
+       type: "string"
+     nodePort:
+       name: "nodePort"
+       label: "nodePort"
+       description: "The nodePort of service,range 30000-32767"
+       required: true
+       value: "30379"
+       type: "string"
+config:
+  name: "config"
+  description: "custom config"
+  type: "text"
+  required: true
+  variables:
+    config: 
+      name: "config"
+      label: "redis.conf"
+      path: "/etc/redis/redis.conf"
+      description: "The config of redis.conf"
+      required: true
+      type: "text"
+      value: |-
+        appendonly  yes
+        protected-mode no
+        requirepass password
 
-
-reosurces:
-    name: "reosurce info"
-    description: "Reosurce Info"
-    type: "string"
-    required: true
-    variables:
-      cpuRequest:
-        name: "cpuRequest"
-        label: "cpu(m)"
-        description: "CPU, in cores. (500m = 0.5 cores)"
-        required: true
-        value: 100
-        type: "int"
-      memoryRequest:
-        name: "memoryRequest"
-        label: "memory(MB)"
-        description: "Memory, in MB. (1GB = 1024 MB)"
-        required: true
-        value: 256
-        type: "int"
-
-networkPolicy:
-    name: "networkPolicy"
-    description: "Network Policy"
-    type: "checkbox"
-    required: true
-    enabled: false
-    variables:
-      allowExternal:
-        name: "allowExternal"
-        label: "allow external"
-        description: "Allow external"
-        required: true
-        value: true
-        type: "bool"

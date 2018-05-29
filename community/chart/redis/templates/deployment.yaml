@@ -1,9 +1,9 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: {{ template "redis.fullname" . }}
+  name: {{ template "fullname" . }}
   labels:
-    app: {{ template "redis.fullname" . }}
+    app: {{ template "fullname" . }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"
@@ -11,41 +11,21 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ template "redis.fullname" . }}
-{{- if .Values.podLabels }}
-{{ toYaml .Values.podLabels | indent 8 }}
-{{- end }}
+        app: {{ template "fullname" . }}
     spec:
       securityContext:
         runAsUser: 1001
         fsGroup: 1001
-      {{- if .Values.nodeSelector }}
-      nodeSelector:
-{{ toYaml .Values.nodeSelector | indent 8 }}
-      {{- end }}
-      {{- if .Values.tolerations }}
-      tolerations:
-{{ toYaml .Values.tolerations | indent 8 }}
-      {{- end }}
       containers:
-      - name: {{ template "redis.fullname" . }}
-        image: "{{ .Values.image.variables.redisImage.value }}"
+      - name: {{ template "fullname" . }}
+        image: "{{ .Values.image.variables.image.value }}"
         imagePullPolicy: {{ default "" .Values.image.variables.policyType.value | quote }}
-        {{- if .Values.args }}
         args:
-{{ toYaml .Values.args | indent 10 }}
-        {{- end }}
-        env:
-        {{- if .Values.password.variables.usePassword.value }}
-        - name: REDIS_PASSWORD
-          value: {{ default "" .Values.password.variables.redisPassword.value | quote }}
-        {{- else }}
-        - name: ALLOW_EMPTY_PASSWORD
-          value: "yes"
-        {{- end }}
+        - redis-server
+        - {{ .Values.config.variables.config.path }}
         ports:
-        - name: redis
-          containerPort: 6379
+        - name: api
+          containerPort: {{ .Values.service.variables.port.value }}
         livenessProbe:
           exec:
             command:
@@ -61,32 +41,24 @@ spec:
           initialDelaySeconds: 5
           timeoutSeconds: 1
         resources:
-{{ toYaml .Values.resources | indent 10 }}
+          requests:
+             cpu: {{ .Values.resources.variables.cpuRequest.value }}m
+             memory: {{ .Values.resources.variables.memoryRequest.value }}Mi
         volumeMounts:
-        - name: redis-data
-          mountPath: /bitnami
-{{- if .Values.metrics.enabled }}
-      - name: metrics
-        image: "{{ .Values.metrics.variables.exporterImage.value }}"
-        imagePullPolicy: {{ .Values.metrics.variables.policyType.value | quote }}
-        env:
-        - name: REDIS_ALIAS
-          value: {{ template "redis.fullname" . }}
-        {{- if .Values.password.variables.usePassword.value }}
-        - name: REDIS_PASSWORD
-          value: {{ default "" .Values.password.variables.redisPassword.value | quote }}
-        {{- end }}
-        ports:
-        - name: metrics
-          containerPort: 9121
-        resources:
-{{ toYaml .Values.metrics.resources | indent 10 }}
-{{- end }}
+        - name: data
+          mountPath: {{ .Values.persistence.variables.mountPath.value | quote }}
+        - name: config
+          mountPath: {{ .Values.config.variables.config.path }}
+          subPath: {{ .Values.config.variables.config.path | base }}
       volumes:
-      - name: redis-data
+      - name: data
       {{- if .Values.persistence.enabled }}
         persistentVolumeClaim:
-          claimName: {{ .Values.persistence.existingClaim | default (include "redis.fullname" .) }}
+          claimName: {{ template "fullname" . }}
       {{- else }}
         emptyDir: {}
-      {{- end -}}
+      {{- end }}
+      - name: config
+        configMap:
+          name: {{ template "fullname" . }}
+          defaultMode: 0777
