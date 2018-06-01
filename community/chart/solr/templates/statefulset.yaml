@@ -74,7 +74,7 @@ spec:
       {{ if not .Values.persistence.enabled -}}
       - name: data
         emptyDir: {}
-  {{- else -}}
+  {{- else }}
   volumeClaimTemplates:
     - metadata:
         name: data
