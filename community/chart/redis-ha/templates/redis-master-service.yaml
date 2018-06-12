@@ -9,7 +9,7 @@ spec:
   ports:
   - name: api
     port: {{ .Values.service.variables.port.value }}
-    targetPort: {{ .Values.service.variables.port.value }}
+    targetPort: 6379
     {{- if eq .Values.service.variables.type.value  "NodePort" }}
     nodePort: {{ .Values.service.variables.nodePort.value }}
     {{- end }}

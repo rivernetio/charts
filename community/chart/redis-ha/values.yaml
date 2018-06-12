@@ -18,7 +18,7 @@ image:
        label: "policy type"
        description: "The type of image pull policy"
        required: true
-       value: "Always"
+       value: "IfNotPresent"
        type: "string"
 
 resources:
@@ -48,6 +48,7 @@ resources:
        required: true
        value: 3
        type: "int"
+
 sentinelResources:
    name: "sentinel reosurce info"
    description: "sentinel Reosurce Info"
@@ -116,3 +117,25 @@ config:
       required: true
       type: "string"
       value: "password"
+
+persistence:
+   name: "storage"
+   description: "Persistent Storage"
+   type: "checkbox"
+   required: true
+   enabled: false
+   variables:
+     size:
+       name: "sizeRequest"
+       label: "storage(GB)"
+       description: "Storage, in GB. (1GB = 1024 MB)"
+       required: true
+       value: 1
+       type: "int"
+     storagePool:
+       name: "storagePool"
+       label: "storagePool"
+       description: "storage pool for volume, use default pool if value is null"
+       required: false
+       value: ""
+       type: "string"

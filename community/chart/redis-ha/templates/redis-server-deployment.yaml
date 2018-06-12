@@ -40,10 +40,16 @@ spec:
                 key: auth
 {{- end }}
         ports:
-          - containerPort: {{ .Values.service.variables.port.value }}
+          - containerPort: 6379
         volumeMounts:
           - mountPath: /redis-master-data
             name: data
       volumes:
       - name: data
+      {{- if .Values.persistence.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ template "redis-ha.fullname" . }}
+      {{- else }}
+        emptyDir: {}
+      {{- end }}
 
