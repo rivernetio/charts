@@ -1,52 +1,118 @@
-## Configure resource requests and limits
-## ref: http://kubernetes.io/docs/user-guide/compute-resources/
-##
+isNewTemplate: true
+
+image:
+   name: "image"
+   description: "Image Info"
+   type: "string"
+   required: true
+   variables:
+     image:
+       name: "image"
+       label: "image"
+       description: "The image of app"
+       required: true
+       value: "registry.harbor:5000/smile/redis:4.0.8r0"
+       type: "string"    
+     policyType:
+       name: "policyType"
+       label: "policy type"
+       description: "The type of image pull policy"
+       required: true
+       value: "Always"
+       type: "string"
+
 resources:
-  server:
-    requests:
-      memory: 200Mi
-      cpu: 100m
-    limits:
-      memory: 700Mi
-  sentinel:
-    requests:
-      memory: 200Mi
-      cpu: 100m
-    limits:
-      memory: 200Mi
-
-## Node labels and tolerations for pod assignment
-## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
-## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature
-nodeSelector: {}
-tolerations: []
-
-## Redis image version
-redis_image: rivernet/redis:4.0.8r0
-## replicas number for each component
-replicas:
-  servers: 3
-  sentinels: 3
-servers:
-  serviceType: NodePort  # [ClusterIP|LoadBalancer]
-  annotations: {}
-
-rbac:
-  # Specifies whether RBAC resources should be created
-  create: true
-
-serviceAccount:
-  # Specifies whether a ServiceAccount should be created
-  create: true
-  # The name of the ServiceAccount to use.
-  # If not set and create is true, a name is generated using the fullname template
-  name:
-
-## Configures redis with AUTH (requirepass & masterauth conf params)
-auth: false
-
-## Redis password
-## Defaults to a random 10-character alphanumeric string if not set and auth is true
-## ref: https://github.com/kubernetes/charts/blob/master/stable/redis-ha/templates/redis-auth-secret.yaml
-##
-## redisPassword:
+   name: "reosurce info"
+   description: "Reosurce Info"
+   type: "string"
+   required: true
+   variables:
+     cpuRequest:
+       name: "cpuRequest"
+       label: "cpu(m)"
+       description: "CPU, in cores. (500m = 0.5 cores)"
+       required: true
+       value: 100
+       type: "int"
+     memoryRequest:
+       name: "memoryRequest"
+       label: "memory(MB)"
+       description: "Memory, in MB. (1GB = 1024 MB)"
+       required: true
+       value: 256
+       type: "int"
+     replicas:
+       name: "replicas"
+       label: "replicas"
+       description: "the number of redis server replicas"
+       required: true
+       value: 3
+       type: "int"
+sentinelResources:
+   name: "sentinel reosurce info"
+   description: "sentinel Reosurce Info"
+   type: "string"
+   required: true
+   variables:
+     cpuRequest:
+       name: "cpuRequest"
+       label: "cpu(m)"
+       description: "CPU, in cores. (500m = 0.5 cores)"
+       required: true
+       value: 100
+       type: "int"
+     memoryRequest:
+       name: "memoryRequest"
+       label: "memory(MB)"
+       description: "Memory, in MB. (1GB = 1024 MB)"
+       required: true
+       value: 256
+       type: "int"
+     replicas:
+       name: "replicas"
+       label: "replicas"
+       description: "the number of redis sentinel replicas"
+       required: true
+       value: 3
+       type: "int"
+service:
+   name: "service"
+   description: "Service Info"
+   type: "string"
+   required: true
+   variables:
+     type:
+       name: "serviceType"
+       label: "service type"
+       description: "The type of service"
+       required: true
+       value: "LoadBalancer"
+       type: "selectbox"
+       selectValue: ["ClusterIP", "LoadBalancer", "NodePort"]
+     port:
+       name: "servicePort"
+       label: "service port"
+       description: "The port of service"
+       required: true
+       value: "6379"
+       type: "string"
+     nodePort:
+       name: "nodePort"
+       label: "nodePort"
+       description: "The nodePort of service,range 30000-32767,only available when serviceType is NodePort"
+       required: false
+       value: ""
+       type: "string"
+config:
+  name: "config"
+  description: "custom config"
+  type: "string"
+  required: true
+  variables:
+    password: 
+      name: "password"
+      label: "redis password"
+      description: "The password of redis"
+      required: true
+      type: "string"
+      value: "password"

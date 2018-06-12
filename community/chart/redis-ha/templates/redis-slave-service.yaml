@@ -5,16 +5,14 @@ metadata:
   labels:
     role: service
 {{ include "labels.standard" . | indent 4 }}
-  annotations:
-{{ toYaml .Values.servers.annotations | indent 4 }}
 spec:
   ports:
-  - port: 6379
-    protocol: TCP
-    targetPort: 6379
+  - name: api
+    port: {{ .Values.service.variables.port.value }}
+    targetPort: {{ .Values.service.variables.port.value }}
   selector:
     app: {{ template "redis-ha.name" . }}
     release: "{{ .Release.Name }}"
     redis-node: "true"
     redis-role: "slave"
-  type: "{{ .Values.servers.serviceType }}"
+  type: ClusterIP

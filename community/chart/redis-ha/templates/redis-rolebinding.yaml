@@ -1,4 +1,3 @@
-{{- if .Values.rbac.create -}}
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: RoleBinding
 metadata:
@@ -11,5 +10,4 @@ roleRef:
   name: {{ template "redis-ha.fullname" . }}
 subjects:
 - kind: ServiceAccount
-  name: {{ template "redis-ha.serviceAccountName" . }}
-{{- end -}}
+  name: {{ template "redis-ha.fullname" . }}

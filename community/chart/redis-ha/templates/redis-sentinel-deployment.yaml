@@ -5,7 +5,7 @@ metadata:
   labels:
 {{ include "labels.standard" . | indent 4 }}
 spec:
-  replicas: {{ .Values.replicas.sentinels }}
+  replicas: {{ .Values.sentinelResources.variables.replicas.value }}
   template:
     metadata:
       labels:
@@ -14,26 +14,21 @@ spec:
         component: sentinel
         name: {{ template "redis-ha.fullname" . }}-sentinel
     spec:
-      serviceAccountName: {{ template "redis-ha.serviceAccountName" . }}
-      {{- if .Values.nodeSelector }}
-      nodeSelector:
-{{ toYaml .Values.nodeSelector | indent 8 }}
-      {{- end }}
-      {{- if .Values.tolerations }}
-      tolerations:
-{{ toYaml .Values.tolerations | indent 8 }}
-      {{- end }}
+      serviceAccountName: {{ template "redis-ha.fullname" . }}
       containers:
       - name: sentinel
-        image: {{ .Values.redis_image }}
+        image: {{ .Values.image.variables.image.value }}
+        imagePullPolicy: {{ default "" .Values.image.variables.policyType.value | quote }}
         resources:
-{{ toYaml .Values.resources.sentinel | indent 10 }}
+          requests:
+             cpu: {{ .Values.sentinelResources.variables.cpuRequest.value }}m
+             memory: {{ .Values.sentinelResources.variables.memoryRequest.value }}Mi
         env:
           - name: SENTINEL
             value: "true"
           - name: REDIS_CHART_PREFIX
             value: {{ template "redis-ha.fullname" . }}-
-{{- if .Values.auth }}
+{{- if .Values.config.variables.password.value }}
           - name: REDIS_PASS
             valueFrom:
               secretKeyRef:

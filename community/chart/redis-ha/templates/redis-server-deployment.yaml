@@ -8,7 +8,7 @@ metadata:
     redis-node: "true"
 {{ include "labels.standard" . | indent 4 }}
 spec:
-  replicas: {{ .Values.replicas.servers }}
+  replicas: {{ .Values.resources.variables.replicas.value }}
   template:
     metadata:
       labels:
@@ -18,26 +18,21 @@ spec:
         name: {{ template "redis-ha.fullname" . }}-server
         redis-node: "true"
     spec:
-      serviceAccountName: {{ template "redis-ha.serviceAccountName" . }}
-      {{- if .Values.nodeSelector }}
-      nodeSelector:
-{{ toYaml .Values.nodeSelector | indent 8 }}
-      {{- end }}
-      {{- if .Values.tolerations }}
-      tolerations:
-{{ toYaml .Values.tolerations | indent 8 }}
-      {{- end }}
+      serviceAccountName: {{ template "redis-ha.fullname" . }}
       containers:
       - name: redis
-        image: {{ .Values.redis_image }}
+        image: {{ .Values.image.variables.image.value }}
+        imagePullPolicy: {{ default "" .Values.image.variables.policyType.value | quote }}
         resources:
-{{ toYaml .Values.resources.server | indent 10 }}
+          requests:
+             cpu: {{ .Values.resources.variables.cpuRequest.value }}m
+             memory: {{ .Values.resources.variables.memoryRequest.value }}Mi
         env:
           - name: REDIS_SENTINEL_SERVICE_HOST
             value: "redis-sentinel"
           - name: REDIS_CHART_PREFIX
             value: {{ template "redis-ha.fullname" . }}-
-{{- if .Values.auth }}
+{{- if .Values.config.variables.password.value }}
           - name: REDIS_PASS
             valueFrom:
               secretKeyRef:
@@ -45,7 +40,7 @@ spec:
                 key: auth
 {{- end }}
         ports:
-          - containerPort: 6379
+          - containerPort: {{ .Values.service.variables.port.value }}
         volumeMounts:
           - mountPath: /redis-master-data
             name: data
