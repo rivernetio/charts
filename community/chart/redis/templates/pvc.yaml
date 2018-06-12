@@ -16,5 +16,5 @@ spec:
   {{- end }}
   resources:
     requests:
-      storage: {{ .Values.persistence.variables.size.value | quote }}
+      storage: {{ .Values.persistence.variables.size.value | quote }}Gi
 {{- end }}
