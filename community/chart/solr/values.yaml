@@ -125,7 +125,7 @@ persistence:
         label: "access mode"
         description: "The mode of access"
         required: true
-        value: "ReadWriteOnce"
+        value: "ReadWriteMany"
         type: "string"
       size:
         name: "sizeRequest"
@@ -1236,7 +1236,7 @@ config:
                 replication is in use, this should match the replication
                 configuration.
              -->
-           <dataDir>${solr.data.dir:}</dataDir>
+           <dataDir>/data</dataDir>
          
          
            <!-- The DirectoryFactory to use for indexes.

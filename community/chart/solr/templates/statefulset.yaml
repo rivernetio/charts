@@ -7,7 +7,7 @@ metadata:
     release: "{{ .Release.Name }}"
     app: {{ template "fullname" . }}
 spec:
-  serviceName: {{ template "fullname" . }}-headless
+  serviceName: {{ .Release.Name }}-discovery
 {{- if .Values.cluster.enabled }}
   replicas: {{ .Values.cluster.variables.replica.value }}
 {{- end }}
@@ -32,6 +32,12 @@ spec:
       {{- if (add (.Values.cluster.enabled) (.Values.cluster.variables.zk.value)) }}
         - name: ZK_HOST
           value: "{{ .Values.cluster.variables.zk.value }}"
+        - name: CLUSTER_HOST
+          value: {{ .Release.Name }}-discovery
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
       {{- end }}
         livenessProbe:
           httpGet:
@@ -55,11 +61,11 @@ spec:
              memory: {{ .Values.resources.variables.memoryRequest.value }}Mi
         volumeMounts:
         - name: data
-       {{- if .Values.persistence.enabled }}
+          {{- if .Values.persistence.enabled }}
           mountPath: {{ .Values.persistence.variables.mountPath.value }}
-       {{- else }}
+          {{- else }}
           mountPath: /data
-       {{- end }}
+          {{- end }}
         - name: config
           mountPath: /opt/solr/server/solr/configsets/_default/conf/solrconfig.xml
           subPath: solrconfig.xml
@@ -76,24 +82,24 @@ spec:
         emptyDir: {}
   {{- else }}
   volumeClaimTemplates:
-    - metadata:
-        name: data
-        labels:
-          app: {{ template "fullname" . }}
-          chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-          release: "{{ .Release.Name }}"
-          heritage: "{{ .Release.Service }}"
-      spec:
-        accessModes:
-          - {{ .Values.persistence.variables.accessMode.value | quote }}
-        resources:
-            requests:
-              storage: {{ .Values.persistence.variables.size.value }}Gi
-      {{- if .Values.persistence.variables.storageClass.value }}
-      {{- if (eq "-" .Values.persistence.variables.storageClass.value ) }}
-        storageClassName: ""
-      {{- else }}
-        storageClassName: "{{ .Values.persistence.variables.storageClass.value }}"
-      {{- end }}
-      {{- end }}
+  - metadata:
+      name: data
+      labels:
+        app: {{ template "fullname" . }}
+        chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+        release: "{{ .Release.Name }}"
+        heritage: "{{ .Release.Service }}"
+    spec:
+      accessModes:
+        - {{ .Values.persistence.variables.accessMode.value | quote }}
+      resources:
+          requests:
+            storage: {{ .Values.persistence.variables.size.value }}Gi
+    {{- if .Values.persistence.variables.storageClass.value }}
+    {{- if (eq "-" .Values.persistence.variables.storageClass.value ) }}
+      storageClassName: ""
+    {{- else }}
+      storageClassName: "{{ .Values.persistence.variables.storageClass.value }}"
+    {{- end }}
+    {{- end }}
   {{- end }}
