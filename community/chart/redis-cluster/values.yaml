@@ -1,30 +1,86 @@
-# Default values for redis-cluster.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-numberOfMaster: 3
-replicationFactor: 1
-# Override the default service name
-serviceName: 
-serviceAccount: redis-node
-annotations:
-  # kubernetes.io/ingress.class: nginx
-  # kubernetes.io/tls-acme: "true"
+isNewTemplate: true
+
+replicas:
+   name: "replicas"
+   description: "Replicas Config"
+   type: "string"
+   required: true
+   variables:
+     numberOfMaster:
+       name: "numberOfMaster"
+       label: "number of master"
+       description: "Number of master"
+       required: true
+       value: 3
+       type: int
+     replicationFactor:
+       name: "replicationFactor"
+       label: "replication factor"
+       description: "Replication factor"
+       required: true
+       value: 1
+       type: int
+
 image:
-  repository: redisoperator/redisnode
-  tag: latest
-  pullPolicy: IfNotPresent
-log:
-  level: 6
-resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #  cpu: 1
-  #  memory: 1200Mi
-  # requests:
-  #  cpu: 1
-  #  memory: 1024Mi
-storage:
-  enabled: true
+   name: "image"
+   description: "Image Info"
+   type: "string"
+   required: true
+   variables:
+     image:
+       name: "image"
+       label: "image"
+       description: "The image of app"
+       required: true
+       value: "registry.harbor:5000/sky-firmament/redisnode"
+       type: "string"    
+     policyType:
+       name: "policyType"
+       label: "policy type"
+       description: "The type of image pull policy"
+       required: true
+       value: "IfNotPresent"
+       type: "string"
+
+resources:
+   name: "reosurce info"
+   description: "Reosurce Info"
+   type: "string"
+   required: true
+   variables:
+     cpuRequest:
+       name: "cpuRequest"
+       label: "cpu(m)"
+       description: "CPU, in cores. (500m = 0.5 cores)"
+       required: true
+       value: 100
+       type: "int"
+     memoryRequest:
+       name: "memoryRequest"
+       label: "memory(MB)"
+       description: "Memory, in MB. (1GB = 1024 MB)"
+       required: true
+       value: 256
+       type: "int"
+
+persistence:
+   name: "storage"
+   description: "Persistent Storage"
+   type: "checkbox"
+   required: false
+   enabled: false
+   variables:
+     storagePool:
+       name: "storagePool"
+       label: "storagePool"
+       description: "storage pool for volume, use default pool if value is null"
+       required: false
+       value: ""
+       type: "string"
+     size:
+       name: "sizeRequest"
+       label: "storage(GB)"
+       description: "Storage, in GB. (1GB = 1024 MB)"
+       required: true
+       value: 1
+       type: "int"
