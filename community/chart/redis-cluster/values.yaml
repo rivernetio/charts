@@ -42,6 +42,35 @@ image:
        value: "IfNotPresent"
        type: "string"
 
+service:
+    name: "service"
+    description: "Service Info"
+    type: "string"
+    required: true
+    variables:
+      type:
+        name: "serviceType"
+        label: "service type"
+        description: "The type of service"
+        required: true
+        value: "NodePort"
+        selectValue: ["NodePort", "ClusterIP", "LoadBalancer"]
+        type: "selectbox"
+      port:
+        name: "port"
+        label: "port"
+        description: "The port of external"
+        required: true
+        value: "6379"
+        type: "string"
+      nodePort:
+        name: "nodePort"
+        label: "node port"
+        description: "Node port"
+        required: false
+        value: ""
+        type: "string"
+
 resources:
    name: "reosurce info"
    description: "Reosurce Info"

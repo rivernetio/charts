@@ -10,7 +10,7 @@ metadata:
 spec:
   numberOfMaster: {{ .Values.replicas.variables.numberOfMaster.value }}
   replicationFactor: {{ .Values.replicas.variables.replicationFactor.value }}
-  serviceName: {{ .Release.Name }}
+  serviceName: {{ .Release.Name }}-cluster
 {{- if .Values.persistence.enabled }}
   storage:
     useExternalDisk: true
