@@ -4,7 +4,8 @@ isNewTemplate: true
 app:
     name: "app"
     description: "app server config"
-    type: "label"
+    type: "string"
+    label: "appConfig"
     variables:
       replicaCount:
         name: "node number"
@@ -16,7 +17,8 @@ app:
 redis:
     name: "redis"
     description: "redis server config"
-    type: "label"
+    type: "string"
+    label: "redisConfig"
     variables:
       replicaCount:
         name: "node number"
