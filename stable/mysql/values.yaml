@@ -120,6 +120,13 @@ persistence:
         required: true
         value: 1
         type: "int"
+      storageClass:
+        name: "storageClass"
+        label: "storage class"
+        description: "StorageClass"
+        required: false
+        value: ""
+        type: string
 
 resources:
     name: "resource info"

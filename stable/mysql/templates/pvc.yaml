@@ -20,4 +20,11 @@ spec:
   resources:
     requests:
       storage: {{ .Values.persistence.variables.size.value }}Gi
+{{- if .Values.persistence.variables.storageClass.value }}
+{{- if (eq "-" .Values.persistence.variables.storageClass.value ) }}
+  storageClassName: ""
+{{- else }}
+  storageClassName: "{{ .Values.persistence.variables.storageClass.value }}"
+{{- end }}
+{{- end }}
 {{- end }}
