@@ -1236,7 +1236,7 @@ config:
                 replication is in use, this should match the replication
                 configuration.
              -->
-           <dataDir>/data</dataDir>
+           <dataDir>/data/cores/${solr.core.name}/</dataDir>
          
          
            <!-- The DirectoryFactory to use for indexes.
