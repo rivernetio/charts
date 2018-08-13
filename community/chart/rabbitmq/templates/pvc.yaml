@@ -11,6 +11,9 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
+  {{- if (eq "Fast" .Values.persistence.variables.type.value ) }}
+  fastMode: true
+  {{- end }}
   {{- if .Values.persistence.variables.storagePool.value }}
   storageClassName: {{ .Values.persistence.variables.storagePool.value | quote }}
   {{- end }}
