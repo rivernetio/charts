@@ -70,6 +70,14 @@ persistence:
        required: false
        value: ""
        type: "string"
+     type:
+       name: "volumeType"
+       label: "volume type"
+       description: "The type of volume"
+       required: true
+       value: "Normal"
+       selectValue: ["Normal", "Fast"]
+       type: "selectbox"
 
 service:
    name: "service"
@@ -83,21 +91,13 @@ service:
        description: "The type of service"
        required: true
        value: "LoadBalancer"
-       type: "selectbox"
-       selectValue: ["ClusterIP", "LoadBalancer", "NodePort"]
+       type: "string"
      port:
        name: "servicePort"
        label: "service port"
        description: "The port of service"
        required: true
        value: "8080"
-       type: "string"
-     nodePort:
-       name: "nodePort"
-       label: "nodePort"
-       description: "The nodePort of service,range 30000-32767,only available when serviceType is NodePort"
-       required: false
-       value: ""
        type: "string"
 config:
   name: "config"
