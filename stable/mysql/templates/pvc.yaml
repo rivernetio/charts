@@ -17,6 +17,9 @@ metadata:
 spec:
   accessModes:
     - {{ .Values.persistence.variables.accessMode.value | quote }}
+{{- if (eq "Fast" .Values.persistence.variables.type.value ) }}
+  fastMode: true
+{{- end }}
   resources:
     requests:
       storage: {{ .Values.persistence.variables.size.value }}Gi
