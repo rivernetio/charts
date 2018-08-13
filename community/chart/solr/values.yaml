@@ -148,6 +148,14 @@ persistence:
         required: false
         value: ""
         type: string
+      type:
+        name: "volumeType"
+        label: "volume type"
+        description: "The type of volume"
+        required: true
+        value: "Normal"
+        selectValue: ["Normal", "Fast"]
+        type: "selectbox"
 
 config:
    name: "config"

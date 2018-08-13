@@ -25,6 +25,8 @@ spec:
         ports:
         - containerPort: 8983
         env:
+        - name: SOLR_HOME
+          value: "/data/solr"
         - name: SOLR_JAVA_MEM
           value: "{{ .Values.jvm.variables.heap.value }}"
         - name: SOLR_JAVA_STACK_SIZE
@@ -92,6 +94,9 @@ spec:
     spec:
       accessModes:
         - {{ .Values.persistence.variables.accessMode.value | quote }}
+    {{- if (eq "Fast" .Values.persistence.variables.type.value ) }}
+      fastMode: true
+    {{- end }}
       resources:
           requests:
             storage: {{ .Values.persistence.variables.size.value }}Gi
