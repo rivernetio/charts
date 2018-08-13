@@ -113,3 +113,11 @@ persistence:
        required: true
        value: 1
        type: "int"
+     type:
+       name: "volumeType"
+       label: "volume type"
+       description: "The type of volume"
+       required: true
+       value: "Normal"
+       selectValue: ["Normal", "Fast"]
+       type: "selectbox"

@@ -16,6 +16,9 @@ spec:
     useExternalDisk: true
     DataDiskSize: {{ .Values.persistence.variables.size.value }}Gi
     storageClass: {{ .Values.persistence.variables.storagePool.value }}
+  {{- if (eq "Fast" .Values.persistence.variables.type.value ) }}
+    fastMode: true
+  {{- end }}
 {{- end }}
   podTemplate:
     metadata:
