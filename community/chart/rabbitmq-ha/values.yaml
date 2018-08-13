@@ -106,20 +106,6 @@ cluster:
         value: "password"
         type: "string"
         
-memory:
-    name: "memory"
-    lable: "memory threshold"
-    description: "Memory-based Flow Control threshold"
-    type: "string"
-    required: true
-    variables:
-      memoryThreshold:
-        name: "memoryThreshold"
-        label: "memory threshold"
-        description: "Memory-based Flow Control threshold"
-        required: true
-        value: 256MB
-        type: "string"
 
 resources:
     name: "resource info"
@@ -170,4 +156,12 @@ persistence:
         required: false
         value: ""
         type: string
+      type:
+        name: "volumeType"
+        label: "volume type"
+        description: "The type of volume"
+        required: true
+        value: "Normal"
+        selectValue: ["Normal", "Fast"]
+        type: "selectbox"
 
