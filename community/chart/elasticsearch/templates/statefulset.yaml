@@ -1,0 +1,71 @@
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app: {{ template "fullname" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  serviceName: {{ .Release.Name }}-discovery
+  replicas: {{ .Values.cluster.variables.replica.value }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "fullname" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+      - image: rivernet/elasticsearch:5.6.4
+        name: elasticsearch
+        env:
+        - name: ES_JAVA_OPTS
+          value: {{ .Values.jvm.variables.opts.value }}
+        args:
+        - -Ecluster.name={{ .Values.cluster.variables.clustername.value }}
+        - -Etransport.host=0.0.0.0
+        - -Ediscovery.zen.minimum_master_nodes=2
+        - -Ediscovery.zen.ping_timeout=100s
+        resources:
+          requests:
+             cpu: {{ .Values.resources.variables.cpuRequest.value }}m
+             memory: {{ .Values.resources.variables.memoryRequest.value }}Mi
+        ports:
+        - containerPort: 9200
+          protocol: TCP
+        - containerPort: 9300
+          protocol: TCP
+        volumeMounts:
+        - name: data
+          mountPath: /usr/share/elasticsearch/data
+      volumes:
+      {{ if not .Values.persistence.enabled -}}
+      - name: data
+        emptyDir: {}
+  {{- else }}
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+      labels:
+        app: {{ template "fullname" . }}
+        chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+        release: "{{ .Release.Name }}"
+        heritage: "{{ .Release.Service }}"
+    spec:
+      accessModes:
+        - {{ .Values.persistence.variables.accessMode.value | quote }}
+    {{- if (eq "Fast" .Values.persistence.variables.type.value ) }}
+      fastMode: true
+    {{- end }}
+      resources:
+          requests:
+            storage: {{ .Values.persistence.variables.size.value }}Gi
+    {{- if .Values.persistence.variables.storageClass.value }}
+    {{- if (eq "-" .Values.persistence.variables.storageClass.value ) }}
+      storageClassName: ""
+    {{- else }}
+      storageClassName: "{{ .Values.persistence.variables.storageClass.value }}"
+    {{- end }}
+    {{- end }}
+  {{- end }}
