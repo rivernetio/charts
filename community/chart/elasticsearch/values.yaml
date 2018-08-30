@@ -11,7 +11,7 @@ image:
         label: "image"
         description: "The image of rabbitmq"
         required: true
-        value: "registry.harbor:5000/sky-firmament/elasticsearch:5.6.4"
+        value: "registry.harbor:5000/sky-firmament/elasticsearch:5.6.4-cluster"
         type: "string"
       policyType:
         name: "policyType"

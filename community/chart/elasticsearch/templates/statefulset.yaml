@@ -17,11 +17,18 @@ spec:
         release: {{ .Release.Name }}
     spec:
       containers:
-      - image: rivernet/elasticsearch:5.6.4
+      - image: {{ .Values.image.variables.image.value }}
+        imagePullPolicy: {{ .Values.image.variables.policyType.value }}
         name: elasticsearch
         env:
         - name: ES_JAVA_OPTS
           value: {{ .Values.jvm.variables.opts.value }}
+        - name: CLUSTER
+          value: 'true'
+        - name: REPLICA_COUNT
+          value: {{ .Values.cluster.variables.replica.value | quote }}
+        - name: RELEASE
+          value: {{ .Release.Name }}
         args:
         - -Ecluster.name={{ .Values.cluster.variables.clustername.value }}
         - -Etransport.host=0.0.0.0
@@ -36,6 +43,11 @@ spec:
           protocol: TCP
         - containerPort: 9300
           protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /_cluster/health?local=true
+            port: 9200
+          initialDelaySeconds: 5
         volumeMounts:
         - name: data
           mountPath: /usr/share/elasticsearch/data
