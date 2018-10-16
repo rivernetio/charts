@@ -11,7 +11,7 @@ replicas:
        label: "number of nameserver"
        description: "Number of nameserver"
        required: true
-       value: 3
+       value: 2
        type: int
      groupReplica:
        name: "numberOfBrokerGroup"
