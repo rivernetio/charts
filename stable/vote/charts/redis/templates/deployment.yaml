@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: prom-exporter
-        image: "docker.io/rivernet/redis_exporter:v0.14"
+        image: "registry.harbor:5000/sky-firmament/redis_exporter:v0.14"
         imagePullPolicy: {{ .Values.imagePullPolicy | quote }}
         ports:
         - name: exporter

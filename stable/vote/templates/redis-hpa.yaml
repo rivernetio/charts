@@ -1,0 +1,20 @@
+{{- if .Values.redisHpa.enabled }}
+kind: HorizontalPodAutoscaler
+apiVersion: autoscaling/v2alpha1
+metadata:
+  name: {{ .Release.Name }}-redis-hpa
+spec:
+  scaleTargetRef:
+    kind: Deployment
+    name: {{ .Release.Name }}-redis
+  minReplicas: {{ .Values.redisHpa.variables.minReplicas.value }}
+  maxReplicas: {{ .Values.redisHpa.variables.maxReplicas.value }}
+  metrics:
+  - type: Object
+    object:
+      target:
+        kind: Service
+        name: {{ .Release.Name }}-redis
+      metricName: {{ .Values.redisHpa.variables.metricName.value }}
+      targetValue: {{ .Values.redisHpa.variables.targetValue.value }}
+{{- end -}}

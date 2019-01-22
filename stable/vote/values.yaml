@@ -6,6 +6,7 @@ app:
     description: "app server config"
     type: "string"
     label: "appConfig"
+    required: true
     variables:
       replicaCount:
         name: "node number"
@@ -19,6 +20,7 @@ redis:
     description: "redis server config"
     type: "string"
     label: "redisConfig"
+    required: true
     variables:
       replicaCount:
         name: "node number"
@@ -28,7 +30,43 @@ redis:
         value: 1
         type: "int"
         
-hpa:
+appHpa:
+    name: "hpa"
+    description: "app autoscaling"
+    type: "checkbox"
+    required: true
+    enabled: false
+    variables:
+      minReplicas:
+        name: "minReplicas"
+        label: "minReplicas"
+        description: "The minimum replica number of redis"
+        required: true
+        value: 1
+        type: "int"
+      maxReplicas:
+        name: "maxReplicas"
+        label: "maxReplicas"
+        description: "The maximum replica number of redis"
+        required: true
+        value: 3
+        type: "int"
+      metricName:
+        name: "metricName"
+        label: "metricName"
+        description: "Autoscaling based on custom metrics"
+        required: true
+        value: "http_requests"
+        type: "string"
+      targetAverageValue:
+        name: "targetAverageValue"
+        label: "targetAverageValue"
+        description: "Target average value to determine the replica count"
+        required: true
+        value: "20"
+        type: "string"
+   
+redisHpa:
     name: "hpa"
     description: "redis autoscaling"
     type: "checkbox"

@@ -1,0 +1,17 @@
+{{- if .Values.appHpa.enabled }}
+kind: HorizontalPodAutoscaler
+apiVersion: autoscaling/v2alpha1
+metadata:
+  name: {{ .Release.Name }}-app-hpa
+spec:
+  scaleTargetRef:
+    kind: Deployment
+    name: {{ .Release.Name }}-app
+  minReplicas: {{ .Values.appHpa.variables.minReplicas.value }}
+  maxReplicas: {{ .Values.appHpa.variables.maxReplicas.value }}
+  metrics:
+  - type: Pods
+    pods:
+      metricName: {{ .Values.appHpa.variables.metricName.value }}
+      targetAverageValue: {{ .Values.appHpa.variables.targetAverageValue.value }}
+{{- end -}}
