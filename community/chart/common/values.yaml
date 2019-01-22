@@ -77,6 +77,13 @@ service:
       required: true
       value: 80
       type: "int"
+    nodePort:
+      name: "nodePort"
+      label: "node port"
+      description: "Node port"
+      required: false
+      value: ""
+      type: "string"
 
 resource:
   name: "resource"

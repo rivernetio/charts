@@ -12,6 +12,9 @@ spec:
     targetPort: {{ .Values.service.variables.internalPort.value }}
     protocol: TCP
     name: api
+ {{- if ( and (eq .Values.service.variables.type.value "NodePort") (.Values.service.variables.nodePort.value) ) }}
+    nodePort: {{ .Values.service.variables.nodePort.value }}
+ {{- end }}
   selector:
     app: {{ template "fullname" . }}
     release: "{{ .Release.Name }}"
