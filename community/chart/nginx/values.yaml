@@ -1,23 +1,109 @@
+# Default values for nginx.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
 isNewTemplate: true
-
+replica:
+  name: "replica"
+  description: "replica count of the service"
+  type: "string"
+  required: true
+  variables:
+    replicaCount:
+      name: "replicaCount"
+      label: "replica count"
+      description: "The count of the service"
+      required: true
+      value: 1
+      type: int
 image:
-    name: "image"
-    description: "Image Info"
+  name: "image"
+  description: "Image Info"
+  type: "string"
+  required: true
+  variables:
+    nginxImage:
+      name: "nginxImage"
+      label: "nginx image"
+      description: "The image of nginx"
+      required: true
+      value: "registry.harbor:5000/sky-firmament/nginx:1.14.2-alpine-perl"
+      type: "string"
+    policyType:
+      name: "policyType"
+      label: "policy type"
+      description: "The type of image pull policy"
+      required: true
+      value: "IfNotPresent"
+      type: "string"  
+service:
+    name: "nginx service"
+    description: "Service Info"
     type: "string"
     required: true
     variables:
-      nginxImage:
-        name: "nginxImage"
-        label: "nginx image"
-        description: "The image of nginx"
+      type:
+        name: "serviceType"
+        label: "service type"
+        description: "The type of service"
         required: true
-        value: "registry.harbor:5000/sky-firmament/nginx:1.13.6"
-        type: "string"  
-      policyType:
-        name: "policyType"
-        label: "policy type"
-        description: "The type of image pull policy"
+        value: "NodePort"
+        type: "string" 
+      port:
+        name: "port"
+        label: "Port"
+        description: "The Port"
         required: true
-        value: "IfNotPresent"
-        type: "string"
-
+        value: 80
+        type: "int"
+      nodePort:
+        name: "nodePort"
+        label: "node Port"
+        description: "The node Port"
+        required: false
+        value: ""
+        type: "string"         
+resources:
+  name: "reosurce info"
+  description: "Reosurce Info"
+  type: "string"
+  required: true
+  variables:
+    cpuRequest:
+      name: "cpuRequest"
+      label: "cpu(m)"
+      description: "CPU, in cores. (500m = 0.5 cores)"
+      required: true
+      value: 100
+      type: "int"
+    memoryRequest:
+      name: "memoryRequest"
+      label: "memory(MB)"
+      description: "Memory, in MB. (1GB = 1024 MB)"
+      required: true
+      value: 256
+      type: "int"
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+  #  memory: 128Mi
+config:
+  name: "config"
+  description: "custom config"
+  type: "text"
+  required: true
+  variables:
+    config: 
+      name: "config"
+      label: "nginx.conf"
+      path: "/etc/nginx/nginx.conf"
+      description: "The config of nginx.conf"
+      required: true
+      type: "text"
+      value: |-
+        <?xml version="1.0" encoding="UTF-8"?>

@@ -8,50 +8,31 @@ metadata:
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"
 spec:
-  replicas: 1
   template:
     metadata:
       labels:
         app: {{ template "fullname" . }}
-        chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
-        release: "{{ .Release.Name }}"
-        heritage: "{{ .Release.Service }}"
     spec:
       containers:
-      - name: {{ template "fullname" . }}
+      - name: {{ .Chart.Name }}
         image: "{{ .Values.image.variables.nginxImage.value }}"
         imagePullPolicy: {{ default "" .Values.image.variables.policyType.value | quote }}
+        resources:
+          requests:
+             cpu: {{ .Values.resources.variables.cpuRequest.value }}m
+             memory: {{ .Values.resources.variables.memoryRequest.value }}Mi
         ports:
-        - name: http
-          containerPort: 80
-        - name: https
-          containerPort: 443
+            - containerPort: {{ .Values.service.variables.port.value }}
         livenessProbe:
           httpGet:
             path: /
-            port: http
-          initialDelaySeconds: 30
-          timeoutSeconds: 5
-          failureThreshold: 6
+            port: {{ .Values.service.variables.port.value }}
         readinessProbe:
           httpGet:
             path: /
-            port: http
-          initialDelaySeconds: 5
-          timeoutSeconds: 3
-          periodSeconds: 5
-        volumeMounts:
-        - name: nginx-data
-          mountPath: /bitnami/nginx
-        {{- if .Values.vhost }}
-        - name: nginx-vhost
-          mountPath: /bitnami/nginx/conf/vhosts
-        {{- end }}
+            port: {{ .Values.service.variables.port.value }}
       volumes:
-      - name: nginx-data
-        emptyDir: {}
-      {{- if .Values.vhost }}
-      - name: nginx-vhost
+      - name: config
         configMap:
           name: {{ template "fullname" . }}
-      {{- end }}
+          defaultMode: 0777

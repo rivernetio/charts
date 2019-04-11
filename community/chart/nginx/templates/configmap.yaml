@@ -1,4 +1,3 @@
-{{- if .Values.vhost -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -9,6 +8,5 @@ metadata:
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"
 data:
-  vhost.conf: |-
-{{ .Values.vhost | indent 4 }}
-{{- end -}}
+  {{ .Values.config.variables.config.path | base }}: |-
+{{ .Values.config.variables.config.value | indent 4 }}
